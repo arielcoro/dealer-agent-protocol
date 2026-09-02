@@ -20,6 +20,8 @@ Dealer Agent Protocol is the open specification and conformance contract. Dealer
 - Contribution guide: https://dealeragentprotocol.com/CONTRIBUTING.md
 - License: https://dealeragentprotocol.com/LICENSE.txt
 - Attribution: https://dealeragentprotocol.com/NOTICE.txt
+- Privacy Policy: https://dealeragentprotocol.com/privacy/
+- Terms of Use: https://dealeragentprotocol.com/terms/
 
 ## Reference endpoint
 

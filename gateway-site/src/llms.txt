@@ -14,5 +14,7 @@ Dealer Agent Protocol is the open specification and conformance contract. Dealer
 - License: https://dealeragentgateway.com/LICENSE.txt (Apache-2.0)
 - Contribution guide: https://dealeragentgateway.com/CONTRIBUTING.md
 - Attribution: https://dealeragentgateway.com/NOTICE.txt
+- Privacy Policy: https://dealeragentgateway.com/privacy/
+- Terms of Use: https://dealeragentgateway.com/terms/
 
 Dealer Agent Protocol and Dealer Agent Gateway were created by Ariel Coro.

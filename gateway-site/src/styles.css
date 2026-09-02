@@ -65,6 +65,7 @@ nav a:hover, nav a:focus-visible { color: var(--acid); }
 .status > span:first-child { width: 7px; height: 7px; background: var(--muted); border-radius: 50%; }
 .status[data-state="operational"] > span:first-child { background: var(--mint); box-shadow: 0 0 12px var(--mint); }
 .status[data-state="offline"] > span:first-child { background: var(--orange); }
+.legal-header-link { justify-self: end; color: var(--acid); font-family: var(--mono); font-size: 10px; text-decoration: none; text-transform: uppercase; }
 
 .hero {
   min-height: 760px;
@@ -171,6 +172,20 @@ h2 { margin-bottom: 0; font-size: clamp(46px, 6vw, 88px); font-weight: 600; line
 .open-project-list p { margin: 0; color: var(--muted); font-size: 13px; }
 .open-project-list a { color: var(--acid); font-family: var(--mono); font-size: 9px; text-underline-offset: 5px; }
 
+.legal-page { width: 100%; padding: 90px 0 125px; }
+.legal-page > header { max-width: 1050px; padding-bottom: 70px; border-bottom: 1px solid var(--line); }
+.legal-page h1 { font-size: clamp(68px, 9vw, 126px); }
+.legal-grid { display: grid; grid-template-columns: 240px minmax(0, 820px); gap: clamp(55px, 9vw, 130px); padding-top: 65px; }
+.legal-grid > aside { position: sticky; top: 28px; display: flex; flex-direction: column; gap: 10px; color: var(--muted); font-size: 12px; }
+.legal-grid > aside strong { margin-bottom: 8px; color: var(--mint); font-family: var(--mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; }
+.legal-grid > aside a { text-underline-offset: 4px; }
+.legal-grid article section { padding-bottom: 35px; border-bottom: 1px solid var(--line); }
+.legal-grid article h2 { margin: 45px 0 17px; font-size: clamp(31px, 4vw, 48px); }
+.legal-grid article section:first-child h2 { margin-top: 0; }
+.legal-grid article p { color: #b8c3bc; }
+.legal-grid article a { color: var(--mint); text-underline-offset: 4px; }
+.gateway-legal-note { margin-top: 40px; padding: 24px; color: var(--night); background: var(--acid); font-size: 14px; }
+
 footer { display: grid; grid-template-columns: 1fr auto auto; gap: 50px; align-items: start; padding: 46px 0 70px; }
 footer strong { color: var(--mint); font-size: 14px; }
 footer p { margin: 5px 0 0; color: var(--muted); font-size: 13px; }
@@ -190,6 +205,7 @@ footer p { margin: 5px 0 0; color: var(--muted); font-size: 13px; }
   .boundary { grid-template-columns: 1fr; }
   .not-access { grid-column: 1; }
   .open-project { grid-template-columns: 1fr; }
+  .legal-grid { grid-template-columns: 190px 1fr; }
 }
 
 @media (max-width: 700px) {
@@ -212,6 +228,8 @@ footer p { margin: 5px 0 0; color: var(--muted); font-size: 13px; }
   .map-gate { min-height: 120px; flex-direction: row; align-items: end; }
   .endpoint-card { padding: 25px; }
   .open-project-list article { grid-template-columns: 1fr; }
+  .legal-grid { grid-template-columns: 1fr; }
+  .legal-grid > aside { position: static; padding-bottom: 25px; border-bottom: 1px solid var(--line); }
   footer { grid-template-columns: 1fr; gap: 25px; }
 }
 

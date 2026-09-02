@@ -22,13 +22,25 @@ const SECURITY_HEADERS = {
 
 export default {
   async fetch(request, env) {
-    const response = await env.ASSETS.fetch(request);
+    const requestUrl = new URL(request.url);
+    let assetRequest = request;
+    if (
+      requestUrl.hostname === "dealeragentgateway.com" &&
+      requestUrl.pathname === "/privacy/" &&
+      (request.method === "GET" || request.method === "HEAD")
+    ) {
+      const assetUrl = new URL(requestUrl);
+      assetUrl.searchParams.set("_asset", "privacy-20260901");
+      assetRequest = new Request(assetUrl, request);
+    }
+
+    const response = await env.ASSETS.fetch(assetRequest);
     const headers = new Headers(response.headers);
     for (const [name, value] of Object.entries(SECURITY_HEADERS)) {
       headers.set(name, value);
     }
 
-    const path = new URL(request.url).pathname;
+    const path = requestUrl.pathname;
     if (/^\/spec\/v[^/]+\//.test(path) || path.endsWith(".schema.json")) {
       headers.set("Cache-Control", "public, max-age=31536000, immutable");
     } else if (headers.get("Content-Type")?.includes("text/html")) {
