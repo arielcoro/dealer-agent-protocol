@@ -17,6 +17,7 @@ DealershipMCP can publish provider-neutral used-vehicle facts including mileage,
 - https://dealershipmcp.com/audit/ — free AI Answer Audit
 - https://dealershipmcp.com/connect/ — free static publication path
 - https://dealershipmcp.com/how-it-works/ — product and consent flow
+- https://dealershipmcp.com/inventory-sources/ — provider feeds, dealer exports, incentive sources, and consented website extraction
 - https://dealershipmcp.com/compare/ — dated comparison with public alternatives
 - https://dealershipmcp.com/live/ — dealer roster with claim evidence
 - https://dealeragentprotocol.com/ — canonical open standard

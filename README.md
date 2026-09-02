@@ -21,6 +21,15 @@ Any dealership, dealer group, website provider, or inventory vendor can implemen
 
 When a shopper asks an AI assistant “is this car still available and what does it really cost,” the assistant often scrapes the dealer's website and guesses. It can apply rebates the buyer cannot get, omit a required dealer charge, or describe a vehicle that sold days ago. DAP gives the dealer one controlled way to publish the real answer and gives every AI agent one way to read it.
 
+## How a gateway gets inventory
+
+The protocol is source-neutral. A gateway should prefer dealer-authorized
+provider feeds or APIs, then scheduled CSV/SFTP exports, then structured public
+website data. Consented crawling is a bootstrap and fallback path—not an
+authoritative substitute for a feed. New-vehicle incentives use a separate
+evidence hierarchy so eligibility, expiration, geography, and stacking are not
+guessed. See the [inventory ingestion guide](reference/INVENTORY_INGESTION.md).
+
 ## Protocol and gateway are different things
 
 | Layer | What it is | Responsibility |
