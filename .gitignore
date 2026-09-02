@@ -1,6 +1,7 @@
 .DS_Store
 .agents/
 DEALER_AGENT_PROTOCOL_PROJECT.md
+deployment/PILOT_OPERATIONS.md
 .env
 .env.*
 !.env.example
