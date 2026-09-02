@@ -1,26 +1,18 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "dealer-agent-protocol-site",
+  "name": "replace-with-gateway-site-worker-name",
   "main": "static-site-worker.mjs",
   "compatibility_date": "2026-09-01",
   "assets": {
     "binding": "ASSETS",
-    "directory": "../../site/dist",
+    "directory": "../../gateway-site/dist",
     "run_worker_first": true,
     "not_found_handling": "404-page",
     "html_handling": "auto-trailing-slash"
   },
-  "d1_databases": [
-    {
-      "binding": "PILOT_DB",
-      "database_name": "dealer-agent-pilot",
-      "database_id": "b76b6b11-4773-4c61-821c-b8527d0d1dae",
-      "migrations_dir": "migrations"
-    }
-  ],
   "routes": [
     {
-      "pattern": "dealeragentprotocol.com",
+      "pattern": "replace-with-gateway-domain.example",
       "custom_domain": true
     }
   ]

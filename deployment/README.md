@@ -16,6 +16,17 @@ synthetic data and an operator-controlled synthetic grant only.
 Prerequisites: the `dealeragentprotocol.com` zone is active in Cloudflare and
 Wrangler is authenticated to the intended account.
 
+Copy the public configuration templates to their local production names, then
+replace every `replace-with-*` value. The production files are ignored so live
+database identifiers and custom-domain routing do not enter source control:
+
+```sh
+cp deployment/cloudflare/wrangler.example.jsonc deployment/cloudflare/wrangler.jsonc
+cp deployment/cloudflare/gateway-site.wrangler.example.jsonc deployment/cloudflare/gateway-site.wrangler.jsonc
+cp deployment/cloudflare/dealershipmcp.wrangler.example.jsonc deployment/cloudflare/dealershipmcp.wrangler.jsonc
+cp deployment/cloudflare/reference-gateway.wrangler.example.jsonc deployment/cloudflare/reference-gateway.wrangler.jsonc
+```
+
 ```sh
 python3 scripts/build_public_site.py
 npx wrangler deploy --config deployment/cloudflare/wrangler.jsonc
