@@ -4,6 +4,8 @@
 # DealershipMCP
 > Dealer Growth Hackers product and hosted implementation of Dealer Agent Protocol. It provides an AI Answer Audit, static publication, a managed Dealer Agent Gateway, freshness monitoring, conformance claim hosting, and optional consented ADF handoff.
 
+DealershipMCP can publish provider-neutral used-vehicle facts including mileage, dated inventory age, authorized history-report summaries, title, inspection, certification, warranty, public reconditioning facts, and unresolved source conflicts. CARFAX, AutoCheck, or other provider support depends on dealer authorization and contract rights and does not imply a partnership.
+
 ## Important distinctions
 - Dealer Agent Protocol is the independently implementable open standard.
 - A Dealer Agent Gateway is software that implements the standard.

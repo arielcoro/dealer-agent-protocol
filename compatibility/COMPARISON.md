@@ -13,17 +13,20 @@ This is a technical comparison, not a claim of endorsement, affiliation, or lega
 - Defines quotes with expiry, soft holds, negotiation envelopes, and deal handoff in a stable 1.0 profile. DAP defines reads and a consented handoff and has deliberately deferred holds.
 - Introduced a per-merchant `freshness_sla_seconds` commitment and named agent trust levels. DAP adopted both and credits DMC-12.
 - Publishes an explicit UCP binding alongside MCP and A2A bindings.
+- Already carries `stocked_date` and `days_on_lot` in its inventory record. DAP added inventory tenure later and credits that prior art.
 
 ### Auto Agent Protocol (AAP)
 
 - Has the easiest on-ramp in the category: a small A2A agent card, with commercial providers offering hosting. DAP’s static on-ramp is newer.
 - Uses A2A for delegated, multi-turn work by default and has a smaller five-skill surface.
 - Has public implementers focused on automotive agent interoperability.
+- Already carries `mileage` and `inventory_date` in the vehicle record. DAP's inventory-age model is more qualified, but the concept is not new.
 
 ### AutomotiveMCP
 
 - Covers eight dealership domains, including service, parts, and F&I. DAP covers retail reads and consented handoff only, on purpose.
 - Brings a broader dealership technology scope and working-group model.
+- Already publishes a substantial used-vehicle shape with odometer status, title, prior use, history, CARFAX/AutoCheck links, recalls, warranty, CPO, and condition grade. DAP should not claim it invented structured used-vehicle data.
 
 ## At a glance
 
@@ -37,6 +40,7 @@ This is a technical comparison, not a claim of endorsement, affiliation, or lega
 | Provenance | Named source, record ID, authority, observation and transformation | Source and freshness fields | Limited source timestamp | Domain-dependent |
 | Dealer groups | Organization plus rooftop isolation and explicit group grants | Merchant/store model | Dealer-oriented card | Organization/domain model |
 | Customer data | Separate two-phase signed consent binding; ADF delivery | Two-phase consented deal handoff | Lead submission skill | Broader domain scope |
+| Used-vehicle facts | Optional evidence profile: mileage, qualified inventory tenure, provider-neutral report array, title, inspection, certification, warranty, public recon, and conflicts | Mileage, stocked date, days on lot | Mileage and inventory date; other attributes may carry more | Broad used shape including history-provider links, title, condition, warranty, and CPO |
 | Static on-ramp | `/.well-known/dealer-agent.json` plus CSV | Manifest/binding | A2A agent card | MCP server deployment |
 | Conformance | Schemas, negative behavior tests, signed claims | Requirement IDs and profiles | Profile conformance declaration | Working-group artifacts |
 | License | Apache-2.0 | Check project repository | Check project repository | Check project repository |
@@ -51,6 +55,35 @@ One scalar price is easy to search and hard to explain. It cannot say whether a 
 - **DAP:** advertised price, required dealer charges, conditional adjustments, and government charges are separate schema objects. Unknown never means zero.
 
 Run the three [One Price Problem vectors](../spec/v0.1/examples/one-price-problem/README.md): conditional rebate, omitted required charge, and unknown government charges.
+
+## Used vehicles and inventory age
+
+Inventory age is not a unique DAP feature. AAP v1.2 has `inventory_date`, and
+DMC-12 has both `stocked_date` and `days_on_lot`. AutomotiveMCP has the broadest
+single vehicle object reviewed, including history, title, prior use, warranty,
+CPO, and direct CARFAX and AutoCheck links.
+
+DAP's different contribution is an evidence contract rather than a larger flat
+record:
+
+- inventory tenure separates `stocked_at` from `first_public_listing_at`, names
+  the clock in `age_basis`, and dates the calculated `age_days` with `age_as_of`;
+- history is an array of provider-neutral reports, so CARFAX, AutoCheck, a title
+  source, or another provider keep independent provenance and freshness;
+- every report declares its access method and whether mapped summary sharing is
+  authorized;
+- `no_events_reported` cannot be upgraded to “accident-free”;
+- material disagreements become required `discrepancies` instead of one merged,
+  favorable summary; and
+- manufacturer CPO, dealer certification, and third-party certification cannot
+  be collapsed into one badge.
+
+As of this review, those combined licensing, per-report provenance, dated-tenure,
+and conflict-preservation requirements are DAP's defensible distinction. The raw
+existence of mileage, vehicle history, CARFAX/AutoCheck links, or days in stock is
+not.
+
+Primary schema evidence: [AAP v1.2 vehicle](https://github.com/auto-agent-protocol/auto-agent-protocol/blob/main/spec/v1.2/schemas/vehicle.schema.json), [DMC-12 inventory](https://github.com/mm-open/dmc-12/blob/main/schemas/v1/inventory.json), and [AutomotiveMCP vehicle](https://automotivemcp.ai/spec/schemas/vehicle).
 
 ## Availability
 

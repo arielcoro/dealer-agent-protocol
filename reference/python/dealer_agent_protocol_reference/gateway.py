@@ -59,6 +59,13 @@ TOOL_SPECS: Dict[str, Dict[str, Any]] = {
         "output": "vehicle.schema.json#/$defs/vehicle",
         "annotations": {"readOnlyHint": True, "destructiveHint": False, "idempotentHint": True, "openWorldHint": False},
     },
+    "dealeragent.inventory.get_used_vehicle_details": {
+        "title": "Get used-vehicle retail disclosure",
+        "description": "Read mileage, dated inventory tenure, licensed vehicle-history summaries, title, inspection, certification, warranty, reconditioning, and source conflicts for one published used unit.",
+        "input": "used-vehicle.schema.json#/$defs/usedVehicleRequest",
+        "output": "used-vehicle.schema.json#/$defs/usedVehicleDetails",
+        "annotations": {"readOnlyHint": True, "destructiveHint": False, "idempotentHint": True, "openWorldHint": False},
+    },
     "dealeragent.inventory.verify_availability": {
         "title": "Verify authoritative availability",
         "description": "Perform an authenticated availability check against the synthetic authoritative inventory source.",
@@ -187,6 +194,12 @@ class Gateway:
                     "scopes": ["dealeragent:pricing:read"],
                 },
                 {
+                    "profile": "dealeragent.used-vehicle.read/0.1",
+                    "status": "supported",
+                    "tools": ["dealeragent.inventory.get_used_vehicle_details"],
+                    "scopes": ["dealeragent:inventory:read"],
+                },
+                {
                     "profile": "dealeragent.handoff/0.1",
                     "status": "supported",
                     "tools": [
@@ -241,6 +254,7 @@ class Gateway:
             "dealeragent.dealer.get": self._get_dealer,
             "dealeragent.inventory.search": self._search_inventory,
             "dealeragent.inventory.get_vehicle": self._get_vehicle,
+            "dealeragent.inventory.get_used_vehicle_details": self._get_used_vehicle_details,
             "dealeragent.inventory.verify_availability": self._verify_availability,
             "dealeragent.pricing.get_disclosure": self._get_pricing,
             "dealeragent.handoff.get_policy": self._get_handoff_policy,
@@ -327,6 +341,15 @@ class Gateway:
 
     def _get_vehicle(self, arguments: Dict[str, Any], auth: Optional[AuthContext]) -> Dict[str, Any]:
         return deepcopy(self._find_vehicle(arguments, published_only=True))
+
+    def _get_used_vehicle_details(self, arguments: Dict[str, Any], auth: Optional[AuthContext]) -> Dict[str, Any]:
+        vehicle = self._find_vehicle(arguments, published_only=True)
+        details = self.data["used_vehicle_details"].get(vehicle["vehicle_id"])
+        if details is None:
+            raise not_found()
+        result = deepcopy(details)
+        result["trace_id"] = self.trace_factory()
+        return result
 
     def _verify_availability(self, arguments: Dict[str, Any], auth: Optional[AuthContext]) -> Dict[str, Any]:
         self._require_grant(auth, arguments["organization_id"], arguments["rooftop_id"], "dealeragent:inventory:read")
@@ -576,8 +599,7 @@ class Gateway:
             for field in ("year", "make", "model", "trim", "condition", "stock_number", "vin")
         ).casefold()
 
-    @staticmethod
-    def _filter_vehicles(vehicles: Sequence[Dict[str, Any]], filters: Dict[str, Any]) -> List[Dict[str, Any]]:
+    def _filter_vehicles(self, vehicles: Sequence[Dict[str, Any]], filters: Dict[str, Any]) -> List[Dict[str, Any]]:
         result = list(vehicles)
         for field in ("vehicle_type", "make", "model", "condition", "availability"):
             if field not in filters:
@@ -592,6 +614,28 @@ class Gateway:
             result = [vehicle for vehicle in result if vehicle["year"] >= filters["year_min"]]
         if "year_max" in filters:
             result = [vehicle for vehicle in result if vehicle["year"] <= filters["year_max"]]
+        for field, comparison in (("odometer_min", lambda a, b: a >= b), ("odometer_max", lambda a, b: a <= b)):
+            if field in filters:
+                requested = self._distance_micrometers(filters[field])
+                result = [
+                    vehicle
+                    for vehicle in result
+                    if vehicle.get("odometer")
+                    and comparison(self._distance_micrometers(vehicle["odometer"]), requested)
+                ]
+        for field, comparison in (("inventory_age_min_days", lambda a, b: a >= b), ("inventory_age_max_days", lambda a, b: a <= b)):
+            if field in filters:
+                requested = filters[field]
+                result = [
+                    vehicle
+                    for vehicle in result
+                    if vehicle.get("used_vehicle", {}).get("inventory_tenure", {}).get("age_days") is not None
+                    and comparison(vehicle["used_vehicle"]["inventory_tenure"]["age_days"], requested)
+                ]
+        for field in ("history_report_status", "certification_type"):
+            if field in filters:
+                allowed = set(filters[field])
+                result = [vehicle for vehicle in result if vehicle.get("used_vehicle", {}).get(field) in allowed]
         for field, comparison in (("price_min", lambda a, b: a >= b), ("price_max", lambda a, b: a <= b)):
             if field in filters:
                 requested = filters[field]
@@ -619,9 +663,17 @@ class Gateway:
             key = lambda vehicle: vehicle.get("odometer", {}).get("value", 0)
         elif field == "observed_at":
             key = lambda vehicle: vehicle["freshness"]["observed_at"]
+        elif field == "inventory_age_days":
+            missing = -1 if reverse else float("inf")
+            key = lambda vehicle: vehicle.get("used_vehicle", {}).get("inventory_tenure", {}).get("age_days", missing)
         else:
             key = lambda vehicle: vehicle[field]
         return sorted(vehicles, key=key, reverse=reverse)
+
+    @staticmethod
+    def _distance_micrometers(distance: Dict[str, Any]) -> int:
+        multiplier = 1_609_344 if distance["unit"] == "mi" else 1_000_000
+        return distance["value"] * multiplier
 
     @staticmethod
     def _facets(vehicles: Iterable[Dict[str, Any]]) -> Dict[str, List[Dict[str, Any]]]:

@@ -6,6 +6,8 @@ from copy import deepcopy
 from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, List
 
+from .used_vehicle import inventory_age_days
+
 
 ORGANIZATION_ID = "org.example-motors"
 DOWNTOWN = "roof.downtown"
@@ -203,6 +205,155 @@ def _pricing(vehicle: Dict[str, Any], now: datetime, stale: bool = False) -> Dic
     }
 
 
+def _used_vehicle_details(now: datetime, vehicle: Dict[str, Any]) -> Dict[str, Any]:
+    observed = now - timedelta(minutes=30)
+    valid_until = now + timedelta(hours=23, minutes=30)
+    stocked_at = now - timedelta(days=47, hours=4)
+    first_listed_at = now - timedelta(days=45, hours=2)
+    provider_freshness = _freshness(observed, now + timedelta(days=29), "current")
+    dealer_freshness = _freshness(observed, valid_until, "current")
+    inventory_tenure = {
+        "stocked_at": _ts(stocked_at),
+        "first_public_listing_at": _ts(first_listed_at),
+        "age_days": inventory_age_days(stocked_at, now),
+        "age_as_of": _ts(now),
+        "age_basis": "stocked_at",
+        "provenance": _provenance("dealer-inventory-system", "authoritative_dealer_system", observed, vehicle["stock_number"]),
+        "freshness": dealer_freshness,
+    }
+    carfax_summary = {
+        "accident_status": "no_events_reported",
+        "accident_event_count": 0,
+        "damage_status": "no_damage_reported",
+        "structural_damage_status": "not_reported",
+        "airbag_deployment_status": "not_reported",
+        "title_brand_status": "no_brands_reported",
+        "odometer_consistency": "consistent",
+        "owner_count_status": "known",
+        "owner_count": 1,
+        "prior_use": ["personal"],
+        "service_record_count": 6,
+        "last_reported_odometer": {"value": 18110, "unit": "mi"},
+    }
+    autocheck_summary = {
+        "accident_status": "events_reported",
+        "accident_event_count": 1,
+        "damage_status": "damage_reported",
+        "structural_damage_status": "not_reported",
+        "airbag_deployment_status": "unknown",
+        "title_brand_status": "no_brands_reported",
+        "odometer_consistency": "consistent",
+        "owner_count_status": "known",
+        "owner_count": 1,
+        "prior_use": ["personal"],
+        "last_reported_odometer": {"value": 18201, "unit": "mi"},
+    }
+    return {
+        "vehicle_id": vehicle["vehicle_id"],
+        "organization_id": vehicle["organization_id"],
+        "rooftop_id": vehicle["rooftop_id"],
+        "vin": vehicle["vin"],
+        "condition": vehicle["condition"],
+        "odometer": {
+            "reading": {"value": 18420, "unit": "mi"},
+            "status": "actual",
+            "observed_at": _ts(observed),
+            "provenance": _provenance("dealer-inventory-system", "authoritative_dealer_system", observed, vehicle["stock_number"]),
+            "freshness": dealer_freshness,
+        },
+        "inventory_tenure": inventory_tenure,
+        "history_reports": [
+            {
+                "provider_id": "com.carfax",
+                "provider_name": "CARFAX",
+                "report_id": "synthetic-carfax-002",
+                "status": "available",
+                "access": "public_link",
+                "report_url": "https://example.invalid/history/carfax/U24002",
+                "report_generated_at": _ts(now - timedelta(days=7)),
+                "observed_at": _ts(observed),
+                "summary_sharing_authorized": True,
+                "summary": carfax_summary,
+                "provenance": _provenance("CARFAX synthetic fixture", "third_party", observed, "synthetic-carfax-002"),
+                "freshness": provider_freshness,
+            },
+            {
+                "provider_id": "com.experian.autocheck",
+                "provider_name": "AutoCheck",
+                "report_id": "synthetic-autocheck-002",
+                "status": "available",
+                "access": "dealer_presented",
+                "report_generated_at": _ts(now - timedelta(days=6)),
+                "observed_at": _ts(observed),
+                "summary_sharing_authorized": True,
+                "summary": autocheck_summary,
+                "provenance": _provenance("AutoCheck synthetic fixture", "third_party", observed, "synthetic-autocheck-002"),
+                "freshness": provider_freshness,
+            },
+        ],
+        "title": {
+            "status": "clear",
+            "brands": [],
+            "jurisdiction": "US-FL",
+            "provenance": _provenance("dealer-title-file", "dealer_asserted", observed, vehicle["vin"]),
+            "freshness": dealer_freshness,
+        },
+        "condition_report": {
+            "status": "completed",
+            "inspection_authority": "dealer",
+            "inspector_name": "Example Motors Used Vehicle Center",
+            "inspected_at": _ts(now - timedelta(days=2)),
+            "inspection_point_count": 125,
+            "grade": {"system": "Example Motors retail inspection v1", "value": "retail-ready with disclosed cosmetic wear"},
+            "components": [
+                {"component": "mechanical", "status": "pass"},
+                {"component": "brakes", "status": "pass"},
+                {"component": "tires", "status": "pass"},
+                {"component": "exterior", "status": "attention", "note": "Small repaired scratch on the right rear door."},
+            ],
+            "disclosed_damage": ["Small repaired scratch on the right rear door."],
+            "provenance": _provenance("dealer-used-inspection", "dealer_asserted", observed, "inspection-U24002"),
+            "freshness": dealer_freshness,
+        },
+        "certification": {
+            "type": "not_certified",
+            "provenance": _provenance("dealer-inventory-system", "authoritative_dealer_system", observed, vehicle["stock_number"]),
+            "freshness": dealer_freshness,
+        },
+        "reconditioning": {
+            "status": "completed",
+            "completed_at": _ts(now - timedelta(days=1)),
+            "items": [
+                {"category": "brakes", "description": "Front brake pads replaced.", "status": "completed"},
+                {"category": "tires", "description": "Four tires measured and passed retail inspection.", "status": "completed"},
+                {"category": "cosmetic", "description": "Right rear door scratch repaired and disclosed.", "status": "completed"},
+            ],
+            "provenance": _provenance("dealer-reconditioning-status", "dealer_asserted", observed, "recon-U24002"),
+            "freshness": dealer_freshness,
+        },
+        "discrepancies": [
+            {
+                "field": "history.accident_status",
+                "source_names": ["CARFAX synthetic fixture", "AutoCheck synthetic fixture"],
+                "description": "One synthetic report has no accident event while the other has one reported event; the gateway does not reconcile them.",
+                "status": "unresolved",
+            }
+        ],
+        "provenance": {
+            "sources": [
+                _source("dealer-inventory-system", "authoritative_dealer_system", observed, vehicle["stock_number"]),
+                _source("CARFAX synthetic fixture", "third_party", observed, "synthetic-carfax-002"),
+                _source("AutoCheck synthetic fixture", "third_party", observed, "synthetic-autocheck-002"),
+            ],
+            "authority_status": "asserted",
+            "transformed_at": _ts(now),
+            "transformations": ["normalized provider-specific fields without resolving the provider conflict"],
+        },
+        "freshness": dealer_freshness,
+        "trace_id": "trace.fixture.used.002",
+    }
+
+
 def build_fixture(now: datetime) -> Dict[str, Any]:
     """Build deterministic shapes with freshness relative to the injected clock."""
 
@@ -244,6 +395,12 @@ def build_fixture(now: datetime) -> Dict[str, Any]:
             price_minor=3975000,
         ),
     ]
+    used_vehicle_details = _used_vehicle_details(now, vehicles[1])
+    vehicles[1]["used_vehicle"] = {
+        "inventory_tenure": deepcopy(used_vehicle_details["inventory_tenure"]),
+        "history_report_status": "conflicting",
+        "certification_type": used_vehicle_details["certification"]["type"],
+    }
     dealer = {
         "organization_id": ORGANIZATION_ID,
         "name": "Example Motors Group",
@@ -292,4 +449,5 @@ def build_fixture(now: datetime) -> Dict[str, Any]:
         "dealer": dealer,
         "vehicles": vehicles,
         "pricing": {vehicle["vehicle_id"]: _pricing(vehicle, now, vehicle["freshness"]["state"] == "stale") for vehicle in vehicles},
+        "used_vehicle_details": {vehicles[1]["vehicle_id"]: used_vehicle_details},
     }

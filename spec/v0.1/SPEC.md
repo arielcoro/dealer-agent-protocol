@@ -21,6 +21,8 @@ Version 0.1 covers retail discovery and offer understanding:
 
 - dealership organization and rooftop discovery;
 - inventory search, vehicle detail, and authoritative availability checks;
+- optional used-vehicle mileage, inventory tenure, history, title, condition,
+  certification, warranty, and public reconditioning disclosure;
 - advertised-price and required-charge disclosure; and
 - discounts, rebates, incentives, eligibility conditions, validity periods,
   and stacking rules.
@@ -124,6 +126,12 @@ expand Core, expose CRM records, or imply appointment, hold, quote, or
 transaction support. Future work in those areas requires a separately versioned
 extension and does not alter Core conformance.
 
+The separately claimed `dealeragent.used-vehicle.read/0.1` profile adds one
+read-only tool for structured used-vehicle retail disclosure. Its normative
+behavior is in `used-vehicles.md`. It is provider-neutral: CARFAX, AutoCheck,
+title, inspection, certification, and dealer sources retain separate provenance
+and can disagree without being silently merged.
+
 ## 6. Common data rules
 
 ### 6.1 Identifiers
@@ -221,6 +229,12 @@ client presents a specific unit as currently available. Its result [DAP-CORE-035
 
 If authority or freshness is insufficient, the gateway [DAP-CORE-036] MUST return an explicit
 unknown/stale result or a structured error, never infer availability.
+
+Used-vehicle disclosures are normative in `used-vehicles.md` and
+`schemas/used-vehicle.schema.json`. Inventory age is a dated tenure calculation,
+not an undated scalar. Vehicle-history summaries remain bounded by the dealer's
+provider agreement and preserve report-specific source, time, uncertainty, and
+conflicts.
 
 ## 9. Pricing
 

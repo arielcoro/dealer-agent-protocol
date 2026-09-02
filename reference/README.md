@@ -10,6 +10,8 @@ Implemented profiles and tools:
 | `dealeragent.inventory.read/0.1` | `dealeragent.inventory.search`, `dealeragent.inventory.get_vehicle` |
 | `dealeragent.inventory.availability/0.1` | `dealeragent.inventory.verify_availability` |
 | `dealeragent.pricing.disclosure/0.1` | `dealeragent.pricing.get_disclosure` |
+| `dealeragent.used-vehicle.read/0.1` | `dealeragent.inventory.get_used_vehicle_details` |
+| `dealeragent.handoff/0.1` | `dealeragent.handoff.get_policy`, `dealeragent.handoff.prepare`, `dealeragent.handoff.submit` |
 
 The server also exposes `dealeragent://manifest` and the synthetic organization resource. It implements newline-delimited JSON-RPC over stdio for `server/discover`, `tools/list`, `tools/call`, `resources/list`, and `resources/read`.
 
@@ -39,14 +41,16 @@ python3 scripts/validate_artifacts.py
 python3 scripts/run_conformance.py
 ```
 
-The behavioral suite covers schema enforcement, public search, per-record rooftop/freshness preservation, cursor integrity and query binding, authenticated availability, cross-rooftop denial, stale-data refusal, classified pricing, enumeration resistance, error redaction, MCP discovery, structured tool results, manifest/resource agreement, and actual stdio framing.
+The behavioral suite covers schema enforcement, public search, per-record rooftop/freshness preservation, cursor integrity and query binding, authenticated availability, cross-rooftop denial, stale-data refusal, classified pricing, used-vehicle inventory age and history conflicts, licensed-summary enforcement, consent binding, enumeration resistance, error redaction, MCP discovery, structured tool results, manifest/resource agreement, and actual stdio framing.
 
 ## Synthetic scenario
 
 The fixture generates two rooftops and three published vehicles relative to an injected clock:
 
 - a current authoritative new vehicle at `roof.downtown`;
-- a stale, asserted used vehicle that cannot pass authoritative availability; and
+- a stale, asserted used vehicle with dated inventory tenure, two conflicting
+  synthetic history-provider summaries, a dealer inspection, and public
+  reconditioning disclosure; and
 - a current vehicle at `roof.north`, outside the demo grant.
 
 Pricing includes a mandatory dealer charge already included in the advertised price, a separately modeled conditional military incentive, and explicitly unknown government charges. No customer data or real credentials are present.
@@ -58,5 +62,5 @@ The domain gateway receives an `AuthContext` from a trusted transport boundary. 
 The reference implementation intentionally omits OAuth/HTTP, persistence,
 upstream retail-data integrations, rate limiting, production key management,
 and telemetry. Version 0.1 intentionally defines no quote, hold, appointment,
-handoff, customer-data, or system-write profiles. These characteristics make
+payment, or system-write profiles. These characteristics make
 the implementation a conformance fixture, not deployable dealer software.

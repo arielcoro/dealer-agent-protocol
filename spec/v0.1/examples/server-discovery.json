@@ -27,6 +27,12 @@
       "status": "supported",
       "tools": ["dealeragent.pricing.get_disclosure"],
       "scopes": ["dealeragent:pricing:read"]
+    },
+    {
+      "profile": "dealeragent.used-vehicle.read/0.1",
+      "status": "supported",
+      "tools": ["dealeragent.inventory.get_used_vehicle_details"],
+      "scopes": ["dealeragent:inventory:read"]
     }
   ],
   "resources": ["dealeragent://manifest", "dealeragent://organization/org.example-motors"],

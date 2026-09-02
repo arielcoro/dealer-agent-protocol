@@ -27,6 +27,13 @@ DEFAULT_ALIASES = {
     "observed_at": ("LastUpdated", "FeedDate", "observed_at"),
     "advertised_price": ("Price", "InternetPrice", "SalePrice", "advertised_price"),
     "availability_status": ("Status", "Availability", "availability_status"),
+    "odometer_value": ("Mileage", "Odometer", "Miles", "odometer_value"),
+    "odometer_unit": ("MileageUnit", "OdometerUnit", "odometer_unit"),
+    "stocked_at": ("StockedDate", "InStockDate", "DateInStock", "stocked_at"),
+    "first_public_listing_at": ("FirstListedDate", "InventoryDate", "first_public_listing_at"),
+    "carfax_url": ("CarfaxUrl", "CARFAX URL", "carfax_url"),
+    "autocheck_url": ("AutoCheckUrl", "AutoCheck URL", "autocheck_url"),
+    "certification_type": ("CertificationType", "CPOType", "certification_type"),
 }
 
 
@@ -39,12 +46,16 @@ class DealerComCsvAdapter:
         currency: str = "USD",
         header_overrides: Optional[Mapping[str, str]] = None,
         required_dealer_charges: Optional[List[dict]] = None,
+        default_odometer_unit: Optional[str] = None,
     ) -> None:
         self.organization_id = organization_id
         self.rooftop_id = rooftop_id
         self.currency = currency
         self.header_overrides = dict(header_overrides or {})
         self.required_dealer_charges = required_dealer_charges or []
+        if default_odometer_unit not in {None, "mi", "km"}:
+            raise ValueError("default_odometer_unit must be mi, km, or None")
+        self.default_odometer_unit = default_odometer_unit
 
     def convert(self, source: str) -> List[Dict[str, str]]:
         reader = csv.DictReader(StringIO(source))
@@ -101,6 +112,42 @@ class DealerComCsvAdapter:
         if status not in {"available", "unavailable", "in_transit", "reserved", "unknown"}:
             status = "unknown"
 
+        odometer_value = self._value(row, "odometer_value").replace(",", "")
+        odometer_unit = self._value(row, "odometer_unit").lower() or self.default_odometer_unit or ""
+        if odometer_value:
+            try:
+                if int(odometer_value) < 0 or str(int(odometer_value)) != odometer_value:
+                    raise ValueError
+            except ValueError as error:
+                raise ValueError(f"invalid odometer on line {line}") from error
+            if odometer_unit not in {"mi", "km"}:
+                raise ValueError(f"odometer unit is required on line {line}")
+
+        stocked_at = self._optional_timestamp(row, "stocked_at", line)
+        first_listed_at = self._optional_timestamp(row, "first_public_listing_at", line)
+        history_reports = []
+        for field, provider_id, provider_name in (
+            ("carfax_url", "com.carfax", "CARFAX"),
+            ("autocheck_url", "com.experian.autocheck", "AutoCheck"),
+        ):
+            report_url = self._value(row, field)
+            if report_url:
+                history_reports.append(
+                    {
+                        "provider_id": provider_id,
+                        "provider_name": provider_name,
+                        "status": "available",
+                        "access": "public_link",
+                        "report_url": report_url,
+                        "summary_sharing_authorized": False,
+                    }
+                )
+
+        certification = self._value(row, "certification_type").lower().replace(" ", "_")
+        certification = {"cpo": "manufacturer_cpo", "manufacturer": "manufacturer_cpo", "dealer": "dealer_certified"}.get(certification, certification)
+        if certification and certification not in {"manufacturer_cpo", "dealer_certified", "third_party_certified", "not_certified", "unknown"}:
+            raise ValueError(f"invalid certification type on line {line}")
+
         return {
             "organization_id": self.organization_id,
             "rooftop_id": self.rooftop_id,
@@ -119,7 +166,25 @@ class DealerComCsvAdapter:
             "conditional_adjustments_json": "[]",
             "government_charges_status": "unknown",
             "availability_status": status,
+            "odometer_value": odometer_value,
+            "odometer_unit": odometer_unit,
+            "stocked_at": stocked_at,
+            "first_public_listing_at": first_listed_at,
+            "history_reports_json": json.dumps(history_reports, separators=(",", ":")),
+            "certification_type": certification,
         }
+
+    def _optional_timestamp(self, row: Mapping[str, str], field: str, line: int) -> str:
+        value = self._value(row, field)
+        if not value:
+            return ""
+        try:
+            parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+        except ValueError as error:
+            raise ValueError(f"invalid {field} on line {line}") from error
+        if parsed.tzinfo is None:
+            raise ValueError(f"{field} requires an explicit offset on line {line}")
+        return parsed.isoformat().replace("+00:00", "Z")
 
     @staticmethod
     def write(rows: Iterable[Mapping[str, str]]) -> str:

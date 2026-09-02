@@ -11,6 +11,7 @@ published inventory, availability, and retail pricing disclosure.
 | Tenant/dealer/location | organization and rooftop objects | Map with explicit group delegation; never blend tenants implicitly. |
 | Inventory list/search/get | `dealeragent.inventory.search`, `get_vehicle` | Map; attach per-result provenance, freshness, and authority. |
 | Vehicle availability | `dealeragent.inventory.verify_availability` | Map only when backed by an authoritative source and validity window. |
+| Odometer, title, prior use, history, warranty, CPO, condition grade | `dealeragent.used-vehicle.read/0.1` | Conditional; split the shared history block into provider-specific reports, attach provenance/freshness, qualify the grading system, and preserve conflicts. Direct provider URLs do not prove summary redistribution rights. |
 | Money | `amount_minor` integer plus ISO currency | Structurally map only from the normative minor-unit form. Published major-unit `number` variants require explicit decimal conversion and conflict reporting. |
 | Deals/quotes | none | Out of scope in version 0.1. |
 | Consent/lead/contact | none | Out of scope in version 0.1; customer data is rejected. |

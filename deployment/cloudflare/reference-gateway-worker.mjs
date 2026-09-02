@@ -7,7 +7,8 @@ const TOOLS = [
   ["dealeragent.inventory.search", "Search synthetic published vehicles with source and freshness attached."],
   ["dealeragent.inventory.get_vehicle", "Read one synthetic vehicle detail record."],
   ["dealeragent.inventory.verify_availability", "Verify availability against the synthetic authoritative source."],
-  ["dealeragent.pricing.get_disclosure", "Read the classified advertised price, required charges, conditions, and government-charge status."]
+  ["dealeragent.pricing.get_disclosure", "Read the classified advertised price, required charges, conditions, and government-charge status."],
+  ["dealeragent.inventory.get_used_vehicle_details", "Read synthetic used-vehicle mileage, dated inventory tenure, provider-specific history summaries, title, condition, certification, recon, and conflicts."]
 ].map(([name, description]) => ({
   name,
   description,
@@ -26,6 +27,39 @@ const vehicle = {
   availability: { status: "available", authority_status: "authoritative", observed_at: NOW, valid_until: VALID_UNTIL, human_verification_required: false },
   provenance: provenance("authoritative_dealer_system"), freshness
 };
+const inventoryTenure = {
+  stocked_at: "2026-07-17T10:00:00Z", first_public_listing_at: "2026-07-19T12:00:00Z",
+  age_days: 47, age_as_of: NOW, age_basis: "stocked_at",
+  provenance: provenance("authoritative_dealer_system"), freshness: { ...freshness, max_age_seconds: 86400 }
+};
+const usedVehicle = {
+  vehicle_id: "veh.2024-002", organization_id: "org.example-motors", rooftop_id: "roof.downtown",
+  vin: "2HGFC2F59JH000001", stock_number: "U24002", vehicle_type: "suv", year: 2024,
+  make: "Example", model: "Northstar", trim: "Touring AWD", condition: "used", body_style: "SUV",
+  odometer: { value: 18420, unit: "mi", status: "actual" },
+  listing_url: "https://dealer.example/inventory/U24002",
+  used_vehicle: { inventory_tenure: inventoryTenure, history_report_status: "conflicting", certification_type: "not_certified" },
+  advertised_price: { amount: { amount_minor: 3199500, currency: "USD" }, availability: "generally_available", includes_required_dealer_charges: true, valid_until: "2026-09-04T14:03:11Z" },
+  availability: { status: "available", authority_status: "asserted", observed_at: NOW, valid_until: VALID_UNTIL, human_verification_required: true },
+  provenance: provenance("dealer_asserted"), freshness
+};
+const historySummaryNoEvents = { accident_status: "no_events_reported", accident_event_count: 0, damage_status: "no_damage_reported", structural_damage_status: "not_reported", airbag_deployment_status: "not_reported", title_brand_status: "no_brands_reported", odometer_consistency: "consistent", owner_count_status: "known", owner_count: 1, prior_use: ["personal"], service_record_count: 6, last_reported_odometer: { value: 18110, unit: "mi" } };
+const historySummaryEvent = { accident_status: "events_reported", accident_event_count: 1, damage_status: "damage_reported", structural_damage_status: "not_reported", airbag_deployment_status: "unknown", title_brand_status: "no_brands_reported", odometer_consistency: "consistent", owner_count_status: "known", owner_count: 1, prior_use: ["personal"], last_reported_odometer: { value: 18201, unit: "mi" } };
+const usedDetails = {
+  vehicle_id: usedVehicle.vehicle_id, organization_id: usedVehicle.organization_id, rooftop_id: usedVehicle.rooftop_id, vin: usedVehicle.vin, condition: "used",
+  odometer: { reading: { value: 18420, unit: "mi" }, status: "actual", observed_at: NOW, provenance: provenance("authoritative_dealer_system"), freshness },
+  inventory_tenure: inventoryTenure,
+  history_reports: [
+    { provider_id: "com.carfax", provider_name: "CARFAX", report_id: "synthetic-carfax-002", status: "available", access: "public_link", report_url: "https://example.invalid/history/carfax/U24002", report_generated_at: "2026-08-25T14:00:00Z", observed_at: NOW, summary_sharing_authorized: true, summary: historySummaryNoEvents, provenance: provenance("third_party"), freshness },
+    { provider_id: "com.experian.autocheck", provider_name: "AutoCheck", report_id: "synthetic-autocheck-002", status: "available", access: "dealer_presented", report_generated_at: "2026-08-26T14:00:00Z", observed_at: NOW, summary_sharing_authorized: true, summary: historySummaryEvent, provenance: provenance("third_party"), freshness }
+  ],
+  title: { status: "clear", brands: [], jurisdiction: "US-FL", provenance: provenance("dealer_asserted"), freshness },
+  condition_report: { status: "completed", inspection_authority: "dealer", inspector_name: "Example Motors Used Vehicle Center", inspected_at: "2026-08-30T14:00:00Z", inspection_point_count: 125, grade: { system: "Example Motors retail inspection v1", value: "retail-ready with disclosed cosmetic wear" }, components: [{ component: "mechanical", status: "pass" }, { component: "exterior", status: "attention", note: "Small repaired scratch on the right rear door." }], disclosed_damage: ["Small repaired scratch on the right rear door."], provenance: provenance("dealer_asserted"), freshness },
+  certification: { type: "not_certified", provenance: provenance("authoritative_dealer_system"), freshness },
+  reconditioning: { status: "completed", completed_at: "2026-08-31T14:00:00Z", items: [{ category: "brakes", description: "Front brake pads replaced.", status: "completed" }, { category: "cosmetic", description: "Right rear door scratch repaired and disclosed.", status: "completed" }], provenance: provenance("dealer_asserted"), freshness },
+  discrepancies: [{ field: "history.accident_status", source_names: ["CARFAX synthetic fixture", "AutoCheck synthetic fixture"], description: "The two synthetic reports disagree; the gateway does not reconcile them.", status: "unresolved" }],
+  provenance: provenance("dealer_asserted"), freshness, trace_id: "trace.synthetic.used.002"
+};
 const manifest = {
   standard: "dealer-agent-protocol", standard_version: "0.1", mcp_revision: VERSION,
   gateway_id: "gateway.dealershipmcp.synthetic-reference", operator: { name: "Dealer Agent Protocol synthetic reference", uri: "https://dealeragentprotocol.com/" },
@@ -34,14 +68,15 @@ const manifest = {
     { profile: "dealeragent.discovery/0.1", status: "supported", tools: TOOLS.slice(0, 2).map(x => x.name), scopes: [] },
     { profile: "dealeragent.inventory.read/0.1", status: "supported", tools: TOOLS.slice(2, 4).map(x => x.name), scopes: ["dealeragent:inventory:read"] },
     { profile: "dealeragent.inventory.availability/0.1", status: "supported", tools: [TOOLS[4].name], scopes: ["dealeragent:inventory:read"] },
-    { profile: "dealeragent.pricing.disclosure/0.1", status: "supported", tools: [TOOLS[5].name], scopes: ["dealeragent:pricing:read"] }
+    { profile: "dealeragent.pricing.disclosure/0.1", status: "supported", tools: [TOOLS[5].name], scopes: ["dealeragent:pricing:read"] },
+    { profile: "dealeragent.used-vehicle.read/0.1", status: "supported", tools: [TOOLS[6].name], scopes: ["dealeragent:inventory:read"] }
   ],
   resources: ["dealeragent://manifest", "dealeragent://organization/org.example-motors"], auth_modes: ["public"],
   tenant_routing: { organization_id_required: true, rooftop_id_required_for_unit_reads: true, group_delegation_explicit: true },
   schema_base_uri: "https://dealeragentprotocol.com/spec/v0.1/schemas/", policy_uri: "https://dealeragentprotocol.com/spec/v0.1/security.md",
   authority_policy: { uri: "https://dealeragentprotocol.com/spec/v0.1/security.md#availability-and-abuse", inventory_max_age_seconds: 900, authoritative_availability_required_for_actions: true },
   freshness_sla_seconds: { "roof.downtown": { inventory: 900, availability: 120, pricing: 3600 } },
-  conformance: { claim_uri: "https://dealeragentprotocol.com/conformance/claims/example-claim.json", claim_digest: "sha256:6e701b914b375ca9b775570c9983a9312f874e33bff86d52c9b4360fd90220e7" },
+  conformance: { claim_uri: "https://dealeragentprotocol.com/conformance/claims/example-claim.json", claim_digest: "sha256:6c1404427ca3da0a2a9bb274f6ffc7bd0cea9ba2c2fc168678a4ca823f3c945b" },
   issued_at: NOW, expires_at: "2026-09-02T15:03:11Z"
 };
 const dealer = { organization_id: "org.example-motors", name: "Example Motors Group", legal_name: "Example Motors Group LLC", rooftops: [{ rooftop_id: "roof.downtown", name: "Example Motors Downtown", website: "https://dealer.example/downtown", address: { lines: ["100 Example Avenue"], locality: "Miami", region: "FL", postal_code: "33101", country: "US" }, timezone: "America/New_York", departments: ["sales"], contacts: [], supported_languages: ["en-US"], supported_currencies: ["USD"] }], provenance: provenance("dealer_asserted"), freshness: { ...freshness, max_age_seconds: 3600 } };
@@ -63,22 +98,38 @@ function runtime(value) {
   const now = new Date().toISOString();
   const valid = new Date(Date.now() + 120_000).toISOString();
   const expires = new Date(Date.now() + 3_600_000).toISOString();
-  return JSON.parse(JSON.stringify(value), (key, item) => {
+  const cloned = JSON.parse(JSON.stringify(value), (key, item) => {
     if (key === "observed_at") return observed;
     if (key === "transformed_at" || key === "issued_at") return now;
     if (key === "valid_until") return valid;
     if (key === "expires_at") return expires;
     return item;
   });
+  const updateTenure = tenure => {
+    if (!tenure) return;
+    tenure.age_as_of = now;
+    tenure.age_days = Math.max(0, Math.floor((Date.now() - new Date(tenure.stocked_at).getTime()) / 86_400_000));
+  };
+  updateTenure(cloned.inventory_tenure);
+  updateTenure(cloned.used_vehicle?.inventory_tenure);
+  return cloned;
+}
+
+function selectsUsedVehicle(args = {}) {
+  return args.vehicle_id === usedVehicle.vehicle_id || args.vin === usedVehicle.vin || args.stock_number === usedVehicle.stock_number;
 }
 
 function callTool(name, args) {
   if (name === TOOLS[0].name) return runtime(manifest);
   if (name === TOOLS[1].name) return runtime(dealer);
-  if (name === TOOLS[2].name) return runtime({ vehicles: [vehicle], facets: { make: [{ value: "Example", count: 1 }], model: [{ value: "Northstar", count: 1 }], condition: [{ value: "new", count: 1 }], year: [{ value: 2026, count: 1 }] }, page: { has_more: false }, provenance: provenance("derived"), freshness, trace_id: crypto.randomUUID() });
-  if (name === TOOLS[3].name) return runtime(vehicle);
+  if (name === TOOLS[2].name) return runtime({ vehicles: [vehicle, usedVehicle], facets: { make: [{ value: "Example", count: 2 }], model: [{ value: "Northstar", count: 2 }], condition: [{ value: "new", count: 1 }, { value: "used", count: 1 }], year: [{ value: 2024, count: 1 }, { value: 2026, count: 1 }] }, page: { has_more: false }, provenance: provenance("derived"), freshness, trace_id: crypto.randomUUID() });
+  if (name === TOOLS[3].name) return runtime(selectsUsedVehicle(args) ? usedVehicle : vehicle);
   if (name === TOOLS[4].name) return runtime({ vehicle_id: vehicle.vehicle_id, organization_id: vehicle.organization_id, rooftop_id: vehicle.rooftop_id, availability: vehicle.availability, provenance: vehicle.provenance, freshness, trace_id: crypto.randomUUID() });
   if (name === TOOLS[5].name) return runtime(pricing);
+  if (name === TOOLS[6].name) {
+    if (!selectsUsedVehicle(args)) throw new Error("used vehicle not found");
+    return runtime(usedDetails);
+  }
   throw new Error("unsupported");
 }
 

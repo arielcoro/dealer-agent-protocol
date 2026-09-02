@@ -14,6 +14,8 @@ separately.
 | Merchant Core | Discovery Core | Dealer-specific organization/rooftop identity and explicit group delegation. |
 | Inventory Core | Inventory Read | Per-object provenance and authoritative availability semantics are required. |
 | Price Disclosure | Pricing Disclosure | Integer minor-unit money; explicit advertised, required-dealer, conditional, and government-charge buckets. |
+| `mileage` | Used-vehicle odometer reading | Unit must be affirmatively known; DMC-12's current field is miles. |
+| `stocked_date`, `days_on_lot` | Used-vehicle inventory tenure | `stocked_date` maps to the basis; DAP recalculates complete days with an explicit `age_as_of` rather than trusting an undated scalar. |
 | Quote | none | Outside version 0.1; preserved only as an incubating experiment. |
 | Soft Hold | none | Outside version 0.1. |
 | Lead Transfer | `dealeragent.handoff/0.1` | Two-phase prepare/submit with ES256-signed, expiring, single-use consent binding and ADF delivery. |

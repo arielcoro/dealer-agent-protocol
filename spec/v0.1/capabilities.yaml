@@ -51,6 +51,15 @@ profiles:
     scopes:
       - dealeragent:pricing:read
 
+  dealeragent.used-vehicle.read/0.1:
+    status: draft
+    dependencies:
+      - dealeragent.inventory.read/0.1
+    required_tools:
+      - dealeragent.inventory.get_used_vehicle_details
+    scopes:
+      - dealeragent:inventory:read
+
   dealeragent.handoff/0.1:
     status: draft
     required_tools:
@@ -179,6 +188,26 @@ tools:
     reversible: true
     legal_or_financial_commitment: false
     freshness_authority: dealer_pricing_authority
+    audit: access_log
+
+  dealeragent.inventory.get_used_vehicle_details:
+    effect: read
+    mcp_annotations:
+      readOnlyHint: true
+      destructiveHint: false
+      idempotentHint: true
+      openWorldHint: false
+    input_schema: schemas/used-vehicle.schema.json#/$defs/usedVehicleRequest
+    output_schema: schemas/used-vehicle.schema.json#/$defs/usedVehicleDetails
+    public_access: allowed_by_dealer_policy
+    confirmation: none
+    idempotency: inherent_for_same_snapshot
+    pii_input: none
+    pii_output: none
+    retention: none
+    reversible: true
+    legal_or_financial_commitment: false
+    freshness_authority: provider_and_dealer_specific
     audit: access_log
 
   dealeragent.handoff.get_policy:

@@ -39,8 +39,23 @@ This document is normative. It defines the minimum zero-server inventory feed us
 
 ## Optional vehicle columns
 
-`trim`, `vehicle_type`, `body_style`, `exterior_color`, `interior_color`, `odometer_value`, `odometer_unit`, `image_urls_json`, and `features_json` MAY be supplied. Unknown values remain empty.
+`trim`, `vehicle_type`, `body_style`, `exterior_color`, `interior_color`,
+`odometer_value`, `odometer_unit`, `stocked_at`, `first_public_listing_at`,
+`history_reports_json`, `certification_type`, `image_urls_json`, and
+`features_json` MAY be supplied. Unknown values remain empty.
+
+`stocked_at` and `first_public_listing_at` are RFC 3339 timestamps with explicit
+offsets and retain their distinct meanings from `used-vehicles.md`.
+`history_reports_json` is a JSON array of provider-neutral report references.
+Provider-specific URL columns MAY be accepted by an adapter, but the normative
+output uses stable provider identifiers. A URL alone does not authorize summary
+redistribution; adapters [DAP-CSV-003] MUST set `summary_sharing_authorized` false unless
+the dealer's provider agreement affirmatively permits mapped summary fields.
+
+When `odometer_value` is present, `odometer_unit` [DAP-CSV-004] MUST be `mi` or `km`.
+Adapters [DAP-CSV-005] MUST NOT assume a unit unless the rooftop configuration supplies
+that default explicitly.
 
 ## Example
 
-See [`examples/csv/example-inventory.csv`](examples/csv/example-inventory.csv). Adapters [DAP-CSV-002] MUST reject invalid JSON cells, duplicate `(rooftop_id, vin)` rows, invalid VINs, negative monetary amounts, and timestamps in the future beyond configured clock skew.
+See [`examples/csv/example-inventory.csv`](examples/csv/example-inventory.csv). Adapters [DAP-CSV-002] MUST reject invalid JSON cells, duplicate `(rooftop_id, vin)` rows, invalid VINs, negative monetary amounts, negative odometers, and timestamps in the future beyond configured clock skew.

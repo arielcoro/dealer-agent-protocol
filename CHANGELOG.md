@@ -7,6 +7,10 @@ All notable changes to Dealer Agent Protocol are recorded here.
 - Added the zero-server `/.well-known/dealer-agent.json` publication path,
   schema, example, and Dealer Agent Inventory CSV 0.1 format.
 - Added the first Dealer.com-style CSV adapter and executable edge-case tests.
+- Added the optional Used Vehicle Retail profile with unit-explicit odometer
+  readings, dated inventory tenure, provider-neutral history evidence,
+  title/condition/certification/reconditioning records, and conflict-preserving
+  presentation rules.
 - Promoted the two-phase consented handoff as a separately claimed profile with
   ES256 consent bindings, ADF output, and replay/expiry/subject/rooftop tests.
 - Added disclosure completeness, per-rooftop freshness SLAs, five availability

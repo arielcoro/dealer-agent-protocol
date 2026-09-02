@@ -21,6 +21,7 @@
       "dealeragent.inventory.search",
       "dealeragent.inventory.get_vehicle",
       "dealeragent.inventory.verify_availability",
+      "dealeragent.inventory.get_used_vehicle_details",
       "dealeragent.pricing.get_disclosure"
     ],
     "resources": ["dealeragent://manifest", "dealeragent://organization/org.example-motors"],
@@ -31,7 +32,8 @@
     "dealeragent.discovery/0.1",
     "dealeragent.inventory.read/0.1",
     "dealeragent.inventory.availability/0.1",
-    "dealeragent.pricing.disclosure/0.1"
+    "dealeragent.pricing.disclosure/0.1",
+    "dealeragent.used-vehicle.read/0.1"
   ],
   "mcp_revisions": ["2026-07-28"],
   "test_run": {

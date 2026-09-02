@@ -91,6 +91,7 @@
         "media": { "type": "array", "maxItems": 500, "items": { "$ref": "#/$defs/mediaAsset" } },
         "listing_url": { "type": "string", "format": "uri" },
         "window_sticker_url": { "type": "string", "format": "uri" },
+        "used_vehicle": { "$ref": "used-vehicle.schema.json#/$defs/usedVehicleSummary" },
         "advertised_price": { "$ref": "pricing.schema.json#/$defs/advertisedPrice" },
         "availability": { "$ref": "#/$defs/availability" },
         "provenance": { "$ref": "common.schema.json#/$defs/provenance" },
@@ -123,6 +124,12 @@
             "year_max": { "type": "integer", "minimum": 1886, "maximum": 2200 },
             "price_min": { "$ref": "common.schema.json#/$defs/nonNegativeMoney" },
             "price_max": { "$ref": "common.schema.json#/$defs/nonNegativeMoney" },
+            "odometer_min": { "$ref": "used-vehicle.schema.json#/$defs/distance" },
+            "odometer_max": { "$ref": "used-vehicle.schema.json#/$defs/distance" },
+            "inventory_age_min_days": { "type": "integer", "minimum": 0 },
+            "inventory_age_max_days": { "type": "integer", "minimum": 0 },
+            "history_report_status": { "type": "array", "uniqueItems": true, "items": { "type": "string", "enum": ["available", "not_available", "restricted", "unknown", "conflicting"] } },
+            "certification_type": { "type": "array", "uniqueItems": true, "items": { "type": "string", "enum": ["manufacturer_cpo", "dealer_certified", "third_party_certified", "not_certified", "unknown"] } },
             "availability": { "type": "array", "uniqueItems": true, "items": { "type": "string", "enum": ["available", "in_transit", "on_hold", "pending_sale"] } },
             "vin": { "type": "string", "pattern": "^[A-HJ-NPR-Z0-9]{17}$" },
             "stock_number": { "type": "string", "minLength": 1, "maxLength": 80 }
@@ -133,7 +140,7 @@
           "additionalProperties": false,
           "required": ["field", "order"],
           "properties": {
-            "field": { "type": "string", "enum": ["advertised_price", "year", "odometer", "observed_at"] },
+            "field": { "type": "string", "enum": ["advertised_price", "year", "odometer", "inventory_age_days", "observed_at"] },
             "order": { "type": "string", "enum": ["asc", "desc"] }
           }
         },

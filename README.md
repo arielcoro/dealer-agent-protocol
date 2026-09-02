@@ -32,7 +32,7 @@ When a shopper asks an AI assistant “is this car still available and what does
 
 DAP does not invent a new wire protocol. MCP carries the calls; DAP defines what automotive retail requests and answers mean.
 
-## MCP server for car dealerships: the six tools
+## MCP server for car dealerships: six core tools plus used-vehicle truth
 
 The `dealeragent.core-retail-read/0.1` bundle contains six read-only tools:
 
@@ -44,6 +44,20 @@ The `dealeragent.core-retail-read/0.1` bundle contains six read-only tools:
 6. `dealeragent.pricing.get_disclosure`
 
 The separate `dealeragent.handoff/0.1` profile adds three consent-gated tools. A Core claim never implies handoff access.
+
+The optional `dealeragent.used-vehicle.read/0.1` profile adds
+`dealeragent.inventory.get_used_vehicle_details`. It standardizes mileage,
+dated inventory age, provider-neutral vehicle-history references, title,
+inspection, manufacturer-versus-dealer certification, warranty, public
+reconditioning facts, and unresolved source conflicts. See the
+[used-vehicle profile](spec/v0.1/used-vehicles.md) and
+[complete example](spec/v0.1/examples/used-vehicle-detail.json).
+
+Inventory age is never an unexplained `days_on_lot` number. The response says
+which event starts the clock, the date being measured, how many complete days
+elapsed, and which source asserted it. CARFAX and AutoCheck can be integrated
+behind a gateway when the dealer is authorized; the public contract stays
+provider-neutral and never turns “no events reported” into “accident-free.”
 
 ## Pricing disclosure: advertised price, dealer fees, incentives, and government charges
 

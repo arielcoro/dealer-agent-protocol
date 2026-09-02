@@ -14,6 +14,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 REFERENCE = ROOT / "reference" / "python"
 sys.path.insert(0, str(REFERENCE))
+CLIENT = ROOT / "packages" / "dealer-agent-client-python" / "src"
+sys.path.insert(0, str(CLIENT))
 
 
 def _test_name(test) -> str:
@@ -31,7 +33,7 @@ def main() -> int:
     result = runner.run(suite)
     report = {
         "suite": "dealer-agent-protocol-reference-behavioral",
-        "suite_version": "0.1.0-dev.1",
+        "suite_version": "0.1.0-dev.2",
         "standard_version": "0.1",
         "mcp_revision": "2026-07-28",
         "completed_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),

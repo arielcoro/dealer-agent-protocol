@@ -36,3 +36,13 @@ scope, and trace context; it MUST NOT use a shared gateway identity that erases
 the original actor.
 
 Sources: [AAP v1.2 introduction](https://autoagentprotocol.org/docs/v1.2/intro), [A2A profile](https://autoagentprotocol.org/docs/v1.2/a2a-profile), [pricing model](https://autoagentprotocol.org/docs/v1.2/pricing-and-ftc), and [MCP adapter](https://autoagentprotocol.org/docs/v1.2/compatibility/mcp).
+
+## Used-vehicle mapping
+
+AAP `mileage` maps to the used-vehicle odometer reading only when miles are
+affirmatively the source unit; it does not establish odometer disclosure status.
+AAP `inventory_date` maps to `first_public_listing_at`, not automatically to
+`stocked_at`. Without a distinct dealer stock event, DAP inventory tenure uses
+that listing timestamp as `age_basis`. Free-form `notes`, `description`, and
+`other_attributes` do not become title, history, inspection, certification, or
+warranty claims without named source evidence.

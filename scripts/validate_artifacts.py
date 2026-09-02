@@ -137,6 +137,7 @@ def main() -> int:
         ROOT / "spec" / "v0.1" / "examples" / "server-discovery.json": (SCHEMA_DIR / "manifest.schema.json", "manifest"),
         ROOT / "spec" / "v0.1" / "examples" / "inventory-search.json": (SCHEMA_DIR / "vehicle.schema.json", "searchResponse"),
         ROOT / "spec" / "v0.1" / "examples" / "vehicle-detail.json": (SCHEMA_DIR / "vehicle.schema.json", "vehicle"),
+        ROOT / "spec" / "v0.1" / "examples" / "used-vehicle-detail.json": (SCHEMA_DIR / "used-vehicle.schema.json", "usedVehicleDetails"),
         ROOT / "conformance" / "claims" / "example-claim.json": (ROOT / "conformance" / "claim.schema.json", None),
     }
 
