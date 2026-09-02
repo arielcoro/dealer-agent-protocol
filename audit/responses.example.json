@@ -1,0 +1,15 @@
+{
+  "dealership": "Example Motors Downtown",
+  "website": "https://dealer.example",
+  "reviewed_at": "2026-09-02T14:00:00Z",
+  "responses": [
+    {
+      "question_id": "Q13",
+      "platform": "example-answer-engine",
+      "answer": "The vehicle is available now.",
+      "citations": ["https://dealer.example/inventory/N26001"],
+      "scores": { "inventory": 100, "pricing": null, "disclosure": null, "availability": 0, "citation": 75, "risk": 20 },
+      "flags": [{ "severity": "critical", "code": "unsupported_current_availability", "evidence": "The page had no current authoritative observation." }]
+    }
+  ]
+}

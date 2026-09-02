@@ -46,7 +46,7 @@
         "standard", "standard_version", "mcp_revision", "gateway_id", "operator",
         "organization_ids", "rooftop_ids", "capabilities", "resources", "auth_modes",
         "tenant_routing", "schema_base_uri", "policy_uri", "authority_policy",
-        "conformance", "issued_at", "expires_at"
+        "conformance", "freshness_sla_seconds", "issued_at", "expires_at"
       ],
       "properties": {
         "standard": { "const": "dealer-agent-protocol" },
@@ -98,6 +98,21 @@
             "uri": { "type": "string", "format": "uri" },
             "inventory_max_age_seconds": { "type": "integer", "minimum": 0, "maximum": 2592000 },
             "authoritative_availability_required_for_actions": { "const": true }
+          }
+        },
+        "freshness_sla_seconds": {
+          "type": "object",
+          "minProperties": 1,
+          "propertyNames": { "pattern": "^[a-z0-9][a-z0-9._-]{0,127}$" },
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["inventory", "availability", "pricing"],
+            "properties": {
+              "inventory": { "type": "integer", "minimum": 1, "maximum": 2592000 },
+              "availability": { "type": "integer", "minimum": 1, "maximum": 2592000 },
+              "pricing": { "type": "integer", "minimum": 1, "maximum": 2592000 }
+            }
           }
         },
         "conformance": {

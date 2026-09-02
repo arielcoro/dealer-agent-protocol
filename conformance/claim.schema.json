@@ -96,11 +96,12 @@
     "signer": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["organization", "key_id", "signature"],
+      "required": ["organization", "key_id", "algorithm", "signature"],
       "properties": {
         "organization": { "type": "string", "minLength": 1, "maxLength": 200 },
         "key_id": { "type": "string", "minLength": 1, "maxLength": 500 },
-        "signature": { "type": "string", "minLength": 32, "maxLength": 8192 }
+        "algorithm": { "const": "ES256" },
+        "signature": { "type": "string", "pattern": "^[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+$", "maxLength": 8192 }
       }
     }
   }

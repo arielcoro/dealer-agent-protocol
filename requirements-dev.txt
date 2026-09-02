@@ -1,2 +1,4 @@
 jsonschema[format]>=4.23,<5
 PyYAML>=6,<7
+cryptography>=43,<47
+Markdown>=3.7,<4

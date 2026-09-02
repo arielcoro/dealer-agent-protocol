@@ -86,7 +86,7 @@ class PublicReferenceApp:
                 200,
                 {
                     "name": "Dealer Agent Gateway Reference",
-                    "mcp_endpoint": "https://mcp.dealeragentgateway.com/mcp",
+                    "mcp_endpoint": "https://mcp.dealershipmcp.com/mcp",
                     "documentation": "https://dealeragentprotocol.com/",
                     "data_status": "synthetic-reference-only",
                 },

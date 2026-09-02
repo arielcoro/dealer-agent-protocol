@@ -1,4 +1,4 @@
-# Dealer Agent Gateway
+# Dealer Agent Gateway domain transition
 
 Dealer Agent Gateway is the open reference implementation of Dealer Agent Protocol. It exposes a read-only MCP surface for dealer-published vehicle inventory, authoritative availability, advertised pricing, required dealer charges, discounts, rebates, and incentives.
 
@@ -6,8 +6,8 @@ Dealer Agent Protocol is the open specification and conformance contract. Dealer
 
 ## Canonical resources
 
-- Website: https://dealeragentgateway.com/
-- Streamable HTTP endpoint: https://mcp.dealeragentgateway.com/mcp
+- Product website: https://dealershipmcp.com/
+- Open protocol: https://dealeragentprotocol.com/
 - Protocol: https://dealeragentprotocol.com/
 - Founding dealer pilot: https://dealeragentprotocol.com/pilot/
 - MCP Registry metadata: https://dealeragentprotocol.com/server.json
@@ -18,4 +18,4 @@ Dealer Agent Protocol is the open specification and conformance contract. Dealer
 - Privacy Policy: https://dealeragentgateway.com/privacy/
 - Terms of Use: https://dealeragentgateway.com/terms/
 
-Dealer Agent Protocol and Dealer Agent Gateway were created by Ariel Coro.
+The dealeragentgateway.com website redirects to DealershipMCP. “Dealer Agent Gateway” remains the generic role noun in Dealer Agent Protocol. A new MCP endpoint will be listed only after DNS and health verification. Dealer Agent Protocol was created by Ariel Coro.

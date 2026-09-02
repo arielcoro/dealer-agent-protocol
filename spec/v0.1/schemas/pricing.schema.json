@@ -131,7 +131,7 @@
       "required": [
         "disclosure_id", "vehicle_id", "organization_id", "rooftop_id",
         "advertised_price", "required_dealer_charges", "conditional_adjustments",
-        "government_charges", "uncertainty", "provenance", "freshness"
+        "government_charges", "disclosure_completeness", "uncertainty", "provenance", "freshness"
       ],
       "properties": {
         "disclosure_id": { "$ref": "common.schema.json#/$defs/identifier" },
@@ -142,6 +142,35 @@
         "required_dealer_charges": { "type": "array", "items": { "$ref": "#/$defs/dealerCharge" } },
         "conditional_adjustments": { "type": "array", "items": { "$ref": "#/$defs/conditionalAdjustment" } },
         "government_charges": { "$ref": "#/$defs/governmentCharges" },
+        "disclosure_completeness": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["score", "components"],
+          "properties": {
+            "score": { "type": "integer", "minimum": 0, "maximum": 100 },
+            "components": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "advertised_price_present_and_authoritative",
+                "required_dealer_charges_itemized",
+                "conditional_adjustments_have_eligibility_and_stacking",
+                "government_charges_classified",
+                "availability_band"
+              ],
+              "properties": {
+                "advertised_price_present_and_authoritative": { "type": "boolean" },
+                "required_dealer_charges_itemized": { "type": "boolean" },
+                "conditional_adjustments_have_eligibility_and_stacking": { "type": "boolean" },
+                "government_charges_classified": { "type": "boolean" },
+                "availability_band": {
+                  "type": "string",
+                  "enum": ["verified_current", "recent_authoritative", "asserted", "stale", "unknown"]
+                }
+              }
+            }
+          }
+        },
         "disclosure_text": { "type": "string", "maxLength": 4000 },
         "uncertainty": { "$ref": "common.schema.json#/$defs/uncertainty" },
         "provenance": { "$ref": "common.schema.json#/$defs/provenance" },

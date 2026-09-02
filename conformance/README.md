@@ -9,7 +9,12 @@ claim MUST name every claimed profile, include an immutable report digest, and
 be signed by the operator. Failed, skipped, or untested required cases prohibit
 the claim.
 
-The claim schema is [claim.schema.json](claim.schema.json). [example-claim.json](claims/example-claim.json) is deliberately non-production sample data; its signature is not valid.
+Claim signatures use compact JWS with `alg: ES256`. The protected payload is
+the canonical claim without the `signer.signature` member. Verifiers reject any
+other algorithm, unknown key, changed payload, expired claim, or invalid test
+digest.
+
+The claim schema is [claim.schema.json](claim.schema.json). [example-claim.json](claims/example-claim.json) is deliberately non-production sample data; its signature is formatting evidence, not a trusted production signature.
 
 ## Minimum test categories
 
@@ -46,4 +51,4 @@ To retain a machine-readable result:
 PYTHONPATH=reference/python python3 scripts/run_conformance.py --report /tmp/dealeragent-conformance-report.json
 ```
 
-The current suite executes against the in-process reference adapter and its real stdio server. It covers the Core Retail Read bundle only. A transport-neutral adapter contract and remote HTTP/OAuth runner remain future work, so this suite cannot establish production certification.
+The current suite executes against the in-process reference adapter and its real stdio server. It covers Core Retail Read and the synthetic two-phase handoff behavior, including replay, expiry, subject, and cross-rooftop negatives. A transport-neutral remote HTTP/OAuth runner remains future work, so this suite cannot establish production certification.

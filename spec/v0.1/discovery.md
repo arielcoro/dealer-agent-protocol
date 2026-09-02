@@ -17,10 +17,10 @@ available to the caller.
 
 The public manifest lists public capabilities only. An authenticated manifest
 MAY include additional tools, rooftop scope, quotas, and policy requirements.
-Authenticated content uses MCP `cacheScope: "private"`; it MUST NOT expose
+Authenticated content uses MCP `cacheScope: "private"`; it [DAP-DISC-001] MUST NOT expose
 secrets or internal endpoints.
 
-Capability absence is authoritative. A client MUST NOT call or infer a profile
+Capability absence is authoritative. A client [DAP-DISC-002] MUST NOT call or infer a profile
 the manifest does not declare.
 
 ## 3. Required fields
@@ -38,7 +38,25 @@ The manifest includes:
 - freshness and data-authority policies; and
 - conformance claim URL/digest and test result.
 
-## 4. Stable resources
+## 4. Static publication
+
+A dealer without a running gateway MAY publish `/.well-known/dealer-agent.json`
+using `schemas/well-known.schema.json`. The file points to a
+`dealer-agent-inventory-csv/0.1` feed, declares rooftop identity and disclosure
+defaults, and may name an upgrade path to a managed gateway.
+
+A static publication is always `authority: asserted`. It [DAP-DISC-003] MUST NOT advertise or
+imply `verified_current` availability. Clients [DAP-DISC-004] MUST describe its availability
+as a dealer-published assertion and [DAP-DISC-005] MUST NOT turn it into “available now.” Only
+an authenticated gateway check against an authoritative source can upgrade the
+availability band.
+
+The document and its feed [DAP-DISC-006] MUST be served over HTTPS in production. A publisher
+SHOULD allow retrieval by search engines and agent crawlers, SHOULD use an ETag,
+and SHOULD make the declared freshness SLA no shorter than the actual export
+schedule. See `dealer-agent-inventory-csv.md` and the example document.
+
+## 5. Stable resources
 
 The following resource URIs are reserved:
 
@@ -54,7 +72,7 @@ Resource URIs are identifiers, not authorization grants. Every read is
 authorized independently. Resources containing caller-specific or nonpublic
 data use private caching or no effective caching (`ttlMs: 0`).
 
-## 5. Web and A2A advertisement
+## 6. Web and A2A advertisement
 
 A dealer website MAY link to its MCP endpoint or manifest. An optional A2A agent
 card MAY advertise a Dealer Agent Protocol bridge. Neither changes the normative MCP

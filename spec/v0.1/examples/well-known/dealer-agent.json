@@ -1,0 +1,27 @@
+{
+  "dealer_agent_protocol": "0.1",
+  "organization_id": "org.example-motors",
+  "rooftops": [
+    { "rooftop_id": "roof.downtown", "name": "Example Motors Downtown" }
+  ],
+  "gateway": null,
+  "published_feed": {
+    "format": "dealer-agent-inventory-csv/0.1",
+    "url": "https://www.example-motors.com/feeds/inventory.csv",
+    "freshness_sla_seconds": 3600,
+    "authority": "asserted"
+  },
+  "disclosure_defaults": {
+    "required_dealer_charges": [
+      {
+        "label": "Documentation fee",
+        "amount_minor": 89900,
+        "currency": "USD",
+        "included_in_advertised_price": false
+      }
+    ],
+    "government_charges": "unknown"
+  },
+  "handoff": { "adf_endpoint": null, "policy_url": null },
+  "upgrade_path": "https://dealershipmcp.com/connect/"
+}

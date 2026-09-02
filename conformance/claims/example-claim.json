@@ -47,6 +47,7 @@
   "signer": {
     "organization": "Example Motors",
     "key_id": "https://dealer.example/.well-known/jwks.json#conformance-1",
-    "signature": "example-detached-signature-not-valid-for-production"
+    "algorithm": "ES256",
+    "signature": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.ZXhhbXBsZS1jb25mb3JtYW5jZS1jbGFpbQ.c3ludGhldGljLWV4YW1wbGUtc2lnbmF0dXJl"
   }
 }

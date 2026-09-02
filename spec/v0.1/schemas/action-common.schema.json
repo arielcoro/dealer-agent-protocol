@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dealeragentprotocol.com/spec/v0.1/schemas/action-common.schema.json",
+  "title": "Dealer Agent Protocol action types",
+  "$defs": {
+    "idempotencyKey": {
+      "type": "string",
+      "minLength": 16,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9._:-]+$"
+    }
+  }
+}

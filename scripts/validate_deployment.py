@@ -12,7 +12,7 @@ from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
 CANONICAL = "https://dealeragentprotocol.com"
-REMOTE = "https://mcp.dealeragentgateway.com/mcp"
+REMOTE = "https://mcp.dealershipmcp.com/mcp"
 
 
 class LinkCollector(HTMLParser):
@@ -60,7 +60,7 @@ def main() -> int:
 
     server_path = ROOT / "registry" / "server.json"
     server = json.loads(server_path.read_text(encoding="utf-8"))
-    if server.get("name") != "com.dealeragentgateway/reference":
+    if server.get("name") != "com.dealershipmcp/reference":
         failures.append("registry/server.json: unexpected registry name")
     if len(server.get("description", "")) > 100:
         failures.append("registry/server.json: description exceeds registry limit")
@@ -75,6 +75,8 @@ def main() -> int:
         "styles.css",
         "favicon.svg",
         "how-it-works/index.html",
+        "why/index.html",
+        "compare/index.html",
         "adopt/index.html",
         "pilot/index.html",
         "pilot/app.js",
@@ -147,18 +149,15 @@ def main() -> int:
         if not (ROOT / "gateway-site" / "dist" / relative).is_file():
             failures.append(f"gateway-site/dist/{relative}: missing generated publication file")
 
-    gateway_source_text = "\n".join(
-        path.read_text(encoding="utf-8")
-        for path in [
-            ROOT / "gateway-site" / "src" / "index.html",
-            ROOT / "gateway-site" / "src" / "robots.txt",
-            ROOT / "gateway-site" / "src" / "sitemap.xml",
-            ROOT / "gateway-site" / "src" / "llms.txt",
-        ]
-    )
-    for required_value in ["https://dealeragentgateway.com", REMOTE, CANONICAL]:
-        if required_value not in gateway_source_text:
-            failures.append(f"gateway site source: {required_value} is absent")
+    required_product_files = [
+        "index.html", "styles.css", "app.js", "audit/index.html", "connect/index.html",
+        "how-it-works/index.html", "compare/index.html", "live/index.html", "privacy/index.html",
+        "terms/index.html", "robots.txt", "sitemap.xml", "llms.txt", "LICENSE.txt", "NOTICE.txt",
+    ]
+    for relative in required_product_files:
+        if not (ROOT / "dealershipmcp-site" / "dist" / relative).is_file():
+            failures.append(f"dealershipmcp-site/dist/{relative}: missing generated publication file")
+    failures.extend(validate_internal_links(ROOT / "dealershipmcp-site" / "dist"))
     if failures:
         print("Deployment validation failed:", file=sys.stderr)
         for failure in failures:
@@ -167,7 +166,8 @@ def main() -> int:
 
     print(
         f"Validated {len(schema_paths)} canonical schema IDs, registry metadata, "
-        f"{len(required_site_files)} protocol files, and {len(required_gateway_files)} gateway files."
+        f"{len(required_site_files)} protocol files, {len(required_product_files)} product files, "
+        f"and {len(required_gateway_files)} redirect-site files."
     )
     return 0
 

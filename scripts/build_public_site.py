@@ -8,12 +8,16 @@ import json
 import shutil
 from pathlib import Path
 
+import markdown
+
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "site" / "src"
 DIST = ROOT / "site" / "dist"
 GATEWAY_SOURCE = ROOT / "gateway-site" / "src"
 GATEWAY_DIST = ROOT / "gateway-site" / "dist"
+PRODUCT_SOURCE = ROOT / "dealershipmcp-site" / "src"
+PRODUCT_DIST = ROOT / "dealershipmcp-site" / "dist"
 SPEC_SOURCE = ROOT / "spec" / "v0.1"
 
 
@@ -29,6 +33,37 @@ def write_schema_index(schema_dir: Path) -> None:
     (schema_dir / "index.html").write_text(page, encoding="utf-8")
 
 
+def render_comparison(destination: Path, product: bool) -> None:
+    source = (ROOT / "compatibility" / "COMPARISON.md").read_text(encoding="utf-8")
+    content = markdown.markdown(source, extensions=["tables", "fenced_code"])
+    if product:
+        brand = '<a class="brand" href="/"><span class="brand-mark">M</span><span>Dealership<br>MCP</span></a>'
+        stylesheet = "/styles.css"
+        home = "https://dealershipmcp.com/compare/"
+        header_class = "site-header shell"
+        main_class = "interior shell markdown-body"
+        navigation = '<nav><a href="/how-it-works/">How it works</a><a href="/connect/">Connect</a><a href="/live/">Live dealers</a></nav><a class="header-cta" href="/audit/">Free audit →</a>'
+    else:
+        brand = '<a class="wordmark" href="/"><span class="wordmark-mark">D</span><span>Dealer Agent<br>Protocol</span></a>'
+        stylesheet = "/styles.css"
+        home = "https://dealeragentprotocol.com/compare/"
+        header_class = "site-header page-shell"
+        main_class = "page-shell markdown-body"
+        navigation = '<nav><a href="/why/">Why DAP</a><a href="/docs/">Docs</a><a href="/pilot/">Pilot</a></nav><a class="header-cta" href="https://dealershipmcp.com/audit/">Free audit →</a>'
+    faq = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {"@type": "Question", "name": "Is Dealer Agent Protocol the same as Auto Agent Protocol?", "acceptedAnswer": {"@type": "Answer", "text": "No. AAP is an A2A automotive profile. DAP is an MCP-native retail data and disclosure standard. They can run together through an adapter."}},
+            {"@type": "Question", "name": "Can another vendor implement Dealer Agent Protocol?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The specification, schemas, tests, examples, and open gateway are Apache-2.0 licensed."}},
+        ],
+    }
+    article = {"@context": "https://schema.org", "@type": "TechArticle", "headline": "Compare dealer agent standards", "dateModified": "2026-09-02", "author": {"@type": "Person", "name": "Ariel Coro"}, "url": home}
+    page = f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="A dated, sourced comparison of Dealer Agent Protocol, DMC-12, Auto Agent Protocol, and AutomotiveMCP."><link rel="canonical" href="{home}"><link rel="stylesheet" href="{stylesheet}"><title>Compare dealer agent standards</title><script type="application/ld+json">{json.dumps(article)}</script><script type="application/ld+json">{json.dumps(faq)}</script></head><body><header class="{header_class}">{brand}{navigation}</header><main class="{main_class}">{content}</main></body></html>'''
+    destination.mkdir(parents=True, exist_ok=True)
+    (destination / "index.html").write_text(page, encoding="utf-8")
+
+
 def main() -> int:
     if DIST.exists():
         shutil.rmtree(DIST)
@@ -36,11 +71,14 @@ def main() -> int:
     shutil.copytree(SPEC_SOURCE, DIST / "spec" / "v0.1")
     (DIST / "conformance").mkdir(parents=True, exist_ok=True)
     shutil.copy2(ROOT / "conformance" / "claim.schema.json", DIST / "conformance" / "claim.schema.json")
+    (DIST / "conformance" / "claims").mkdir(parents=True, exist_ok=True)
+    shutil.copy2(ROOT / "conformance" / "claims" / "example-claim.json", DIST / "conformance" / "claims" / "example-claim.json")
     shutil.copy2(ROOT / "registry" / "server.json", DIST / "server.json")
     write_schema_index(DIST / "spec" / "v0.1" / "schemas")
     shutil.copy2(ROOT / "LICENSE", DIST / "LICENSE.txt")
     shutil.copy2(ROOT / "NOTICE", DIST / "NOTICE.txt")
     shutil.copy2(ROOT / "CONTRIBUTING.md", DIST / "CONTRIBUTING.md")
+    render_comparison(DIST / "compare", product=False)
 
     if GATEWAY_DIST.exists():
         shutil.rmtree(GATEWAY_DIST)
@@ -50,8 +88,16 @@ def main() -> int:
     shutil.copy2(ROOT / "NOTICE", GATEWAY_DIST / "NOTICE.txt")
     shutil.copy2(ROOT / "CONTRIBUTING.md", GATEWAY_DIST / "CONTRIBUTING.md")
 
+    if PRODUCT_DIST.exists():
+        shutil.rmtree(PRODUCT_DIST)
+    shutil.copytree(PRODUCT_SOURCE, PRODUCT_DIST)
+    render_comparison(PRODUCT_DIST / "compare", product=True)
+    shutil.copy2(ROOT / "LICENSE", PRODUCT_DIST / "LICENSE.txt")
+    shutil.copy2(ROOT / "NOTICE", PRODUCT_DIST / "NOTICE.txt")
+
     print(f"Built protocol site at {DIST}")
     print(f"Built gateway site at {GATEWAY_DIST}")
+    print(f"Built DealershipMCP site at {PRODUCT_DIST}")
     return 0
 
 

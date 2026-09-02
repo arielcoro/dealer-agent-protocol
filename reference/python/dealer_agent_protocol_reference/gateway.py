@@ -7,11 +7,18 @@ import hashlib
 import hmac
 import json
 import os
+import secrets
+from xml.sax.saxutils import escape
 from copy import deepcopy
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence
 from uuid import uuid4
+
+from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives.asymmetric import ec
+from cryptography.exceptions import InvalidSignature
+from cryptography.hazmat.primitives.asymmetric.utils import decode_dss_signature, encode_dss_signature
 
 from .auth import AuthContext
 from .errors import GatewayError, not_found
@@ -66,6 +73,27 @@ TOOL_SPECS: Dict[str, Dict[str, Any]] = {
         "output": "pricing.schema.json#/$defs/pricingDisclosure",
         "annotations": {"readOnlyHint": True, "destructiveHint": False, "idempotentHint": True, "openWorldHint": False},
     },
+    "dealeragent.handoff.get_policy": {
+        "title": "Get consented handoff policy",
+        "description": "Return accepted handoff purposes, channels, disclosure, retention, response commitment, and delivery availability.",
+        "input": "handoff.schema.json#/$defs/policyRequest",
+        "output": "handoff.schema.json#/$defs/handoffPolicy",
+        "annotations": {"readOnlyHint": True, "destructiveHint": False, "idempotentHint": True, "openWorldHint": False},
+    },
+    "dealeragent.handoff.prepare": {
+        "title": "Prepare a consented handoff",
+        "description": "Create an ES256-signed, expiring, single-use consent binding without accepting customer PII.",
+        "input": "handoff.schema.json#/$defs/prepareRequest",
+        "output": "consent.schema.json#/$defs/consentBinding",
+        "annotations": {"readOnlyHint": False, "destructiveHint": False, "idempotentHint": True, "openWorldHint": False},
+    },
+    "dealeragent.handoff.submit": {
+        "title": "Submit a consented handoff",
+        "description": "Verify and consume a consent binding, then create a synthetic ADF/XML handoff.",
+        "input": "handoff.schema.json#/$defs/handoffRequest",
+        "output": "handoff.schema.json#/$defs/handoffResult",
+        "annotations": {"readOnlyHint": False, "destructiveHint": False, "idempotentHint": True, "openWorldHint": True},
+    },
 }
 
 
@@ -91,6 +119,9 @@ class Gateway:
         self.cursor_secret = cursor_secret
         self.trace_factory = trace_factory or (lambda: f"trace.{uuid4().hex}")
         self.published_vehicle_ids = {vehicle["vehicle_id"] for vehicle in self.data["vehicles"]}
+        self._signing_key = ec.generate_private_key(ec.SECP256R1())
+        self._bindings: Dict[str, Dict[str, Any]] = {}
+        self._handoff_results: Dict[str, Dict[str, Any]] = {}
 
     @staticmethod
     def demo_grant() -> AuthContext:
@@ -98,7 +129,7 @@ class Gateway:
             "operator:reference-demo",
             [ORGANIZATION_ID],
             [DOWNTOWN],
-            ["dealeragent:inventory:read", "dealeragent:pricing:read"],
+            ["dealeragent:inventory:read", "dealeragent:pricing:read", "dealeragent:handoff:submit"],
         )
 
     def tool_definitions(self) -> List[Dict[str, Any]]:
@@ -155,6 +186,16 @@ class Gateway:
                     "tools": ["dealeragent.pricing.get_disclosure"],
                     "scopes": ["dealeragent:pricing:read"],
                 },
+                {
+                    "profile": "dealeragent.handoff/0.1",
+                    "status": "supported",
+                    "tools": [
+                        "dealeragent.handoff.get_policy",
+                        "dealeragent.handoff.prepare",
+                        "dealeragent.handoff.submit",
+                    ],
+                    "scopes": ["dealeragent:handoff:submit"],
+                },
             ],
             "resources": ["dealeragent://manifest", f"dealeragent://organization/{ORGANIZATION_ID}"],
             "auth_modes": ["public", "workload_identity"],
@@ -169,6 +210,10 @@ class Gateway:
                 "uri": "https://dealer.example/reference-agent-policy#data-authority",
                 "inventory_max_age_seconds": 900,
                 "authoritative_availability_required_for_actions": True,
+            },
+            "freshness_sla_seconds": {
+                DOWNTOWN: {"inventory": 900, "availability": 120, "pricing": 3600},
+                NORTH: {"inventory": 900, "availability": 120, "pricing": 3600},
             },
             "conformance": {
                 "claim_uri": "https://dealer.example/conformance/reference-example-claim.json",
@@ -198,6 +243,9 @@ class Gateway:
             "dealeragent.inventory.get_vehicle": self._get_vehicle,
             "dealeragent.inventory.verify_availability": self._verify_availability,
             "dealeragent.pricing.get_disclosure": self._get_pricing,
+            "dealeragent.handoff.get_policy": self._get_handoff_policy,
+            "dealeragent.handoff.prepare": self._prepare_handoff,
+            "dealeragent.handoff.submit": self._submit_handoff,
         }
         result = handlers[name](arguments, auth)
         try:
@@ -305,6 +353,195 @@ class Gateway:
             raise not_found()
         vehicle = self._find_vehicle(arguments, published_only=True)
         return deepcopy(self.data["pricing"][vehicle["vehicle_id"]])
+
+    def _get_handoff_policy(self, arguments: Dict[str, Any], auth: Optional[AuthContext]) -> Dict[str, Any]:
+        if arguments["organization_id"] != ORGANIZATION_ID or arguments["rooftop_id"] not in {DOWNTOWN, NORTH}:
+            raise not_found()
+        observed = self.now - timedelta(minutes=1)
+        return {
+            "organization_id": ORGANIZATION_ID,
+            "rooftop_id": arguments["rooftop_id"],
+            "accepted_purposes": ["vehicle_inquiry", "quote_follow_up"],
+            "accepted_channels": ["email", "sms", "voice"],
+            "required_data_categories": ["contact"],
+            "optional_data_categories": ["vehicle_interest", "message"],
+            "disclosure_text": "By continuing, you ask Example Motors to contact you about this vehicle using the channels you select. Your contact details will be sent to the dealership and retained under its published privacy policy.",
+            "disclosure_version": "example-handoff-2026-09-02",
+            "retention_ceiling_days": 30,
+            "response_commitment_seconds": 900,
+            "adf_destination_present": True,
+            "provenance": {
+                "sources": [{"source_name": "reference-handoff-policy", "authority": "dealer_asserted", "observed_at": self._timestamp(observed)}],
+                "authority_status": "asserted",
+                "transformed_at": self._timestamp(self.now),
+            },
+            "freshness": {
+                "observed_at": self._timestamp(observed),
+                "valid_until": self._timestamp(self.now + timedelta(hours=1)),
+                "state": "current",
+                "max_age_seconds": 3600,
+            },
+        }
+
+    def _prepare_handoff(self, arguments: Dict[str, Any], auth: Optional[AuthContext]) -> Dict[str, Any]:
+        self._require_grant(auth, arguments["organization_id"], arguments["rooftop_id"], "dealeragent:handoff:submit")
+        policy = self._get_handoff_policy(
+            {"organization_id": arguments["organization_id"], "rooftop_id": arguments["rooftop_id"]}, auth
+        )
+        if arguments["purpose"] not in policy["accepted_purposes"]:
+            raise GatewayError("dealeragent.validation.invalid", "The requested handoff purpose is not accepted.")
+        if not set(arguments["requested_channels"]).issubset(policy["accepted_channels"]):
+            raise GatewayError("dealeragent.validation.invalid", "One or more requested handoff channels are not accepted.")
+        accepted_categories = set(policy["required_data_categories"] + policy["optional_data_categories"])
+        if not set(arguments["requested_data_categories"]).issubset(accepted_categories):
+            raise GatewayError("dealeragent.validation.invalid", "One or more requested data categories are not accepted.")
+
+        existing = next(
+            (item for item in self._bindings.values() if item["idempotency_key"] == arguments["idempotency_key"]), None
+        )
+        if existing:
+            return deepcopy(existing["public"])
+
+        binding_id = f"binding.{uuid4().hex}"
+        expires = self.now + timedelta(minutes=10)
+        disclosure_digest = f"sha256:{hashlib.sha256(policy['disclosure_text'].encode('utf-8')).hexdigest()}"
+        grant = {
+            "purpose": arguments["purpose"],
+            "channels": arguments["requested_channels"],
+            "data_categories": arguments["requested_data_categories"],
+            "disclosure_version": policy["disclosure_version"],
+            "disclosure_digest": disclosure_digest,
+            "granted_at": self._timestamp(self.now),
+            "expires_at": self._timestamp(expires),
+        }
+        signed_claims = {
+            "binding_id": binding_id,
+            "organization_id": arguments["organization_id"],
+            "rooftop_id": arguments["rooftop_id"],
+            "vehicle_id": arguments.get("vehicle_id"),
+            "subject_binding": arguments["subject_binding"],
+            "grant": grant,
+            "single_use": True,
+            "exp": int(expires.timestamp()),
+            "nonce": secrets.token_urlsafe(16),
+        }
+        token = self._sign_jws(signed_claims)
+        observed = self.now
+        public = {
+            "binding_id": binding_id,
+            "organization_id": arguments["organization_id"],
+            "rooftop_id": arguments["rooftop_id"],
+            **({"vehicle_id": arguments["vehicle_id"]} if arguments.get("vehicle_id") else {}),
+            "grant": grant,
+            "status": "prepared",
+            "disclosure_text": policy["disclosure_text"],
+            "subject_binding": arguments["subject_binding"],
+            "single_use": True,
+            "expires_at": self._timestamp(expires),
+            "binding_token": token,
+            "issuer": "https://dealer.example/reference-gateway",
+            "signature": token,
+            "signature_algorithm": "ES256",
+            "provenance": {
+                "sources": [{"source_name": "reference-consent-service", "authority": "authoritative_dealer_system", "observed_at": self._timestamp(observed)}],
+                "authority_status": "authoritative",
+                "transformed_at": self._timestamp(observed),
+            },
+            "freshness": {"observed_at": self._timestamp(observed), "valid_until": self._timestamp(expires), "state": "current", "max_age_seconds": 600},
+        }
+        self._bindings[binding_id] = {"public": public, "claims": signed_claims, "consumed": False, "idempotency_key": arguments["idempotency_key"]}
+        return deepcopy(public)
+
+    def _submit_handoff(self, arguments: Dict[str, Any], auth: Optional[AuthContext]) -> Dict[str, Any]:
+        self._require_grant(auth, arguments["organization_id"], arguments["rooftop_id"], "dealeragent:handoff:submit")
+        if arguments["idempotency_key"] in self._handoff_results:
+            duplicate = deepcopy(self._handoff_results[arguments["idempotency_key"]])
+            duplicate["status"] = "duplicate"
+            return duplicate
+
+        record = self._bindings.get(arguments["binding_id"])
+        if record is None or arguments["binding_token"] != record["public"]["binding_token"]:
+            raise GatewayError("dealeragent.binding.invalid", "The consent binding is invalid.")
+        if not self._verify_jws(arguments["binding_token"], record["claims"]):
+            raise GatewayError("dealeragent.binding.invalid", "The consent binding is invalid.")
+        claims = record["claims"]
+        if record["consumed"]:
+            raise GatewayError("dealeragent.binding.invalid", "The consent binding is invalid.")
+        if int(claims["exp"]) <= int(self.now.timestamp()):
+            raise GatewayError("dealeragent.binding.invalid", "The consent binding is invalid.")
+        if claims["organization_id"] != arguments["organization_id"] or claims["rooftop_id"] != arguments["rooftop_id"]:
+            raise GatewayError("dealeragent.binding.invalid", "The consent binding is invalid.")
+        if claims["subject_binding"] != arguments["subject_binding"]:
+            raise GatewayError("dealeragent.binding.invalid", "The consent binding is invalid.")
+        if claims.get("vehicle_id") and arguments.get("vehicle_id") != claims["vehicle_id"]:
+            raise GatewayError("dealeragent.binding.invalid", "The consent binding is invalid.")
+        if not set(arguments["contact"]["preferred_channels"]).issubset(claims["grant"]["channels"]):
+            raise GatewayError("dealeragent.binding.invalid", "The consent binding is invalid.")
+
+        record["consumed"] = True
+        handoff_id = f"handoff.{uuid4().hex}"
+        adf_xml = self._build_adf(handoff_id, arguments)
+        result = {
+            "handoff_id": handoff_id,
+            "organization_id": arguments["organization_id"],
+            "rooftop_id": arguments["rooftop_id"],
+            "status": "accepted",
+            "binding_status": "consumed",
+            "department": "internet_sales",
+            "external_reference": f"reference:{handoff_id}",
+            "adf_xml": adf_xml,
+            "provenance": {
+                "sources": [{"source_name": "reference-adf-emitter", "authority": "authoritative_dealer_system", "observed_at": self._timestamp(self.now)}],
+                "authority_status": "authoritative",
+                "transformed_at": self._timestamp(self.now),
+            },
+            "freshness": {"observed_at": self._timestamp(self.now), "valid_until": self._timestamp(self.now + timedelta(minutes=15)), "state": "current", "max_age_seconds": 900},
+            "trace_id": self.trace_factory(),
+        }
+        self._handoff_results[arguments["idempotency_key"]] = deepcopy(result)
+        return result
+
+    def _sign_jws(self, claims: Dict[str, Any]) -> str:
+        header = self._b64(json.dumps({"alg": "ES256", "typ": "JWT"}, sort_keys=True, separators=(",", ":")).encode("utf-8"))
+        payload = self._b64(json.dumps(claims, sort_keys=True, separators=(",", ":")).encode("utf-8"))
+        signing_input = f"{header}.{payload}".encode("ascii")
+        der_signature = self._signing_key.sign(signing_input, ec.ECDSA(hashes.SHA256()))
+        r, s = decode_dss_signature(der_signature)
+        signature = self._b64(r.to_bytes(32, "big") + s.to_bytes(32, "big"))
+        return f"{header}.{payload}.{signature}"
+
+    def _verify_jws(self, token: str, expected_claims: Dict[str, Any]) -> bool:
+        try:
+            header, payload, signature = token.split(".")
+            decoded_header = json.loads(self._unb64(header))
+            decoded_claims = json.loads(self._unb64(payload))
+            raw_signature = self._unb64(signature)
+            if decoded_header != {"alg": "ES256", "typ": "JWT"} or decoded_claims != expected_claims or len(raw_signature) != 64:
+                return False
+            r = int.from_bytes(raw_signature[:32], "big")
+            s = int.from_bytes(raw_signature[32:], "big")
+            self._signing_key.public_key().verify(
+                encode_dss_signature(r, s), f"{header}.{payload}".encode("ascii"), ec.ECDSA(hashes.SHA256())
+            )
+            return True
+        except (ValueError, TypeError, json.JSONDecodeError, InvalidSignature):
+            return False
+
+    @staticmethod
+    def _build_adf(handoff_id: str, arguments: Dict[str, Any]) -> str:
+        contact = arguments["contact"]
+        email = f"<email>{escape(contact['email'])}</email>" if contact.get("email") else ""
+        phone = f"<phone>{escape(contact['phone'])}</phone>" if contact.get("phone") else ""
+        vehicle = f"<vehicle><id source=\"dealeragent\">{escape(arguments['vehicle_id'])}</id></vehicle>" if arguments.get("vehicle_id") else ""
+        comments = f"<comments>{escape(arguments['message'])}</comments>" if arguments.get("message") else ""
+        return (
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+            f"<adf><prospect><id source=\"dealeragent\">{escape(handoff_id)}</id><requestdate>{Gateway._timestamp(datetime.now(timezone.utc))}</requestdate>"
+            f"{vehicle}<customer><contact><name part=\"full\">{escape(contact['name'])}</name>{email}{phone}</contact>{comments}</customer>"
+            f"<vendor><id source=\"dealeragent\">{escape(arguments['rooftop_id'])}</id><vendorname>Example Motors</vendorname></vendor>"
+            f"<provider><name part=\"full\">Dealer Agent Protocol reference gateway</name><service>consented agent handoff</service></provider>"
+            "</prospect></adf>"
+        )
 
     def _find_vehicle(self, arguments: Dict[str, Any], published_only: bool) -> Dict[str, Any]:
         if arguments["organization_id"] != ORGANIZATION_ID or arguments["rooftop_id"] not in {DOWNTOWN, NORTH}:

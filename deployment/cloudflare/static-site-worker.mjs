@@ -2,7 +2,7 @@ const SECURITY_HEADERS = {
   "Content-Security-Policy": [
     "default-src 'self'",
     "base-uri 'self'",
-    "connect-src 'self' https://mcp.dealeragentgateway.com",
+    "connect-src 'self' https://mcp.dealershipmcp.com",
     "font-src 'self' https://fonts.gstatic.com",
     "form-action 'self'",
     "frame-ancestors 'none'",
@@ -171,6 +171,10 @@ async function handlePilotApplication(request, env, requestUrl) {
 export default {
   async fetch(request, env) {
     const requestUrl = new URL(request.url);
+    if (requestUrl.hostname === "dealeragentgateway.com") {
+      const target = new URL(requestUrl.pathname + requestUrl.search, "https://dealershipmcp.com");
+      return Response.redirect(target.toString(), 301);
+    }
     if (requestUrl.hostname === PILOT_HOST && requestUrl.pathname === PILOT_PATH) {
       return handlePilotApplication(request, env, requestUrl);
     }

@@ -6,7 +6,7 @@ This deployment publishes three deliberately separate surfaces:
 |---|---|---|
 | Protocol publication | `https://dealeragentprotocol.com` | Specification, schemas, documentation, and registry metadata |
 | Gateway website | `https://dealeragentgateway.com` | Human-facing implementation overview, boundary, and connection details |
-| Synthetic reference gateway | `https://mcp.dealeragentgateway.com/mcp` | Public Streamable HTTP MCP endpoint for discovery and interoperability testing |
+| Synthetic reference gateway | `https://mcp.dealershipmcp.com/mcp` | Public Streamable HTTP MCP endpoint for discovery and interoperability testing |
 
 The reference gateway is never a production dealer integration. It exposes
 synthetic data and an operator-controlled synthetic grant only.
@@ -64,7 +64,7 @@ Deploy the same image to an ASGI-capable container service. Set:
 - `DEALER_AGENT_ALLOWED_ORIGINS=https://dealeragentprotocol.com,https://dealeragentgateway.com`; and
 - `DEALER_AGENT_PROJECT_ROOT=/app`.
 
-Map `mcp.dealeragentgateway.com` to the service and require HTTPS. The service
+Map `mcp.dealershipmcp.com` to the service and require HTTPS. The service
 exposes:
 
 - `POST /mcp` — stateless MCP requests;

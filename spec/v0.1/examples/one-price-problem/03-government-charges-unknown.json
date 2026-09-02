@@ -1,0 +1,24 @@
+{
+  "vector_id": "one-price.government-charges-unknown",
+  "question": "What is my out-the-door price?",
+  "unsafe_scalar_answer": "$43,870 out the door",
+  "facts": {
+    "advertised_price_minor": 4287500,
+    "currency": "USD",
+    "required_dealer_charges": [
+      {
+        "name": "Documentation fee",
+        "amount_minor": 99500,
+        "included_in_advertised_price": true
+      }
+    ],
+    "conditional_adjustments": [],
+    "government_charges_status": "unknown",
+    "government_charge_assumptions": ["Buyer registration jurisdiction has not been supplied."]
+  },
+  "required_answer_facts": [
+    "The advertised price is $42,875 and includes the $995 documentation fee.",
+    "An out-the-door price is not calculated because taxes and registration depend on buyer facts."
+  ],
+  "forbidden_claims": ["Taxes and registration are $0.", "The out-the-door price is known."]
+}

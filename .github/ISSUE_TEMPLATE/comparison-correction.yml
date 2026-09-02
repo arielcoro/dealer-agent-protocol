@@ -1,0 +1,37 @@
+name: Comparison correction
+description: Correct a factual or dated claim on the standards comparison page.
+title: "[comparison] "
+labels: ["comparison", "documentation"]
+body:
+  - type: input
+    id: claim
+    attributes:
+      label: Claim to correct
+      description: Quote the smallest relevant claim and name its section.
+    validations:
+      required: true
+  - type: textarea
+    id: correction
+    attributes:
+      label: Proposed correction
+      description: State the corrected fact and effective date.
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Primary source
+      description: Link directly to an official specification, release, repository, or announcement.
+    validations:
+      required: true
+  - type: dropdown
+    id: affiliation
+    attributes:
+      label: Your relationship to the project
+      options:
+        - Maintainer or contributor
+        - Implementer or vendor
+        - Independent reviewer
+        - Other / prefer not to say
+    validations:
+      required: true

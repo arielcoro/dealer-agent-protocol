@@ -1,0 +1,8 @@
+{
+  "name": "dealer-agent",
+  "version": "0.1.0-dev.1",
+  "description": "Audit and conformance CLI for Dealer Agent Protocol",
+  "license": "Apache-2.0",
+  "type": "module",
+  "bin": { "dealer-agent": "./src/cli.js" }
+}

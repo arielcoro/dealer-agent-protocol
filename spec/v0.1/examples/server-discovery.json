@@ -43,6 +43,9 @@
     "inventory_max_age_seconds": 900,
     "authoritative_availability_required_for_actions": true
   },
+  "freshness_sla_seconds": {
+    "roof.downtown": { "inventory": 900, "availability": 120, "pricing": 3600 }
+  },
   "conformance": {
     "claim_uri": "https://dealer.example/conformance/dealeragent-claim.json",
     "claim_digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"

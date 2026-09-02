@@ -2,6 +2,26 @@
 
 All notable changes to Dealer Agent Protocol are recorded here.
 
+## Unreleased — 2026-09-02
+
+- Added the zero-server `/.well-known/dealer-agent.json` publication path,
+  schema, example, and Dealer Agent Inventory CSV 0.1 format.
+- Added the first Dealer.com-style CSV adapter and executable edge-case tests.
+- Promoted the two-phase consented handoff as a separately claimed profile with
+  ES256 consent bindings, ADF output, and replay/expiry/subject/rooftop tests.
+- Added disclosure completeness, per-rooftop freshness SLAs, five availability
+  bands, DMC-12 trust-level credits, and requirement IDs for every normative
+  MUST.
+- Published the One Price Problem paper and three golden vectors.
+- Added TypeScript and Python client safety helpers plus the `dealer-agent` CLI
+  scaffold.
+- Rebuilt the Dealer Agent Protocol and DealershipMCP sites around human
+  explanations, accessible diagrams, a sourced comparison, the free AI Answer
+  Audit, and a public conformance/rooftop evidence path.
+- Deployed the synthetic reference endpoint at
+  `https://mcp.dealershipmcp.com/mcp` and retained the legacy MCP hostname as an
+  alias while redirecting the gateway marketing domain to DealershipMCP.
+
 ## 0.1.0-draft.1 — 2026-09-01
 
 - Established MCP `2026-07-28` as the normative transport baseline.

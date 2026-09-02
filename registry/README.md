@@ -7,7 +7,7 @@ itself. The canonical protocol publication remains
 
 Before publication:
 
-1. deploy and test `https://mcp.dealeragentgateway.com/mcp`;
+1. deploy and test `https://mcp.dealershipmcp.com/mcp`;
 2. add the public source repository to `server.json` after its final URL is
    known;
 3. install the official `mcp-publisher` release;

@@ -26,7 +26,7 @@ exactly using the currency exponent or fails; it never silently rounds.
 ### 3.1 Advertised price
 
 `advertised_price` is the generally available vehicle offering price before
-buyer-specific government charges. It MUST reflect the dealer's actual
+buyer-specific government charges. It [DAP-PR-001] MUST reflect the dealer's actual
 published offer. A conditional price is represented as the generally available
 amount plus separate conditional adjustments; it is not labeled as the
 advertised price.
@@ -35,7 +35,7 @@ advertised price.
 
 Every dealer-imposed charge required of all buyers is itemized with amount,
 payee, taxable status when known, and whether already included in the advertised
-price. An implementation MUST NOT omit a mandatory dealer charge merely because
+price. An implementation [DAP-PR-002] MUST NOT omit a mandatory dealer charge merely because
 the website displays it in a disclaimer.
 
 ### 3.3 Conditional adjustments
@@ -52,7 +52,7 @@ conditions are separate adjustments. Each includes:
 - stacking group and explicit combinability rules; and
 - source/provenance.
 
-The gateway MUST NOT present a conditional adjustment as generally available.
+The gateway [DAP-PR-003] MUST NOT present a conditional adjustment as generally available.
 Version 0.1 describes the eligibility rule and evidence requirement but does not
 collect customer PII or make a buyer-specific eligibility determination.
 

@@ -45,7 +45,7 @@ stack trace, SQL, upstream body, or foreign resource identifier.
 | `dealeragent.upstream.unavailable` | yes | Authoritative system is temporarily unavailable |
 | `dealeragent.internal` | yes | Unexpected gateway failure |
 
-`retryable` is derived from the code. A server MUST NOT accept it from caller
+`retryable` is derived from the code. A server [DAP-ERR-001] MUST NOT accept it from caller
 input or override it ad hoc. A retryable response SHOULD include bounded retry
 guidance when known.
 
@@ -53,7 +53,7 @@ guidance when known.
 
 Validation errors SHOULD return every safe, currently detectable violation with
 JSON Pointer `instance_location`, failed `keyword`, and a bounded explanation.
-They MUST NOT echo sensitive input values.
+They [DAP-ERR-002] MUST NOT echo sensitive input values.
 
 ## 4. Enumeration resistance
 

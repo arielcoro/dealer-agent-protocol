@@ -1,0 +1,24 @@
+{
+  "vector_id": "one-price.required-charge-not-included",
+  "question": "What is the price before tax and registration?",
+  "unsafe_scalar_answer": "$31,995",
+  "facts": {
+    "advertised_price_minor": 3199500,
+    "currency": "USD",
+    "required_dealer_charges": [
+      {
+        "name": "Documentation fee",
+        "amount_minor": 89900,
+        "included_in_advertised_price": false
+      }
+    ],
+    "conditional_adjustments": [],
+    "government_charges_status": "unknown"
+  },
+  "required_answer_facts": [
+    "The advertised price is $31,995.",
+    "An additional required $899 documentation fee applies.",
+    "The disclosed subtotal before government charges is $32,894."
+  ],
+  "forbidden_claims": ["$31,995 is the complete price before government charges."]
+}

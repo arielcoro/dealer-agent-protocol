@@ -11,7 +11,9 @@
     "pilot:count": "wrangler d1 execute dealer-agent-pilot --config deployment/cloudflare/wrangler.jsonc --remote --command \"SELECT status, COUNT(*) AS applications FROM pilot_applications GROUP BY status ORDER BY status\"",
     "deploy:protocol": "wrangler deploy --config deployment/cloudflare/wrangler.jsonc",
     "deploy:gateway-site": "wrangler deploy --config deployment/cloudflare/gateway-site.wrangler.jsonc",
-    "deploy:sites": "npm run build:sites && npm run deploy:protocol && npm run deploy:gateway-site"
+    "deploy:product": "wrangler deploy --config deployment/cloudflare/dealershipmcp.wrangler.jsonc",
+    "deploy:reference": "wrangler deploy --config deployment/cloudflare/reference-gateway.wrangler.jsonc",
+    "deploy:sites": "npm run build:sites && npm run deploy:protocol && npm run deploy:product && npm run deploy:gateway-site"
   },
   "devDependencies": {
     "wrangler": "^4.0.0"

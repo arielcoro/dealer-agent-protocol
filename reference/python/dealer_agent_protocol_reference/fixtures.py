@@ -177,6 +177,16 @@ def _pricing(vehicle: Dict[str, Any], now: datetime, stale: bool = False) -> Dic
                 "government-charge-policy",
             ),
         },
+        "disclosure_completeness": {
+            "score": 85 if not stale else 60,
+            "components": {
+                "advertised_price_present_and_authoritative": not stale,
+                "required_dealer_charges_itemized": True,
+                "conditional_adjustments_have_eligibility_and_stacking": True,
+                "government_charges_classified": True,
+                "availability_band": "recent_authoritative" if not stale else "stale",
+            },
+        },
         "disclosure_text": "Government charges depend on buyer and registration facts. Conditional incentives require verification.",
         "uncertainty": {
             "status": "unknown",

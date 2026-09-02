@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import re
 import sys
 from pathlib import Path
 from urllib.parse import unquote, urlparse
@@ -43,6 +44,17 @@ def references(value):
 
 def main() -> int:
     failures: list[str] = []
+
+    must_pattern = re.compile(r"\bMUST(?: NOT)?\b")
+    requirement_tag = re.compile(r"\[DAP-[A-Z0-9-]+-\d{3}\]\s+MUST(?: NOT)?")
+    for normative_path in sorted((ROOT / "spec" / "v0.1").glob("*.md")):
+        for line_number, line in enumerate(normative_path.read_text(encoding="utf-8").splitlines(), 1):
+            if "key words" in line:
+                continue
+            must_count = len(must_pattern.findall(line))
+            tag_count = len(requirement_tag.findall(line))
+            if must_count != tag_count:
+                failures.append(f"{normative_path.relative_to(ROOT)}:{line_number}: untagged MUST requirement")
     schema_paths = sorted(SCHEMA_DIR.glob("*.schema.json")) + [ROOT / "conformance" / "claim.schema.json"]
     schemas = {path: load_json(path) for path in schema_paths}
 
@@ -127,6 +139,26 @@ def main() -> int:
         ROOT / "spec" / "v0.1" / "examples" / "vehicle-detail.json": (SCHEMA_DIR / "vehicle.schema.json", "vehicle"),
         ROOT / "conformance" / "claims" / "example-claim.json": (ROOT / "conformance" / "claim.schema.json", None),
     }
+
+    well_known_path = ROOT / "spec" / "v0.1" / "examples" / "well-known" / "dealer-agent.json"
+    well_known_schema = schemas[SCHEMA_DIR / "well-known.schema.json"]
+    well_known_validator = Draft202012Validator(well_known_schema, registry=registry, format_checker=FormatChecker())
+    for error in sorted(well_known_validator.iter_errors(load_json(well_known_path)), key=lambda item: list(item.path)):
+        location = "/".join(str(part) for part in error.absolute_path) or "<root>"
+        failures.append(f"{well_known_path.relative_to(ROOT)}:{location}: {error.message}")
+
+    for vector_path in sorted((ROOT / "spec" / "v0.1" / "examples" / "one-price-problem").glob("*.json")):
+        vector = load_json(vector_path)
+        facts = vector.get("facts", {})
+        if not vector.get("required_answer_facts") or not vector.get("forbidden_claims"):
+            failures.append(f"{vector_path.relative_to(ROOT)}: answer requirements are missing")
+        if facts.get("government_charges_status") == "unknown" and any(
+            "$0" in claim for claim in vector.get("required_answer_facts", [])
+        ):
+            failures.append(f"{vector_path.relative_to(ROOT)}: unknown government charges were upgraded to zero")
+        for adjustment in facts.get("conditional_adjustments", []):
+            if not adjustment.get("eligibility") or not adjustment.get("stacking"):
+                failures.append(f"{vector_path.relative_to(ROOT)}: conditional adjustment lacks eligibility or stacking")
 
     checker = FormatChecker()
     for example_path, (schema_path, definition) in examples.items():

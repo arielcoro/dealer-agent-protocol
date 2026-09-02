@@ -51,6 +51,15 @@ profiles:
     scopes:
       - dealeragent:pricing:read
 
+  dealeragent.handoff/0.1:
+    status: draft
+    required_tools:
+      - dealeragent.handoff.get_policy
+      - dealeragent.handoff.prepare
+      - dealeragent.handoff.submit
+    scopes:
+      - dealeragent:handoff:submit
+
 tools:
   dealeragent.discovery.get_manifest:
     effect: read
@@ -171,3 +180,63 @@ tools:
     legal_or_financial_commitment: false
     freshness_authority: dealer_pricing_authority
     audit: access_log
+
+  dealeragent.handoff.get_policy:
+    effect: read
+    mcp_annotations:
+      readOnlyHint: true
+      destructiveHint: false
+      idempotentHint: true
+      openWorldHint: false
+    input_schema: schemas/handoff.schema.json#/$defs/policyRequest
+    output_schema: schemas/handoff.schema.json#/$defs/handoffPolicy
+    public_access: allowed
+    confirmation: none
+    idempotency: inherent
+    pii_input: none
+    pii_output: none
+    retention: none
+    reversible: true
+    legal_or_financial_commitment: false
+    freshness_authority: dealer_handoff_policy
+    audit: access_log
+
+  dealeragent.handoff.prepare:
+    effect: create_consent_binding
+    mcp_annotations:
+      readOnlyHint: false
+      destructiveHint: false
+      idempotentHint: true
+      openWorldHint: false
+    input_schema: schemas/handoff.schema.json#/$defs/prepareRequest
+    output_schema: schemas/consent.schema.json#/$defs/consentBinding
+    public_access: authenticated
+    confirmation: exact_disclosure_required_before_submit
+    idempotency: required
+    pii_input: prohibited
+    pii_output: none
+    retention: binding_lifetime_plus_audit_policy
+    reversible: true_before_submit
+    legal_or_financial_commitment: false
+    freshness_authority: dealer_handoff_policy
+    audit: consent_prepare_event_without_pii
+
+  dealeragent.handoff.submit:
+    effect: create_and_forward_handoff
+    mcp_annotations:
+      readOnlyHint: false
+      destructiveHint: false
+      idempotentHint: true
+      openWorldHint: true
+    input_schema: schemas/handoff.schema.json#/$defs/handoffRequest
+    output_schema: schemas/handoff.schema.json#/$defs/handoffResult
+    public_access: authenticated
+    confirmation: valid_single_use_consent_binding_required
+    idempotency: required
+    pii_input: consent_bound_contact_only
+    pii_output: none
+    retention: dealer_policy_and_law
+    reversible: false_after_forwarding
+    legal_or_financial_commitment: false
+    freshness_authority: dealer_handoff_policy
+    audit: consent_submit_event_with_pii_redaction

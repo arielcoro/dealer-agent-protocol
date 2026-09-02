@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dealeragentprotocol.com/spec/v0.1/schemas/well-known.schema.json",
+  "title": "Dealer Agent Protocol static publication",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["dealer_agent_protocol", "organization_id", "rooftops", "gateway", "published_feed", "disclosure_defaults", "handoff"],
+  "properties": {
+    "dealer_agent_protocol": { "const": "0.1" },
+    "organization_id": { "$ref": "common.schema.json#/$defs/identifier" },
+    "rooftops": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["rooftop_id", "name"],
+        "properties": {
+          "rooftop_id": { "$ref": "common.schema.json#/$defs/identifier" },
+          "name": { "type": "string", "minLength": 1, "maxLength": 200 }
+        }
+      }
+    },
+    "gateway": { "type": ["string", "null"], "format": "uri" },
+    "published_feed": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["format", "url", "freshness_sla_seconds", "authority"],
+      "properties": {
+        "format": { "const": "dealer-agent-inventory-csv/0.1" },
+        "url": { "type": "string", "format": "uri" },
+        "freshness_sla_seconds": { "type": "integer", "minimum": 60, "maximum": 86400 },
+        "authority": { "const": "asserted" }
+      }
+    },
+    "disclosure_defaults": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required_dealer_charges", "government_charges"],
+      "properties": {
+        "required_dealer_charges": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["label", "amount_minor", "currency", "included_in_advertised_price"],
+            "properties": {
+              "label": { "type": "string", "minLength": 1, "maxLength": 160 },
+              "amount_minor": { "type": "integer", "minimum": 0 },
+              "currency": { "type": "string", "pattern": "^[A-Z]{3}$" },
+              "included_in_advertised_price": { "type": "boolean" }
+            }
+          }
+        },
+        "government_charges": { "type": "string", "enum": ["unknown", "estimated", "calculated", "not_applicable"] }
+      }
+    },
+    "handoff": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["adf_endpoint", "policy_url"],
+      "properties": {
+        "adf_endpoint": { "type": ["string", "null"], "format": "uri" },
+        "policy_url": { "type": ["string", "null"], "format": "uri" }
+      }
+    },
+    "upgrade_path": { "type": "string", "format": "uri" }
+  }
+}
