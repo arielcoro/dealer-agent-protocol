@@ -82,7 +82,6 @@ def main() -> int:
         "adopt/index.html",
         "pilot/index.html",
         "pilot/app.js",
-        "news/dealer-agent-protocol-launches/index.html",
         "docs/index.html",
         "docs/core-concepts/index.html",
         "docs/tools/index.html",
