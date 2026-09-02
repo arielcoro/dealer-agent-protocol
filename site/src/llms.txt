@@ -17,7 +17,6 @@ Dealer Agent Protocol is the open specification and conformance contract. Dealer
 - Inventory ingestion and crawl policy: https://dealeragentprotocol.com/inventory-sources/
 - Fair comparison with DMC-12, AAP, and AutomotiveMCP: https://dealeragentprotocol.com/compare/
 - Free AI Answer Audit and founding pilot: https://dealershipmcp.com/audit/
-- Launch press release: https://dealeragentprotocol.com/news/dealer-agent-protocol-launches/
 - Specification: https://dealeragentprotocol.com/spec/v0.1/SPEC.md
 - Capability catalog: https://dealeragentprotocol.com/spec/v0.1/capabilities.yaml
 - Pricing semantics: https://dealeragentprotocol.com/spec/v0.1/pricing.md
