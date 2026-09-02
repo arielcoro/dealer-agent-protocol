@@ -1,0 +1,31 @@
+name: Protocol proposal
+description: Propose a normative or interoperability change.
+title: "[Proposal]: "
+labels: [proposal]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Interoperability or safety problem
+      description: Describe the concrete problem, not only the preferred solution.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Example or test vector
+      description: Include a representative request, response, scenario, or failing test.
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: Proposed change
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Compatibility, security, privacy, and pricing impact
+    validations:
+      required: true

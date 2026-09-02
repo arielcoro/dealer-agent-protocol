@@ -1,0 +1,14 @@
+# Dealer Agent Gateway
+
+Dealer Agent Gateway is the open reference implementation of Dealer Agent Protocol. It exposes a read-only MCP surface for dealer-published vehicle inventory, authoritative availability, advertised pricing, required dealer charges, discounts, rebates, and incentives.
+
+The public reference contains synthetic data only. It is a conformance and interoperability fixture, not a production dealer integration. It does not expose DMS or CRM access, customer records, leads, appointments, desking, credit, payments, contracts, service, or parts.
+
+## Canonical resources
+
+- Website: https://dealeragentgateway.com/
+- Streamable HTTP endpoint: https://mcp.dealeragentgateway.com/mcp
+- Protocol: https://dealeragentprotocol.com/
+- MCP Registry metadata: https://dealeragentprotocol.com/server.json
+- Source: https://github.com/arielcoro/dealer-agent-protocol
+- License: Apache-2.0

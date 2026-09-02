@@ -1,0 +1,222 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dealeragentprotocol.com/spec/v0.1/schemas/vehicle.schema.json",
+  "title": "Dealer Agent Protocol vehicle and inventory tools",
+  "$defs": {
+    "availability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "authority_status", "observed_at"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["available", "in_transit", "on_hold", "pending_sale", "sold", "unavailable", "unknown"]
+        },
+        "authority_status": { "type": "string", "enum": ["authoritative", "asserted", "unknown"] },
+        "observed_at": { "$ref": "common.schema.json#/$defs/timestamp" },
+        "valid_until": { "$ref": "common.schema.json#/$defs/timestamp" },
+        "human_verification_required": { "type": "boolean" },
+        "reason": { "type": "string", "minLength": 1, "maxLength": 500 }
+      }
+    },
+    "mediaAsset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "url"],
+      "properties": {
+        "type": { "type": "string", "enum": ["image", "video", "document", "spin"] },
+        "url": { "type": "string", "format": "uri" },
+        "caption": { "type": "string", "maxLength": 500 },
+        "position": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "vehicle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "vehicle_id", "organization_id", "rooftop_id", "year", "make", "model",
+        "condition", "availability", "advertised_price", "provenance", "freshness"
+      ],
+      "properties": {
+        "vehicle_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "organization_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "rooftop_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "vin": {
+          "type": "string",
+          "pattern": "^[A-HJ-NPR-Z0-9]{17}$"
+        },
+        "stock_number": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "vehicle_type": { "type": "string", "enum": ["car", "truck", "suv", "van", "motorcycle", "rv", "trailer", "other"] },
+        "year": { "type": "integer", "minimum": 1886, "maximum": 2200 },
+        "make": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "model": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "trim": { "type": "string", "maxLength": 120 },
+        "condition": { "type": "string", "enum": ["new", "used", "certified", "demo"] },
+        "body_style": { "type": "string", "maxLength": 80 },
+        "exterior_color": { "type": "string", "maxLength": 80 },
+        "interior_color": { "type": "string", "maxLength": 80 },
+        "odometer": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["value", "unit"],
+          "properties": {
+            "value": { "type": "integer", "minimum": 0 },
+            "unit": { "type": "string", "enum": ["mi", "km"] },
+            "status": { "type": "string", "enum": ["actual", "not_actual", "exceeds_mechanical_limits", "unknown"] }
+          }
+        },
+        "powertrain": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "fuel_type": { "type": "string", "enum": ["gasoline", "diesel", "hybrid", "plug_in_hybrid", "battery_electric", "hydrogen", "other", "unknown"] },
+            "drivetrain": { "type": "string", "enum": ["fwd", "rwd", "awd", "four_wd", "other", "unknown"] },
+            "transmission": { "type": "string", "maxLength": 120 },
+            "electric_range": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["value", "unit"],
+              "properties": {
+                "value": { "type": "number", "minimum": 0 },
+                "unit": { "type": "string", "enum": ["mi", "km"] }
+              }
+            }
+          }
+        },
+        "features": {
+          "type": "array",
+          "maxItems": 500,
+          "items": { "type": "string", "minLength": 1, "maxLength": 200 }
+        },
+        "media": { "type": "array", "maxItems": 500, "items": { "$ref": "#/$defs/mediaAsset" } },
+        "listing_url": { "type": "string", "format": "uri" },
+        "window_sticker_url": { "type": "string", "format": "uri" },
+        "advertised_price": { "$ref": "pricing.schema.json#/$defs/advertisedPrice" },
+        "availability": { "$ref": "#/$defs/availability" },
+        "provenance": { "$ref": "common.schema.json#/$defs/provenance" },
+        "freshness": { "$ref": "common.schema.json#/$defs/freshness" },
+        "extensions": { "$ref": "common.schema.json#/$defs/extensionBag" }
+      }
+    },
+    "searchRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["organization_id"],
+      "properties": {
+        "organization_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "rooftop_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "common.schema.json#/$defs/identifier" }
+        },
+        "query": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "filters": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "vehicle_type": { "type": "array", "uniqueItems": true, "items": { "type": "string", "enum": ["car", "truck", "suv", "van", "motorcycle", "rv", "trailer", "other"] } },
+            "make": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1, "maxLength": 100 } },
+            "model": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1, "maxLength": 120 } },
+            "condition": { "type": "array", "uniqueItems": true, "items": { "type": "string", "enum": ["new", "used", "certified", "demo"] } },
+            "year_min": { "type": "integer", "minimum": 1886, "maximum": 2200 },
+            "year_max": { "type": "integer", "minimum": 1886, "maximum": 2200 },
+            "price_min": { "$ref": "common.schema.json#/$defs/nonNegativeMoney" },
+            "price_max": { "$ref": "common.schema.json#/$defs/nonNegativeMoney" },
+            "availability": { "type": "array", "uniqueItems": true, "items": { "type": "string", "enum": ["available", "in_transit", "on_hold", "pending_sale"] } },
+            "vin": { "type": "string", "pattern": "^[A-HJ-NPR-Z0-9]{17}$" },
+            "stock_number": { "type": "string", "minLength": 1, "maxLength": 80 }
+          }
+        },
+        "sort": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["field", "order"],
+          "properties": {
+            "field": { "type": "string", "enum": ["advertised_price", "year", "odometer", "observed_at"] },
+            "order": { "type": "string", "enum": ["asc", "desc"] }
+          }
+        },
+        "page": { "$ref": "common.schema.json#/$defs/pageRequest" }
+      }
+    },
+    "facetValue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "count"],
+      "properties": {
+        "value": { "type": ["string", "integer"] },
+        "count": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "searchResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["vehicles", "page", "provenance", "freshness", "trace_id"],
+      "properties": {
+        "vehicles": { "type": "array", "items": { "$ref": "#/$defs/vehicle" } },
+        "facets": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": { "$ref": "#/$defs/facetValue" }
+          }
+        },
+        "page": { "$ref": "common.schema.json#/$defs/pageInfo" },
+        "provenance": { "$ref": "common.schema.json#/$defs/provenance" },
+        "freshness": { "$ref": "common.schema.json#/$defs/freshness" },
+        "trace_id": { "$ref": "common.schema.json#/$defs/traceId" }
+      }
+    },
+    "vehicleRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["organization_id", "rooftop_id"],
+      "properties": {
+        "organization_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "rooftop_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "vehicle_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "vin": { "type": "string", "pattern": "^[A-HJ-NPR-Z0-9]{17}$" },
+        "stock_number": { "type": "string", "minLength": 1, "maxLength": 80 }
+      },
+      "oneOf": [
+        { "required": ["vehicle_id"] },
+        { "required": ["vin"] },
+        { "required": ["stock_number"] }
+      ]
+    },
+    "availabilityRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["organization_id", "rooftop_id"],
+      "properties": {
+        "organization_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "rooftop_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "vehicle_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "vin": { "type": "string", "pattern": "^[A-HJ-NPR-Z0-9]{17}$" },
+        "stock_number": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "purpose": { "type": "string", "enum": ["display", "comparison", "shopping_assistance"] }
+      },
+      "oneOf": [
+        { "required": ["vehicle_id"] },
+        { "required": ["vin"] },
+        { "required": ["stock_number"] }
+      ]
+    },
+    "availabilityResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["vehicle_id", "organization_id", "rooftop_id", "availability", "provenance", "freshness", "trace_id"],
+      "properties": {
+        "vehicle_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "organization_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "rooftop_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "availability": { "$ref": "#/$defs/availability" },
+        "provenance": { "$ref": "common.schema.json#/$defs/provenance" },
+        "freshness": { "$ref": "common.schema.json#/$defs/freshness" },
+        "trace_id": { "$ref": "common.schema.json#/$defs/traceId" }
+      }
+    }
+  },
+  "$ref": "#/$defs/vehicle"
+}

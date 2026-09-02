@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dealeragentprotocol.com/incubator/retail-actions/schemas/handoff.schema.json",
+  "title": "Dealer Agent Protocol consented handoff",
+  "$defs": {
+    "prepareRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["organization_id", "rooftop_id", "purpose", "requested_channels", "requested_data_categories", "idempotency_key"],
+      "properties": {
+        "organization_id": { "$ref": "../../../spec/v0.1/schemas/common.schema.json#/$defs/identifier" },
+        "rooftop_id": { "$ref": "../../../spec/v0.1/schemas/common.schema.json#/$defs/identifier" },
+        "vehicle_id": { "$ref": "../../../spec/v0.1/schemas/common.schema.json#/$defs/identifier" },
+        "purpose": { "type": "string", "enum": ["vehicle_inquiry", "quote_follow_up", "appointment", "trade_discussion", "other"] },
+        "requested_channels": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "enum": ["email", "sms", "voice", "messaging_app"] }
+        },
+        "requested_data_categories": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "enum": ["contact", "vehicle_interest", "message", "appointment_preferences", "trade_summary"] }
+        },
+        "idempotency_key": { "$ref": "action-common.schema.json#/$defs/idempotencyKey" }
+      }
+    },
+    "contact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "preferred_channels"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "email": { "type": "string", "format": "email", "maxLength": 320 },
+        "phone": { "type": "string", "pattern": "^\\+[1-9][0-9]{7,14}$" },
+        "preferred_channels": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "enum": ["email", "sms", "voice", "messaging_app"] }
+        }
+      },
+      "anyOf": [
+        { "required": ["email"] },
+        { "required": ["phone"] }
+      ]
+    },
+    "handoffRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "organization_id", "rooftop_id", "binding_id", "binding_token",
+        "contact", "idempotency_key"
+      ],
+      "properties": {
+        "organization_id": { "$ref": "../../../spec/v0.1/schemas/common.schema.json#/$defs/identifier" },
+        "rooftop_id": { "$ref": "../../../spec/v0.1/schemas/common.schema.json#/$defs/identifier" },
+        "binding_id": { "$ref": "../../../spec/v0.1/schemas/common.schema.json#/$defs/identifier" },
+        "binding_token": { "type": "string", "minLength": 32, "maxLength": 4096 },
+        "contact": { "$ref": "#/$defs/contact" },
+        "vehicle_id": { "$ref": "../../../spec/v0.1/schemas/common.schema.json#/$defs/identifier" },
+        "message": { "type": "string", "maxLength": 4000 },
+        "idempotency_key": { "$ref": "action-common.schema.json#/$defs/idempotencyKey" }
+      }
+    },
+    "handoffResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["handoff_id", "organization_id", "rooftop_id", "status", "binding_status", "provenance", "freshness", "trace_id"],
+      "properties": {
+        "handoff_id": { "$ref": "../../../spec/v0.1/schemas/common.schema.json#/$defs/identifier" },
+        "organization_id": { "$ref": "../../../spec/v0.1/schemas/common.schema.json#/$defs/identifier" },
+        "rooftop_id": { "$ref": "../../../spec/v0.1/schemas/common.schema.json#/$defs/identifier" },
+        "status": { "type": "string", "enum": ["accepted", "queued", "rejected", "duplicate"] },
+        "binding_status": { "const": "consumed" },
+        "department": { "type": "string", "enum": ["sales", "internet_sales", "general"] },
+        "external_reference": { "type": "string", "minLength": 1, "maxLength": 256 },
+        "provenance": { "$ref": "../../../spec/v0.1/schemas/common.schema.json#/$defs/provenance" },
+        "freshness": { "$ref": "../../../spec/v0.1/schemas/common.schema.json#/$defs/freshness" },
+        "trace_id": { "$ref": "../../../spec/v0.1/schemas/common.schema.json#/$defs/traceId" }
+      }
+    }
+  },
+  "$ref": "#/$defs/handoffResult"
+}

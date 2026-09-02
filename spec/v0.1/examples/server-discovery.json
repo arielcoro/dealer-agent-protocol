@@ -1,0 +1,53 @@
+{
+  "standard": "dealer-agent-protocol",
+  "standard_version": "0.1",
+  "mcp_revision": "2026-07-28",
+  "gateway_id": "gateway.example-motors",
+  "operator": {
+    "name": "Example Motors",
+    "uri": "https://dealer.example"
+  },
+  "organization_ids": ["org.example-motors"],
+  "rooftop_ids": ["roof.downtown"],
+  "capabilities": [
+    {
+      "profile": "dealeragent.discovery/0.1",
+      "status": "supported",
+      "tools": ["dealeragent.discovery.get_manifest", "dealeragent.dealer.get"],
+      "scopes": []
+    },
+    {
+      "profile": "dealeragent.inventory.read/0.1",
+      "status": "supported",
+      "tools": ["dealeragent.inventory.search", "dealeragent.inventory.get_vehicle"],
+      "scopes": ["dealeragent:inventory:read"]
+    },
+    {
+      "profile": "dealeragent.pricing.disclosure/0.1",
+      "status": "supported",
+      "tools": ["dealeragent.pricing.get_disclosure"],
+      "scopes": ["dealeragent:pricing:read"]
+    }
+  ],
+  "resources": ["dealeragent://manifest", "dealeragent://organization/org.example-motors"],
+  "auth_modes": ["public", "oauth_2_1"],
+  "tenant_routing": {
+    "organization_id_required": true,
+    "rooftop_id_required_for_unit_reads": true,
+    "group_delegation_explicit": true
+  },
+  "schema_base_uri": "https://dealeragentprotocol.com/spec/v0.1/schemas/",
+  "policy_uri": "https://dealer.example/agent-policy",
+  "authority_policy": {
+    "uri": "https://dealer.example/agent-policy#data-authority",
+    "inventory_max_age_seconds": 900,
+    "authoritative_availability_required_for_actions": true
+  },
+  "conformance": {
+    "claim_uri": "https://dealer.example/conformance/dealeragent-claim.json",
+    "claim_digest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+  },
+  "jwks_uri": "https://dealer.example/.well-known/jwks.json",
+  "issued_at": "2026-09-01T14:00:00Z",
+  "expires_at": "2026-09-01T15:00:00Z"
+}

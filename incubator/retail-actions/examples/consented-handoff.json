@@ -1,0 +1,15 @@
+{
+  "organization_id": "org.example-motors",
+  "rooftop_id": "roof.downtown",
+  "binding_id": "consent.20260901.0001",
+  "binding_token": "eyJhbGciOiJFZERTQSJ9.dmNwLXNpbmdsZS11c2U.signature",
+  "contact": {
+    "name": "Sample Buyer",
+    "email": "buyer@example.net",
+    "phone": "+13055550199",
+    "preferred_channels": ["email"]
+  },
+  "vehicle_id": "veh.2026-001",
+  "message": "Please have internet sales confirm current availability by email.",
+  "idempotency_key": "handoff-demo-20260901-0001"
+}

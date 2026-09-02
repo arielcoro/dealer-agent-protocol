@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dealeragentprotocol.com/spec/v0.1/schemas/pricing.schema.json",
+  "title": "Dealer Agent Protocol pricing disclosure",
+  "$defs": {
+    "advertisedPrice": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["amount", "availability", "includes_required_dealer_charges"],
+      "properties": {
+        "amount": { "$ref": "common.schema.json#/$defs/nonNegativeMoney" },
+        "availability": { "const": "generally_available" },
+        "includes_required_dealer_charges": { "type": "boolean" },
+        "label": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "valid_from": { "$ref": "common.schema.json#/$defs/timestamp" },
+        "valid_until": { "$ref": "common.schema.json#/$defs/timestamp" }
+      }
+    },
+    "dealerCharge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["charge_id", "name", "amount", "payee", "included_in_advertised_price", "required"],
+      "properties": {
+        "charge_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "name": { "type": "string", "minLength": 1, "maxLength": 160 },
+        "amount": { "$ref": "common.schema.json#/$defs/nonNegativeMoney" },
+        "payee": { "type": "string", "enum": ["dealer", "dealer_vendor", "other"] },
+        "included_in_advertised_price": { "type": "boolean" },
+        "taxable_status": { "type": "string", "enum": ["taxable", "not_taxable", "unknown", "jurisdiction_dependent"] },
+        "required": { "const": true },
+        "provenance": { "$ref": "common.schema.json#/$defs/provenance" }
+      }
+    },
+    "eligibilityCriterion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["criterion", "operator", "value", "evidence_status"],
+      "properties": {
+        "criterion": {
+          "type": "string",
+          "enum": [
+            "residency", "loyalty", "conquest", "military", "first_responder",
+            "college_graduate", "finance_provider", "payment_mode", "trade_in",
+            "lease_return", "membership", "other"
+          ]
+        },
+        "operator": { "type": "string", "enum": ["equals", "in", "present", "verified"] },
+        "value": {
+          "type": ["string", "boolean", "number", "array"],
+          "items": { "type": ["string", "number", "boolean"] }
+        },
+        "evidence_status": { "type": "string", "enum": ["required", "claimed", "verified", "not_required"] },
+        "description": { "type": "string", "minLength": 1, "maxLength": 500 }
+      }
+    },
+    "conditionalAdjustment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["adjustment_id", "name", "direction", "amount_status", "criteria", "stacking"],
+      "properties": {
+        "adjustment_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "name": { "type": "string", "minLength": 1, "maxLength": 160 },
+        "direction": { "type": "string", "enum": ["discount", "surcharge"] },
+        "amount_status": { "type": "string", "enum": ["known", "unknown"] },
+        "amount": { "$ref": "common.schema.json#/$defs/nonNegativeMoney" },
+        "criteria": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/eligibilityCriterion" }
+        },
+        "criteria_mode": { "type": "string", "enum": ["all", "any"], "default": "all" },
+        "jurisdictions": {
+          "type": "array",
+          "items": { "$ref": "common.schema.json#/$defs/jurisdiction" }
+        },
+        "valid_from": { "$ref": "common.schema.json#/$defs/timestamp" },
+        "valid_until": { "$ref": "common.schema.json#/$defs/timestamp" },
+        "stacking": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["group", "combinability"],
+          "properties": {
+            "group": { "type": "string", "minLength": 1, "maxLength": 80 },
+            "combinability": { "type": "string", "enum": ["stackable", "exclusive", "rule_defined"] },
+            "combinable_with": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": { "$ref": "common.schema.json#/$defs/identifier" }
+            }
+          }
+        },
+        "provenance": { "$ref": "common.schema.json#/$defs/provenance" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "amount_status": { "const": "known" } }, "required": ["amount_status"] },
+          "then": { "required": ["amount"] }
+        }
+      ]
+    },
+    "governmentChargeLine": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "amount", "payee"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1, "maxLength": 160 },
+        "amount": { "$ref": "common.schema.json#/$defs/nonNegativeMoney" },
+        "payee": { "type": "string", "enum": ["government", "government_agent"] },
+        "basis": { "type": "string", "minLength": 1, "maxLength": 500 }
+      }
+    },
+    "governmentCharges": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status"],
+      "properties": {
+        "status": { "type": "string", "enum": ["unknown", "estimated", "calculated", "not_applicable"] },
+        "jurisdiction": { "$ref": "common.schema.json#/$defs/jurisdiction" },
+        "lines": { "type": "array", "items": { "$ref": "#/$defs/governmentChargeLine" } },
+        "total": { "$ref": "common.schema.json#/$defs/nonNegativeMoney" },
+        "assumptions": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1, "maxLength": 500 }
+        },
+        "provenance": { "$ref": "common.schema.json#/$defs/provenance" }
+      }
+    },
+    "pricingDisclosure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "disclosure_id", "vehicle_id", "organization_id", "rooftop_id",
+        "advertised_price", "required_dealer_charges", "conditional_adjustments",
+        "government_charges", "uncertainty", "provenance", "freshness"
+      ],
+      "properties": {
+        "disclosure_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "vehicle_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "organization_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "rooftop_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "advertised_price": { "$ref": "#/$defs/advertisedPrice" },
+        "required_dealer_charges": { "type": "array", "items": { "$ref": "#/$defs/dealerCharge" } },
+        "conditional_adjustments": { "type": "array", "items": { "$ref": "#/$defs/conditionalAdjustment" } },
+        "government_charges": { "$ref": "#/$defs/governmentCharges" },
+        "disclosure_text": { "type": "string", "maxLength": 4000 },
+        "uncertainty": { "$ref": "common.schema.json#/$defs/uncertainty" },
+        "provenance": { "$ref": "common.schema.json#/$defs/provenance" },
+        "freshness": { "$ref": "common.schema.json#/$defs/freshness" },
+        "extensions": { "$ref": "common.schema.json#/$defs/extensionBag" }
+      }
+    },
+    "disclosureRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["organization_id", "rooftop_id", "vehicle_id"],
+      "properties": {
+        "organization_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "rooftop_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "vehicle_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "jurisdiction": { "$ref": "common.schema.json#/$defs/jurisdiction" },
+        "payment_mode": { "type": "string", "enum": ["cash", "finance", "lease", "unknown"] }
+      }
+    }
+  },
+  "$ref": "#/$defs/pricingDisclosure"
+}

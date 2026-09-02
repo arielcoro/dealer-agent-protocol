@@ -1,0 +1,56 @@
+{
+  "vehicle_id": "veh.2026-001",
+  "organization_id": "org.example-motors",
+  "rooftop_id": "roof.downtown",
+  "vin": "1HGBH41JXMN109186",
+  "stock_number": "N26001",
+  "vehicle_type": "suv",
+  "year": 2026,
+  "make": "Example",
+  "model": "Northstar",
+  "trim": "Touring AWD",
+  "condition": "new",
+  "exterior_color": "Deep Blue",
+  "odometer": { "value": 7, "unit": "mi", "status": "actual" },
+  "features": ["adaptive cruise control", "heated front seats"],
+  "listing_url": "https://dealer.example/inventory/N26001",
+  "window_sticker_url": "https://dealer.example/stickers/N26001.pdf",
+  "advertised_price": {
+    "amount": { "amount_minor": 4287500, "currency": "USD" },
+    "availability": "generally_available",
+    "includes_required_dealer_charges": true,
+    "valid_until": "2026-09-03T03:59:59Z"
+  },
+  "availability": {
+    "status": "available",
+    "authority_status": "authoritative",
+    "observed_at": "2026-09-01T13:59:30Z",
+    "valid_until": "2026-09-01T14:14:30Z",
+    "human_verification_required": false
+  },
+  "provenance": {
+    "sources": [
+      {
+        "source_name": "dealer-inventory-system",
+        "source_record_id": "N26001",
+        "authority": "authoritative_dealer_system",
+        "observed_at": "2026-09-01T13:59:30Z"
+      },
+      {
+        "source_name": "nhtsa-vpic",
+        "source_record_id": "1HGBH41JXMN109186",
+        "authority": "government",
+        "observed_at": "2026-08-30T18:00:00Z"
+      }
+    ],
+    "authority_status": "authoritative",
+    "transformed_at": "2026-09-01T13:59:31Z",
+    "transformations": ["normalized powertrain and body labels"]
+  },
+  "freshness": {
+    "observed_at": "2026-09-01T13:59:30Z",
+    "valid_until": "2026-09-01T14:14:30Z",
+    "state": "current",
+    "max_age_seconds": 900
+  }
+}
