@@ -1,0 +1,17 @@
+{
+  "name": "dealer-agent-protocol",
+  "version": "0.1.0-draft.1",
+  "private": true,
+  "description": "Build and deployment tooling for the Dealer Agent Protocol public sites.",
+  "license": "Apache-2.0",
+  "scripts": {
+    "build:sites": "python3 scripts/build_public_site.py",
+    "validate": "python3 scripts/validate_deployment.py",
+    "deploy:protocol": "wrangler deploy --config deployment/cloudflare/wrangler.jsonc",
+    "deploy:gateway-site": "wrangler deploy --config deployment/cloudflare/gateway-site.wrangler.jsonc",
+    "deploy:sites": "npm run build:sites && npm run deploy:protocol && npm run deploy:gateway-site"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}

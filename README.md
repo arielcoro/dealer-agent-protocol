@@ -101,8 +101,9 @@ python3 scripts/validate_deployment.py
 ```
 
 The generated site is written to `site/dist`. Deployment instructions cover the
-Cloudflare custom domain, the portable HTTP gateway container, and official MCP
-Registry publication.
+two Cloudflare custom domains, the portable HTTP gateway container, and official
+MCP Registry publication. With Node.js installed, `npm run deploy:sites` builds
+and publishes both public websites through the pinned Wrangler dependency.
 
 ## Project posture
 
