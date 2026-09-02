@@ -93,6 +93,8 @@ def main() -> int:
         "spec/v0.1/schemas/manifest.schema.json",
         "site.webmanifest",
         "LICENSE.txt",
+        "NOTICE.txt",
+        "CONTRIBUTING.md",
         "og.png",
     ]
     for relative in required_site_files:
@@ -129,6 +131,8 @@ def main() -> int:
         "site.webmanifest",
         "server.json",
         "LICENSE.txt",
+        "NOTICE.txt",
+        "CONTRIBUTING.md",
         "og.png",
     ]
     for relative in required_gateway_files:

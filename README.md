@@ -8,6 +8,17 @@ Dealer Agent Protocol is an open, MCP-native profile that lets AI agents
 understand dealer-published vehicles and retail offers. A server or adapter
 implementing the profile is called a **Dealer Agent Gateway**.
 
+## Protocol and gateway are different things
+
+| Project layer | What it is | What it does |
+|---|---|---|
+| **Dealer Agent Protocol** | Open specification | Defines shared tools, schemas, retail semantics, disclosure rules, and conformance requirements that any gateway can implement. |
+| **Dealer Agent Gateway** | Open reference software | Connects approved dealer sources, applies dealer policy, and serves protocol-compliant MCP tools to agents. |
+| **MCP** | Transport layer | Carries tool discovery and calls between an agent and a gateway. |
+
+Dealer Agent Gateway demonstrates one implementation. It does not own or replace
+the protocol, and other organizations can build compatible gateways.
+
 The project does not define another wire protocol. MCP is the normative
 transport, tool, resource, authorization, discovery, and extension layer.
 Dealer Agent Protocol defines the automotive schemas, capability bundles,
@@ -119,9 +130,20 @@ open a proposal or interoperability issue, and include a concrete example or tes
 vector for normative changes. See [GOVERNANCE.md](governance/GOVERNANCE.md) for
 the review and versioning process.
 
+Contributions are welcome to both project layers. Protocol changes normally
+touch normative text, schemas, examples, compatibility, or conformance tests.
+Gateway changes normally improve adapters, server behavior, deployment,
+security, or the synthetic reference implementation.
+
 ## License
 
 Specification text, schemas, examples, tests, websites, and reference code in
 this repository are licensed under Apache License 2.0. Its explicit patent grant
 is a better fit for an interoperability standard than a minimal permissive
 license without patent terms. See [LICENSE](LICENSE).
+
+## Creator
+
+Dealer Agent Protocol and Dealer Agent Gateway were created by **Ariel Coro**.
+The project is developed in public with contributions welcomed under Apache
+License 2.0.

@@ -39,12 +39,16 @@ def main() -> int:
     shutil.copy2(ROOT / "registry" / "server.json", DIST / "server.json")
     write_schema_index(DIST / "spec" / "v0.1" / "schemas")
     shutil.copy2(ROOT / "LICENSE", DIST / "LICENSE.txt")
+    shutil.copy2(ROOT / "NOTICE", DIST / "NOTICE.txt")
+    shutil.copy2(ROOT / "CONTRIBUTING.md", DIST / "CONTRIBUTING.md")
 
     if GATEWAY_DIST.exists():
         shutil.rmtree(GATEWAY_DIST)
     shutil.copytree(GATEWAY_SOURCE, GATEWAY_DIST)
     shutil.copy2(ROOT / "registry" / "server.json", GATEWAY_DIST / "server.json")
     shutil.copy2(ROOT / "LICENSE", GATEWAY_DIST / "LICENSE.txt")
+    shutil.copy2(ROOT / "NOTICE", GATEWAY_DIST / "NOTICE.txt")
+    shutil.copy2(ROOT / "CONTRIBUTING.md", GATEWAY_DIST / "CONTRIBUTING.md")
 
     print(f"Built protocol site at {DIST}")
     print(f"Built gateway site at {GATEWAY_DIST}")

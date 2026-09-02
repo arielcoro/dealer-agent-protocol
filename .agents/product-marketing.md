@@ -6,6 +6,8 @@ Status: internal working draft, derived from the version 0.1 protocol artifacts 
 
 Dealer Agent Protocol is an open, dealer-controlled contract for sharing retail inventory and offer facts with AI agents. It standardizes what agents need to understand about dealer identity, published vehicles, authoritative availability, advertised prices, required dealer charges, and conditional incentives. It is not a generic DMS or CRM API.
 
+Dealer Agent Protocol and Dealer Agent Gateway are related but not interchangeable. The protocol is the open specification and conformance contract that anyone can implement. A gateway is server software that connects dealer-approved sources and exposes tools conforming to that protocol. Dealer Agent Gateway is the project's open reference implementation.
+
 ## Primary audiences
 
 1. Dealer executives and digital-retail leaders who want AI shopping experiences to repeat approved, current retail facts without exposing internal systems.
@@ -20,6 +22,7 @@ Dealer Agent Protocol is an open, dealer-controlled contract for sharing retail 
 - Retail clarity: pricing separates advertised price, required dealer charges, conditional offers, and unresolved government charges.
 - Small adoption surface: version 0.1 contains six read-only tools across four required profiles.
 - Open implementation: specification, schemas, examples, conformance checks, and reference code use Apache License 2.0.
+- Clear category: the protocol is the rulebook; the gateway is an implementation.
 
 ## Defensible proof
 
@@ -51,4 +54,3 @@ Avoid: dealership systems protocol, AI DMS, universal dealership access, replace
 - Understand: see how it works.
 - Evaluate: read the human guide and use the synthetic reference gateway.
 - Implement: follow the core retail read quickstart and normative artifacts.
-

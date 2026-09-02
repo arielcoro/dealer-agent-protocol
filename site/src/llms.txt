@@ -2,7 +2,7 @@
 
 Dealer Agent Protocol is an open, MCP-native retail inventory and offer profile for AI agents. Version 0.1 covers dealer and rooftop identity, published vehicle inventory, authoritative availability, advertised prices, required dealer charges, discounts, rebates, incentives, provenance, freshness, and uncertainty.
 
-It is not a DMS API, CRM API, lead protocol, or dealership-system integration standard. Version 0.1 does not include customer records, appointments, holds, desking, credit, payments, contracts, service, parts, or marketing.
+Dealer Agent Protocol is the open specification and conformance contract. Dealer Agent Gateway is open reference software that implements the protocol. MCP is the transport used between agents and gateways.
 
 ## Canonical documents
 
@@ -17,6 +17,9 @@ It is not a DMS API, CRM API, lead protocol, or dealership-system integration st
 - MCP Registry metadata: https://dealeragentprotocol.com/server.json
 - Open source repository: https://github.com/arielcoro/dealer-agent-protocol
 - Reference gateway website: https://dealeragentgateway.com/
+- Contribution guide: https://dealeragentprotocol.com/CONTRIBUTING.md
+- License: https://dealeragentprotocol.com/LICENSE.txt
+- Attribution: https://dealeragentprotocol.com/NOTICE.txt
 
 ## Reference endpoint
 
@@ -26,3 +29,5 @@ It is not a DMS API, CRM API, lead protocol, or dealership-system integration st
 ## License
 
 Specification text, schemas, examples, conformance tests, and reference code are available under Apache License 2.0.
+
+Dealer Agent Protocol and Dealer Agent Gateway were created by Ariel Coro.

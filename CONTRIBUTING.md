@@ -1,8 +1,19 @@
 # Contributing to Dealer Agent Protocol
 
-Dealer Agent Protocol is developed in public. Contributions should improve
+Dealer Agent Protocol and its Dealer Agent Gateway reference implementation are
+developed in public. Contributions should improve
 interoperability, dealer and consumer safety, or the accuracy of retail facts
 presented to agents.
+
+## Choose the right project layer
+
+- **Protocol contribution:** normative text, schemas, capability profiles,
+  examples, compatibility mappings, or conformance tests.
+- **Gateway contribution:** reference server behavior, adapters, security,
+  deployment, documentation, or developer experience.
+
+The protocol is the shared contract. The gateway is software that implements
+that contract. A gateway change must not silently redefine protocol semantics.
 
 ## Before proposing a change
 

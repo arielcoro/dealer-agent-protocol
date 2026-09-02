@@ -113,6 +113,28 @@
         <span>Shopping agents</span>
       </section>
 
+      <section class="relationship" id="relationship" aria-labelledby="relationship-title">
+        <div class="relationship-heading">
+          <p class="section-code">Protocol ≠ gateway</p>
+          <h2 id="relationship-title">The protocol defines the contract.<br>The gateway runs it.</h2>
+        </div>
+        <div class="relationship-cells">
+          <article>
+            <span>OPEN SPECIFICATION</span>
+            <h3>Dealer Agent Protocol</h3>
+            <p>The portable rulebook: tool names, schemas, retail semantics, pricing disclosures, trust fields, and conformance requirements.</p>
+            <a href="https://dealeragentprotocol.com/">Explore the protocol →</a>
+          </article>
+          <article>
+            <span>REFERENCE SOFTWARE</span>
+            <h3>Dealer Agent Gateway</h3>
+            <p>The running implementation: source adapters, dealer policy, normalization, authorization, audit, and MCP responses.</p>
+            <a href="#connect">Use the reference →</a>
+          </article>
+        </div>
+        <p class="relationship-foot"><strong>Anyone can implement Dealer Agent Protocol.</strong> This gateway is the open reference implementation—not the protocol itself.</p>
+      </section>
+
       <section class="capabilities" id="capabilities" aria-labelledby="capabilities-title">
         <div class="section-heading">
           <p class="section-code">01 / Capability surface</p>
@@ -167,10 +189,7 @@
             <span>Published catalog</span><span>Explicit offers</span><span>Provenance + freshness</span>
           </div>
         </div>
-        <div class="not-access">
-          <span>NOT EXPOSED</span>
-          <p>DMS access · CRM records · leads · desking · credit · payments · contracts · service · parts</p>
-        </div>
+        <div class="not-access"><span>GATEWAY RULE</span><p>Source integrations remain behind the policy boundary. Agents receive only protocol-shaped retail facts.</p></div>
       </section>
 
       <section class="connect" id="connect" aria-labelledby="connect-title">
@@ -190,17 +209,27 @@
           </div>
         </div>
       </section>
+
+      <section class="open-project" id="open-project" aria-labelledby="open-project-title">
+        <div><p class="section-code">04 / Open project</p><h2 id="open-project-title">Use it. Inspect it.<br>Improve it.</h2><p>The gateway and the protocol are developed together in public, with separate responsibilities and one shared license.</p></div>
+        <div class="open-project-list">
+          <article><span>LICENSE</span><h3>Apache-2.0</h3><p>Reference software, specifications, schemas, tests, and documentation include an explicit patent grant.</p><a href="/LICENSE.txt">Read the license →</a></article>
+          <article><span>CONTRIBUTING</span><h3>Two ways to help</h3><p>Improve the shared protocol contract or improve the gateway implementation. The contribution guide explains the difference.</p><a href="/CONTRIBUTING.md">Contribution guide →</a></article>
+          <article><span>CREATOR</span><h3>Ariel Coro</h3><p>Creator of Dealer Agent Protocol and the Dealer Agent Gateway reference implementation.</p><a href="https://github.com/arielcoro">Creator profile →</a></article>
+        </div>
+      </section>
     </main>
 
     <footer>
       <div>
         <strong>Dealer Agent Gateway</strong>
-        <p>Reference implementation of Dealer Agent Protocol.</p>
+        <p>Reference implementation of Dealer Agent Protocol. Created by Ariel Coro.</p>
       </div>
       <div class="footer-links">
         <a href="https://dealeragentprotocol.com/">Protocol</a>
-        <a href="https://github.com/arielcoro/dealer-agent-protocol/blob/main/LICENSE">Apache-2.0</a>
-        <a href="https://github.com/arielcoro/dealer-agent-protocol/security">Security</a>
+        <a href="/LICENSE.txt">Apache-2.0</a>
+        <a href="/CONTRIBUTING.md">Contributing</a>
+        <a href="/NOTICE.txt">Attribution</a>
       </div>
       <p class="footer-note">Synthetic data only · Draft 0.1</p>
     </footer>
