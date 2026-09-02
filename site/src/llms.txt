@@ -6,6 +6,9 @@ It is not a DMS API, CRM API, lead protocol, or dealership-system integration st
 
 ## Canonical documents
 
+- Human documentation: https://dealeragentprotocol.com/docs/
+- System explainer: https://dealeragentprotocol.com/how-it-works/
+- Adoption paths: https://dealeragentprotocol.com/adopt/
 - Specification: https://dealeragentprotocol.com/spec/v0.1/SPEC.md
 - Capability catalog: https://dealeragentprotocol.com/spec/v0.1/capabilities.yaml
 - Pricing semantics: https://dealeragentprotocol.com/spec/v0.1/pricing.md
