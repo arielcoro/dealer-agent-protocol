@@ -145,5 +145,11 @@ license without patent terms. See [LICENSE](LICENSE).
 ## Creator
 
 Dealer Agent Protocol and Dealer Agent Gateway were created by **Ariel Coro**.
+
+## Founding dealer pilot
+
+Dealers can apply at [dealeragentprotocol.com/pilot](https://dealeragentprotocol.com/pilot/). Applications are stored privately in Cloudflare D1 and are not published to the repository. Maintainer review and retention instructions are in [`deployment/PILOT_OPERATIONS.md`](deployment/PILOT_OPERATIONS.md).
+
+The public launch announcement is available in [`press/2026-09-01-dealer-agent-protocol-launch.md`](press/2026-09-01-dealer-agent-protocol-launch.md).
 The project is developed in public with contributions welcomed under Apache
 License 2.0.

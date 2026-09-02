@@ -54,3 +54,4 @@ Avoid: dealership systems protocol, AI DMS, universal dealership access, replace
 - Understand: see how it works.
 - Evaluate: read the human guide and use the synthetic reference gateway.
 - Implement: follow the core retail read quickstart and normative artifacts.
+- Pilot: apply for the founding dealer cohort, beginning with one rooftop and approved retail sources.

@@ -10,6 +10,14 @@
     "not_found_handling": "404-page",
     "html_handling": "auto-trailing-slash"
   },
+  "d1_databases": [
+    {
+      "binding": "PILOT_DB",
+      "database_name": "dealer-agent-pilot",
+      "database_id": "b76b6b11-4773-4c61-821c-b8527d0d1dae",
+      "migrations_dir": "migrations"
+    }
+  ],
   "routes": [
     {
       "pattern": "dealeragentprotocol.com",

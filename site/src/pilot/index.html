@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Apply for the founding dealer pilot of Dealer Agent Protocol and test dealer-controlled inventory, availability, pricing, and offer answers with AI agents.">
+    <meta name="theme-color" content="#f4f0e6">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Founding Dealer Pilot — Dealer Agent Protocol">
+    <meta property="og:description" content="Start with one rooftop and prove the retail answers before publishing them to agents.">
+    <meta property="og:url" content="https://dealeragentprotocol.com/pilot/">
+    <meta property="og:image" content="https://dealeragentprotocol.com/og.png">
+    <link rel="canonical" href="https://dealeragentprotocol.com/pilot/">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/pilot/app.js" defer></script>
+    <title>Founding Dealer Pilot — Dealer Agent Protocol</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header page-shell">
+      <a class="wordmark" href="/"><span class="wordmark-mark">D</span><span>Dealer Agent<br>Protocol</span></a>
+      <nav aria-label="Primary navigation"><a href="/how-it-works/">How it works</a><a href="/adopt/">Adopt</a><a href="/pilot/" aria-current="page">Pilot</a><a href="/docs/">Documentation</a><a href="https://dealeragentgateway.com/">Gateway</a></nav>
+      <a class="header-cta" href="#apply">Apply for the pilot <span aria-hidden="true">→</span></a>
+    </header>
+
+    <main id="main">
+      <section class="interior-hero page-shell pilot-hero">
+        <div class="hero-grid">
+          <div><p class="eyebrow"><span></span> Founding dealer cohort · Applications open</p><h1>Put your retail truth in front of AI agents.</h1><p class="lede">Start with one rooftop, approved inventory and offer sources, and real shopping questions. We will help your team test the answers before anything becomes public.</p><div class="actions"><a class="button button-primary" href="#apply">Apply in about 2 minutes →</a><a class="button button-secondary" href="/how-it-works/">See the system</a></div></div>
+          <aside class="page-note"><strong>What this is</strong>An evaluation pilot for dealer-published vehicle inventory, availability, pricing, required charges, and conditional incentives. It does not require customer records or broad agent access to dealer systems.</aside>
+        </div>
+      </section>
+
+      <section class="content-section page-shell">
+        <div class="content-grid">
+          <aside><span>01</span> / Good fit</aside>
+          <div class="body-copy"><h2>Designed for a dealer team that wants to lead, not wait.</h2><p>The founding cohort is intentionally small. We are looking for operators willing to define approved sources, challenge the answers, and help shape a practical open contract for automotive retail.</p><ol class="principle-list"><li><span>1</span><strong>One starting rooftop</strong><p>A focused environment with active retail inventory and a clear internal owner.</p></li><li><span>2</span><strong>Approved retail sources</strong><p>Website, feed, pricing, incentive, or availability data your team already publishes or controls.</p></li><li><span>3</span><strong>Answer reviewers</strong><p>Someone who can judge whether an agent described a vehicle and offer accurately.</p></li><li><span>4</span><strong>No customer data</strong><p>The core retail read works with vehicle, dealer, price, offer, provenance, and freshness facts.</p></li></ol></div>
+        </div>
+      </section>
+
+      <section class="pilot-deliverables">
+        <div class="page-shell"><div class="section-heading compact"><p class="section-kicker">What selected dealers receive</p><h2>A controlled path from source map to agent-ready answers.</h2></div><div class="pilot-card-grid"><article><span>01</span><h3>Retail truth map</h3><p>Document which source owns inventory, price, charges, incentives, and availability.</p></article><article><span>02</span><h3>Private gateway evaluation</h3><p>Map one rooftop behind a restricted Dealer Agent Gateway environment.</p></article><article><span>03</span><h3>Answer review</h3><p>Test real shopping questions, edge cases, stale data, and conditional offers with your team.</p></article><article><span>04</span><h3>Readiness report</h3><p>Receive conformance evidence, gaps, decisions, and a recommendation for the next stage.</p></article></div></div>
+      </section>
+
+      <section class="content-section page-shell" id="apply">
+        <div class="content-grid pilot-apply-grid">
+          <aside><span>02</span> / Apply</aside>
+          <div class="body-copy">
+            <h2>Tell us about the dealership and the answer you want agents to get right.</h2>
+            <p>We review each application for fit and will use these details only to evaluate and contact you about the pilot. No phone number is required.</p>
+
+            <div class="form-status form-status-success" id="pilot-success" role="status" hidden>
+              <strong>Application received.</strong>
+              <p>Thank you. We will review the dealership, use case, and timing, then contact you at the work email provided.</p>
+            </div>
+            <div class="form-status form-status-error" id="pilot-error" role="alert" hidden>
+              <strong>We could not send the application.</strong>
+              <p>Please review the highlighted fields and try again. Your entries have been preserved.</p>
+            </div>
+
+            <form class="pilot-form" id="pilot-form" method="post" action="/api/pilot-applications" novalidate>
+              <input type="hidden" name="source_path" value="/pilot/">
+              <input type="hidden" name="form_started_at" id="form-started-at" value="">
+              <div class="form-trap" aria-hidden="true"><label for="website-company">Company website confirmation</label><input id="website-company" name="website_company" type="text" tabindex="-1" autocomplete="off"></div>
+
+              <div class="form-field"><label for="contact-name">Your name <span>Required</span></label><input id="contact-name" name="contact_name" type="text" autocomplete="name" maxlength="120" required><p class="field-error" data-error-for="contact_name"></p></div>
+              <div class="form-field"><label for="work-email">Work email <span>Required</span></label><input id="work-email" name="work_email" type="email" inputmode="email" autocomplete="email" maxlength="200" placeholder="you@dealership.com" required><p class="field-error" data-error-for="work_email"></p></div>
+              <div class="form-field"><label for="dealership-name">Dealership or dealer group <span>Required</span></label><input id="dealership-name" name="dealership_name" type="text" autocomplete="organization" maxlength="180" required><p class="field-error" data-error-for="dealership_name"></p></div>
+              <div class="form-field"><label for="dealership-website">Dealership website <span>Required</span></label><input id="dealership-website" name="dealership_website" type="url" inputmode="url" autocomplete="url" maxlength="300" placeholder="https://www.exampledealer.com" required><p class="field-error" data-error-for="dealership_website"></p></div>
+              <div class="form-field"><label for="role">Your role <span>Required</span></label><input id="role" name="role" type="text" autocomplete="organization-title" maxlength="120" placeholder="Dealer principal, GM, digital retail, technology…" required><p class="field-error" data-error-for="role"></p></div>
+              <div class="form-field"><label for="rooftop-count">Dealer group size <span>Required</span></label><select id="rooftop-count" name="rooftop_count" required><option value="">Select rooftops</option><option value="1">1 rooftop</option><option value="2-5">2–5 rooftops</option><option value="6-20">6–20 rooftops</option><option value="21+">21+ rooftops</option></select><p class="field-error" data-error-for="rooftop_count"></p></div>
+              <div class="form-field"><label for="pilot-goal">What should an AI shopping agent answer correctly for you? <span>Required</span></label><textarea id="pilot-goal" name="pilot_goal" rows="5" minlength="20" maxlength="1200" placeholder="For example: which units are actually available, the advertised price, required dealer charges, and which incentives depend on eligibility." required></textarea><p class="field-help">Do not include customer information, credentials, or confidential data.</p><p class="field-error" data-error-for="pilot_goal"></p></div>
+              <div class="form-field"><label for="timeline">When would you want to start? <span>Optional</span></label><select id="timeline" name="timeline"><option value="">Select a timeline</option><option value="now">As soon as possible</option><option value="30-60-days">Within 30–60 days</option><option value="60-90-days">Within 60–90 days</option><option value="exploring">Exploring for later</option></select><p class="field-error" data-error-for="timeline"></p></div>
+              <div class="form-consent"><input id="consent" name="consent" type="checkbox" value="1" required><label for="consent">I authorize Dealer Agent Protocol maintainers to use this application to evaluate pilot fit and contact me about the pilot. I have read the <a href="/privacy/">Privacy Policy</a>.</label><p class="field-error" data-error-for="consent"></p></div>
+
+              <button class="button button-primary pilot-submit" id="pilot-submit" type="submit">Apply for the founding pilot →</button>
+              <p class="form-fine-print">No mailing-list opt-in. No sale of your information. Applications are reviewed individually.</p>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta-section page-shell"><div><p class="section-kicker">Before you apply</p><h2>See exactly what the protocol asks an agent to read.</h2></div><div class="cta-actions"><a class="button button-acid" href="/how-it-works/">See how it works →</a><a class="button button-dark-outline" href="https://dealeragentgateway.com/">Open the reference gateway</a></div></section>
+    </main>
+
+    <footer class="site-footer"><div class="page-shell footer-grid"><div><a class="wordmark footer-wordmark" href="/"><span class="wordmark-mark">D</span><span>Dealer Agent<br>Protocol</span></a><p>An open retail inventory and offer contract for AI agents.</p></div><div><strong>Understand</strong><a href="/how-it-works/">How it works</a><a href="/adopt/">Adoption paths</a><a href="/pilot/">Dealer pilot</a></div><div><strong>Implement</strong><a href="/docs/">Human guide</a><a href="/docs/quickstart/">Quickstart</a><a href="https://dealeragentgateway.com/">Gateway</a></div><div><strong>Project</strong><a href="/news/dealer-agent-protocol-launches/">Press release</a><a href="/LICENSE.txt">Apache-2.0 license</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a></div></div><div class="page-shell footer-bottom"><span>Created by Ariel Coro</span><span>Founding dealer applications open</span><span>Version 0.1 editor's draft</span></div></footer>
+  </body>
+</html>

@@ -9,6 +9,7 @@ Dealer Agent Protocol is the open specification and conformance contract. Dealer
 - Website: https://dealeragentgateway.com/
 - Streamable HTTP endpoint: https://mcp.dealeragentgateway.com/mcp
 - Protocol: https://dealeragentprotocol.com/
+- Founding dealer pilot: https://dealeragentprotocol.com/pilot/
 - MCP Registry metadata: https://dealeragentprotocol.com/server.json
 - Source: https://github.com/arielcoro/dealer-agent-protocol
 - License: https://dealeragentgateway.com/LICENSE.txt (Apache-2.0)

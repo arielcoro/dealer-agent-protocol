@@ -9,6 +9,8 @@ Dealer Agent Protocol is the open specification and conformance contract. Dealer
 - Human documentation: https://dealeragentprotocol.com/docs/
 - System explainer: https://dealeragentprotocol.com/how-it-works/
 - Adoption paths: https://dealeragentprotocol.com/adopt/
+- Founding dealer pilot: https://dealeragentprotocol.com/pilot/
+- Launch press release: https://dealeragentprotocol.com/news/dealer-agent-protocol-launches/
 - Specification: https://dealeragentprotocol.com/spec/v0.1/SPEC.md
 - Capability catalog: https://dealeragentprotocol.com/spec/v0.1/capabilities.yaml
 - Pricing semantics: https://dealeragentprotocol.com/spec/v0.1/pricing.md
