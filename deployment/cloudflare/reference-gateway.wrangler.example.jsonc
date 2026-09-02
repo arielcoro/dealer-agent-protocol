@@ -1,0 +1,9 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "replace-with-reference-worker-name",
+  "main": "reference-gateway-worker.mjs",
+  "compatibility_date": "2026-09-02",
+  "routes": [
+    { "pattern": "replace-with-reference-mcp-domain.example", "custom_domain": true }
+  ]
+}

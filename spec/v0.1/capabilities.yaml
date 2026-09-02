@@ -1,0 +1,271 @@
+specification:
+  id: dealer-agent-protocol
+  version: 0.1.0-draft.1
+  normative_mcp_revision: "2026-07-28"
+  schema_dialect: "https://json-schema.org/draft/2020-12/schema"
+
+bundles:
+  dealeragent.core-retail-read/0.1:
+    status: draft
+    required_profiles:
+      - dealeragent.discovery/0.1
+      - dealeragent.inventory.read/0.1
+      - dealeragent.inventory.availability/0.1
+      - dealeragent.pricing.disclosure/0.1
+
+profiles:
+  dealeragent.discovery/0.1:
+    status: draft
+    required_tools:
+      - dealeragent.discovery.get_manifest
+      - dealeragent.dealer.get
+    required_resources:
+      - dealeragent://manifest
+    scopes: []
+
+  dealeragent.inventory.read/0.1:
+    status: draft
+    dependencies:
+      - dealeragent.discovery/0.1
+    required_tools:
+      - dealeragent.inventory.search
+      - dealeragent.inventory.get_vehicle
+    scopes:
+      - dealeragent:inventory:read
+
+  dealeragent.inventory.availability/0.1:
+    status: draft
+    dependencies:
+      - dealeragent.inventory.read/0.1
+    required_tools:
+      - dealeragent.inventory.verify_availability
+    scopes:
+      - dealeragent:inventory:read
+
+  dealeragent.pricing.disclosure/0.1:
+    status: draft
+    dependencies:
+      - dealeragent.inventory.read/0.1
+    required_tools:
+      - dealeragent.pricing.get_disclosure
+    scopes:
+      - dealeragent:pricing:read
+
+  dealeragent.used-vehicle.read/0.1:
+    status: draft
+    dependencies:
+      - dealeragent.inventory.read/0.1
+    required_tools:
+      - dealeragent.inventory.get_used_vehicle_details
+    scopes:
+      - dealeragent:inventory:read
+
+  dealeragent.handoff/0.1:
+    status: draft
+    required_tools:
+      - dealeragent.handoff.get_policy
+      - dealeragent.handoff.prepare
+      - dealeragent.handoff.submit
+    scopes:
+      - dealeragent:handoff:submit
+
+tools:
+  dealeragent.discovery.get_manifest:
+    effect: read
+    mcp_annotations:
+      readOnlyHint: true
+      destructiveHint: false
+      idempotentHint: true
+      openWorldHint: false
+    input_schema: schemas/manifest.schema.json#/$defs/manifestRequest
+    output_schema: schemas/manifest.schema.json#/$defs/manifest
+    public_access: allowed
+    confirmation: none
+    idempotency: inherent
+    pii_input: none
+    pii_output: none
+    retention: none
+    reversible: true
+    legal_or_financial_commitment: false
+    freshness_authority: published_gateway_manifest
+    audit: access_log
+
+  dealeragent.dealer.get:
+    effect: read
+    mcp_annotations:
+      readOnlyHint: true
+      destructiveHint: false
+      idempotentHint: true
+      openWorldHint: false
+    input_schema: schemas/dealer.schema.json#/$defs/dealerRequest
+    output_schema: schemas/dealer.schema.json#/$defs/dealerOrganization
+    public_access: allowed_by_dealer_policy
+    confirmation: none
+    idempotency: inherent
+    pii_input: none
+    pii_output: public_business_contact_only
+    retention: none
+    reversible: true
+    legal_or_financial_commitment: false
+    freshness_authority: dealer_or_group_authority
+    audit: access_log
+
+  dealeragent.inventory.search:
+    effect: read
+    mcp_annotations:
+      readOnlyHint: true
+      destructiveHint: false
+      idempotentHint: true
+      openWorldHint: false
+    input_schema: schemas/vehicle.schema.json#/$defs/searchRequest
+    output_schema: schemas/vehicle.schema.json#/$defs/searchResponse
+    public_access: allowed_by_dealer_policy
+    confirmation: none
+    idempotency: inherent_for_same_snapshot
+    pii_input: none
+    pii_output: none
+    retention: none
+    reversible: true
+    legal_or_financial_commitment: false
+    freshness_authority: discovery_snapshot
+    audit: access_log
+
+  dealeragent.inventory.get_vehicle:
+    effect: read
+    mcp_annotations:
+      readOnlyHint: true
+      destructiveHint: false
+      idempotentHint: true
+      openWorldHint: false
+    input_schema: schemas/vehicle.schema.json#/$defs/vehicleRequest
+    output_schema: schemas/vehicle.schema.json#/$defs/vehicle
+    public_access: allowed_by_dealer_policy
+    confirmation: none
+    idempotency: inherent_for_same_snapshot
+    pii_input: none
+    pii_output: none
+    retention: none
+    reversible: true
+    legal_or_financial_commitment: false
+    freshness_authority: discovery_snapshot
+    audit: access_log
+
+  dealeragent.inventory.verify_availability:
+    effect: read_with_authoritative_check
+    mcp_annotations:
+      readOnlyHint: true
+      destructiveHint: false
+      idempotentHint: true
+      openWorldHint: false
+    input_schema: schemas/vehicle.schema.json#/$defs/availabilityRequest
+    output_schema: schemas/vehicle.schema.json#/$defs/availabilityResult
+    public_access: rate_limited_or_authenticated
+    confirmation: none
+    idempotency: inherent_within_validity_window
+    pii_input: none
+    pii_output: none
+    retention: operational_log
+    reversible: true
+    legal_or_financial_commitment: false
+    freshness_authority: authoritative_inventory_source_required
+    audit: authoritative_read_event
+
+  dealeragent.pricing.get_disclosure:
+    effect: read
+    mcp_annotations:
+      readOnlyHint: true
+      destructiveHint: false
+      idempotentHint: true
+      openWorldHint: false
+    input_schema: schemas/pricing.schema.json#/$defs/disclosureRequest
+    output_schema: schemas/pricing.schema.json#/$defs/pricingDisclosure
+    public_access: allowed_by_dealer_policy
+    confirmation: none
+    idempotency: inherent_for_same_snapshot
+    pii_input: none
+    pii_output: none
+    retention: none
+    reversible: true
+    legal_or_financial_commitment: false
+    freshness_authority: dealer_pricing_authority
+    audit: access_log
+
+  dealeragent.inventory.get_used_vehicle_details:
+    effect: read
+    mcp_annotations:
+      readOnlyHint: true
+      destructiveHint: false
+      idempotentHint: true
+      openWorldHint: false
+    input_schema: schemas/used-vehicle.schema.json#/$defs/usedVehicleRequest
+    output_schema: schemas/used-vehicle.schema.json#/$defs/usedVehicleDetails
+    public_access: allowed_by_dealer_policy
+    confirmation: none
+    idempotency: inherent_for_same_snapshot
+    pii_input: none
+    pii_output: none
+    retention: none
+    reversible: true
+    legal_or_financial_commitment: false
+    freshness_authority: provider_and_dealer_specific
+    audit: access_log
+
+  dealeragent.handoff.get_policy:
+    effect: read
+    mcp_annotations:
+      readOnlyHint: true
+      destructiveHint: false
+      idempotentHint: true
+      openWorldHint: false
+    input_schema: schemas/handoff.schema.json#/$defs/policyRequest
+    output_schema: schemas/handoff.schema.json#/$defs/handoffPolicy
+    public_access: allowed
+    confirmation: none
+    idempotency: inherent
+    pii_input: none
+    pii_output: none
+    retention: none
+    reversible: true
+    legal_or_financial_commitment: false
+    freshness_authority: dealer_handoff_policy
+    audit: access_log
+
+  dealeragent.handoff.prepare:
+    effect: create_consent_binding
+    mcp_annotations:
+      readOnlyHint: false
+      destructiveHint: false
+      idempotentHint: true
+      openWorldHint: false
+    input_schema: schemas/handoff.schema.json#/$defs/prepareRequest
+    output_schema: schemas/consent.schema.json#/$defs/consentBinding
+    public_access: authenticated
+    confirmation: exact_disclosure_required_before_submit
+    idempotency: required
+    pii_input: prohibited
+    pii_output: none
+    retention: binding_lifetime_plus_audit_policy
+    reversible: true_before_submit
+    legal_or_financial_commitment: false
+    freshness_authority: dealer_handoff_policy
+    audit: consent_prepare_event_without_pii
+
+  dealeragent.handoff.submit:
+    effect: create_and_forward_handoff
+    mcp_annotations:
+      readOnlyHint: false
+      destructiveHint: false
+      idempotentHint: true
+      openWorldHint: true
+    input_schema: schemas/handoff.schema.json#/$defs/handoffRequest
+    output_schema: schemas/handoff.schema.json#/$defs/handoffResult
+    public_access: authenticated
+    confirmation: valid_single_use_consent_binding_required
+    idempotency: required
+    pii_input: consent_bound_contact_only
+    pii_output: none
+    retention: dealer_policy_and_law
+    reversible: false_after_forwarding
+    legal_or_financial_commitment: false
+    freshness_authority: dealer_handoff_policy
+    audit: consent_submit_event_with_pii_redaction

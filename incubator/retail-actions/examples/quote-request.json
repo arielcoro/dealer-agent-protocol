@@ -1,0 +1,25 @@
+{
+  "organization_id": "org.example-motors",
+  "rooftop_id": "roof.downtown",
+  "vehicle_id": "veh.2026-001",
+  "buyer_context": {
+    "jurisdiction": {
+      "country": "US",
+      "subdivision": "US-FL",
+      "locality": "Miami",
+      "postal_code": "33101"
+    },
+    "payment_mode": "cash",
+    "eligibility_claims": [
+      {
+        "criterion": "residency",
+        "operator": "equals",
+        "value": "US-FL",
+        "evidence_status": "claimed",
+        "description": "Buyer states Florida residency; dealer verification remains required."
+      }
+    ],
+    "trade_in_present": false
+  },
+  "idempotency_key": "quote-demo-20260901-0001"
+}

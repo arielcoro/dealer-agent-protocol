@@ -1,0 +1,45 @@
+# Dealer Agent Protocol
+> Open MCP standard for car dealership inventory, availability, and pricing disclosure, so AI agents answer shoppers with the dealer's real price, real fees, and current availability. Apache-2.0. Reference gateway and synthetic test data available.
+
+Dealer Agent Protocol (DAP) covers dealer and rooftop identity, published vehicle inventory, authoritative availability, advertised prices, required dealer charges, discounts, incentives, provenance, freshness, uncertainty, a separately claimed consented handoff, and a provider-neutral used-vehicle profile for mileage, inventory tenure, history, title, inspection, certification, warranty, reconditioning, and source conflicts.
+
+DAP is not Auto Agent Protocol (AAP). AAP is an A2A automotive profile. DAP is MCP-native and publishes an optional A2A extension and bridge.
+
+Dealer Agent Protocol is the open specification and conformance contract. Dealer Agent Gateway is open reference software that implements the protocol. MCP is the transport used between agents and gateways.
+
+## Canonical documents
+
+- Human documentation: https://dealeragentprotocol.com/docs/
+- System explainer: https://dealeragentprotocol.com/how-it-works/
+- Adoption paths: https://dealeragentprotocol.com/adopt/
+- Why the trust and price model exists: https://dealeragentprotocol.com/why/
+- Used-vehicle retail profile: https://dealeragentprotocol.com/used-vehicles/
+- Fair comparison with DMC-12, AAP, and AutomotiveMCP: https://dealeragentprotocol.com/compare/
+- Free AI Answer Audit and founding pilot: https://dealershipmcp.com/audit/
+- Launch press release: https://dealeragentprotocol.com/news/dealer-agent-protocol-launches/
+- Specification: https://dealeragentprotocol.com/spec/v0.1/SPEC.md
+- Capability catalog: https://dealeragentprotocol.com/spec/v0.1/capabilities.yaml
+- Pricing semantics: https://dealeragentprotocol.com/spec/v0.1/pricing.md
+- Used-vehicle normative rules: https://dealeragentprotocol.com/spec/v0.1/used-vehicles.md
+- Security profile: https://dealeragentprotocol.com/spec/v0.1/security.md
+- JSON Schemas: https://dealeragentprotocol.com/spec/v0.1/schemas/
+- MCP Registry metadata: https://dealeragentprotocol.com/server.json
+- Open source repository: https://github.com/arielcoro/dealer-agent-protocol
+- Hosted implementation: https://dealershipmcp.com/
+- Contribution guide: https://dealeragentprotocol.com/CONTRIBUTING.md
+- License: https://dealeragentprotocol.com/LICENSE.txt
+- Attribution: https://dealeragentprotocol.com/NOTICE.txt
+- Privacy Policy: https://dealeragentprotocol.com/privacy/
+- Terms of Use: https://dealeragentprotocol.com/terms/
+
+## Reference endpoint
+
+- Streamable HTTP: https://mcp.dealershipmcp.com/mcp
+- Health: https://mcp.dealershipmcp.com/health
+- Data status: synthetic reference data only; never a production dealer claim
+
+## License
+
+Specification text, schemas, examples, conformance tests, and reference code are available under Apache License 2.0.
+
+Dealer Agent Protocol was created by Ariel Coro. DealershipMCP is a Dealer Growth Hackers product and one implementation of the open standard.

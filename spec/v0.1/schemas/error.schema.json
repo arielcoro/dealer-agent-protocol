@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dealeragentprotocol.com/spec/v0.1/schemas/error.schema.json",
+  "title": "Dealer Agent Protocol structured error data",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["error_id", "code", "message", "retryable", "trace_id", "created_at"],
+  "properties": {
+    "error_id": { "$ref": "common.schema.json#/$defs/identifier" },
+    "code": {
+      "type": "string",
+      "enum": [
+        "dealeragent.validation.invalid",
+        "dealeragent.protocol.unsupported_revision",
+        "dealeragent.capability.unsupported",
+        "dealeragent.auth.required",
+        "dealeragent.auth.invalid",
+        "dealeragent.scope.insufficient",
+        "dealeragent.tenant.forbidden",
+        "dealeragent.resource.not_found",
+        "dealeragent.vehicle.unavailable",
+        "dealeragent.vehicle.stale",
+        "dealeragent.pricing.incomplete",
+        "dealeragent.pricing.eligibility_unverified",
+        "dealeragent.state.conflict",
+        "dealeragent.rate_limited",
+        "dealeragent.upstream.unavailable",
+        "dealeragent.internal"
+      ]
+    },
+    "message": { "type": "string", "minLength": 1, "maxLength": 500 },
+    "retryable": { "type": "boolean" },
+    "retry_after_ms": { "type": "integer", "minimum": 0, "maximum": 86400000 },
+    "trace_id": { "$ref": "common.schema.json#/$defs/traceId" },
+    "details": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "field_errors": {
+          "type": "array",
+          "maxItems": 100,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["instance_location", "keyword", "explanation"],
+            "properties": {
+              "instance_location": { "type": "string", "pattern": "^/" },
+              "keyword": { "type": "string", "minLength": 1, "maxLength": 80 },
+              "explanation": { "type": "string", "minLength": 1, "maxLength": 500 }
+            }
+          }
+        },
+        "current_freshness": { "$ref": "common.schema.json#/$defs/freshness" }
+      }
+    },
+    "created_at": { "$ref": "common.schema.json#/$defs/timestamp" }
+  }
+}

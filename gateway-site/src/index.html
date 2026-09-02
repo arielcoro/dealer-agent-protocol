@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Dealer Agent Gateway is the open reference implementation of Dealer Agent Protocol for dealer-published inventory, availability, pricing, and incentives.">
+    <meta name="theme-color" content="#07110f">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Dealer Agent Gateway — Retail facts for AI agents">
+    <meta property="og:description" content="A reference MCP gateway for dealer-published inventory, availability, pricing, and incentives.">
+    <meta property="og:url" content="https://dealeragentgateway.com/">
+    <meta property="og:image" content="https://dealeragentgateway.com/og.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://dealeragentgateway.com/og.png">
+    <link rel="canonical" href="https://dealeragentgateway.com/">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/app.js" defer></script>
+    <title>Dealer Agent Gateway — Retail facts for AI agents</title>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Dealer Agent Gateway",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "MCP-compatible runtime",
+        "description": "An open reference implementation of Dealer Agent Protocol using synthetic dealership data.",
+        "url": "https://dealeragentgateway.com/",
+        "codeRepository": "https://github.com/arielcoro/dealer-agent-protocol",
+        "license": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="grid-field" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="Dealer Agent Gateway home">
+        <span class="brand-beacon" aria-hidden="true"><i></i></span>
+        <span>Dealer Agent <strong>Gateway</strong></span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#capabilities">Capabilities</a>
+        <a href="#boundary">Boundary</a>
+        <a href="https://dealeragentprotocol.com/">Protocol</a>
+        <a href="https://dealeragentprotocol.com/pilot/">Dealer pilot</a>
+        <a href="https://github.com/arielcoro/dealer-agent-protocol">GitHub</a>
+      </nav>
+      <div class="status" id="gateway-status" data-state="checking" role="status">
+        <span aria-hidden="true"></span>
+        <span class="status-copy">Checking reference</span>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="kicker">Open reference implementation · Core retail read</p>
+          <h1 id="hero-title">Retail facts.<br><em>Agent ready.</em></h1>
+          <p class="lede">A Dealer Agent Gateway turns dealer-published vehicle inventory, availability, prices, charges, and incentives into structured MCP tools an AI agent can use without guessing.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#connect">Connect to the reference</a>
+            <a class="button button-ghost" href="https://dealeragentprotocol.com/pilot/">Apply for the dealer pilot <span aria-hidden="true">↗</span></a>
+            <a class="button button-ghost" href="https://dealeragentprotocol.com/spec/v0.1/SPEC.md">Read the open protocol <span aria-hidden="true">↗</span></a>
+          </div>
+          <ul class="trust-line" aria-label="Gateway characteristics">
+            <li>Read only</li>
+            <li>Source aware</li>
+            <li>Price explicit</li>
+            <li>Apache-2.0</li>
+          </ul>
+        </div>
+
+        <div class="console" aria-label="Example MCP exchange">
+          <div class="console-bar">
+            <span>REFERENCE / MCP</span>
+            <span class="console-mode">SYNTHETIC DATA</span>
+          </div>
+          <div class="console-body">
+            <p class="prompt"><span>→</span> tools/call</p>
+            <pre><code>{
+  <b>"name"</b>: "dealeragent.inventory.search",
+  <b>"arguments"</b>: {
+    "organization_id": "org.example-motors",
+    "filters": { "condition": ["new"] }
+  }
+}</code></pre>
+            <div class="response-line">
+              <span class="pulse" aria-hidden="true"></span>
+              <span>structuredContent</span>
+              <strong>3 vehicles</strong>
+              <span>freshness: current</span>
+            </div>
+            <div class="signal-stack" aria-hidden="true">
+              <i style="--size: 92%"></i>
+              <i style="--size: 74%"></i>
+              <i style="--size: 84%"></i>
+              <i style="--size: 56%"></i>
+              <i style="--size: 67%"></i>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="rail" aria-label="Gateway data flow">
+        <span>Dealer-published sources</span>
+        <i aria-hidden="true">→</i>
+        <span>Policy + normalization</span>
+        <i aria-hidden="true">→</i>
+        <strong>Dealer Agent Gateway</strong>
+        <i aria-hidden="true">→</i>
+        <span>Shopping agents</span>
+      </section>
+
+      <section class="relationship" id="relationship" aria-labelledby="relationship-title">
+        <div class="relationship-heading">
+          <p class="section-code">Protocol ≠ gateway</p>
+          <h2 id="relationship-title">The protocol defines the contract.<br>The gateway runs it.</h2>
+        </div>
+        <div class="relationship-cells">
+          <article>
+            <span>OPEN SPECIFICATION</span>
+            <h3>Dealer Agent Protocol</h3>
+            <p>The portable rulebook: tool names, schemas, retail semantics, pricing disclosures, trust fields, and conformance requirements.</p>
+            <a href="https://dealeragentprotocol.com/">Explore the protocol →</a>
+          </article>
+          <article>
+            <span>REFERENCE SOFTWARE</span>
+            <h3>Dealer Agent Gateway</h3>
+            <p>The running implementation: source adapters, dealer policy, normalization, authorization, audit, and MCP responses.</p>
+            <a href="#connect">Use the reference →</a>
+          </article>
+        </div>
+        <p class="relationship-foot"><strong>Anyone can implement Dealer Agent Protocol.</strong> This gateway is the open reference implementation—not the protocol itself.</p>
+      </section>
+
+      <section class="capabilities" id="capabilities" aria-labelledby="capabilities-title">
+        <div class="section-heading">
+          <p class="section-code">01 / Capability surface</p>
+          <h2 id="capabilities-title">Six tools.<br>Zero invented facts.</h2>
+          <p>The reference implements the complete draft Core Retail Read bundle. Each response keeps the rooftop, source, observation time, authority, and uncertainty attached.</p>
+        </div>
+        <ol class="tool-grid">
+          <li>
+            <span>01</span>
+            <div><code>dealeragent.discovery.get_manifest</code><p>Discover profiles, scopes, resources, and conformance evidence.</p></div>
+          </li>
+          <li>
+            <span>02</span>
+            <div><code>dealeragent.dealer.get</code><p>Resolve the dealer organization and its retail rooftops.</p></div>
+          </li>
+          <li>
+            <span>03</span>
+            <div><code>dealeragent.inventory.search</code><p>Search dealer-published vehicles with typed filters and cursors.</p></div>
+          </li>
+          <li>
+            <span>04</span>
+            <div><code>dealeragent.inventory.get_vehicle</code><p>Read one vehicle without treating the listing as a promise.</p></div>
+          </li>
+          <li>
+            <span>05</span>
+            <div><code>dealeragent.inventory.verify_availability</code><p>Perform a fresh check against an authoritative inventory source.</p></div>
+          </li>
+          <li>
+            <span>06</span>
+            <div><code>dealeragent.pricing.get_disclosure</code><p>Separate advertised price, required charges, and conditional offers.</p></div>
+          </li>
+        </ol>
+      </section>
+
+      <section class="boundary" id="boundary" aria-labelledby="boundary-title">
+        <div class="boundary-copy">
+          <p class="section-code">02 / Trust boundary</p>
+          <h2 id="boundary-title">The adapter stays behind the line.</h2>
+          <p>A production gateway can connect to approved inventory, pricing, and availability sources. Agents receive normalized retail facts—not generic access to the dealer’s operational systems.</p>
+        </div>
+        <div class="boundary-map" aria-label="Gateway trust boundary diagram">
+          <div class="map-source">
+            <p>Dealer-authorized sources</p>
+            <span>Inventory feed</span><span>Pricing source</span><span>Availability authority</span>
+          </div>
+          <div class="map-gate">
+            <span>ISOLATED</span>
+            <strong>Retail<br>policy<br>boundary</strong>
+          </div>
+          <div class="map-output">
+            <p>Agent-visible surface</p>
+            <span>Published catalog</span><span>Explicit offers</span><span>Provenance + freshness</span>
+          </div>
+        </div>
+        <div class="not-access"><span>GATEWAY RULE</span><p>Source integrations remain behind the policy boundary. Agents receive only protocol-shaped retail facts.</p></div>
+      </section>
+
+      <section class="connect" id="connect" aria-labelledby="connect-title">
+        <div>
+          <p class="section-code">03 / Connect</p>
+          <h2 id="connect-title">Test the contract,<br>not a sales pitch.</h2>
+          <p>This public endpoint is a conformance fixture with synthetic vehicles and no customer data. It is designed for client interoperability testing—not production dealer traffic.</p>
+        </div>
+        <div class="endpoint-card">
+          <span class="endpoint-label">STREAMABLE HTTP</span>
+          <code id="endpoint-value">https://mcp.dealeragentgateway.com/mcp</code>
+          <button id="copy-endpoint" type="button">Copy endpoint</button>
+          <p id="copy-feedback" aria-live="polite"></p>
+          <div class="endpoint-links">
+            <a href="https://dealeragentprotocol.com/server.json">Registry metadata</a>
+            <a href="https://github.com/arielcoro/dealer-agent-protocol">Source + tests</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="open-project" id="open-project" aria-labelledby="open-project-title">
+        <div><p class="section-code">04 / Open project</p><h2 id="open-project-title">Use it. Inspect it.<br>Improve it.</h2><p>The gateway and the protocol are developed together in public, with separate responsibilities and one shared license.</p></div>
+        <div class="open-project-list">
+          <article><span>LICENSE</span><h3>Apache-2.0</h3><p>Reference software, specifications, schemas, tests, and documentation include an explicit patent grant.</p><a href="/LICENSE.txt">Read the license →</a></article>
+          <article><span>CONTRIBUTING</span><h3>Two ways to help</h3><p>Improve the shared protocol contract or improve the gateway implementation. The contribution guide explains the difference.</p><a href="/CONTRIBUTING.md">Contribution guide →</a></article>
+          <article><span>CREATOR</span><h3>Ariel Coro</h3><p>Creator of Dealer Agent Protocol and the Dealer Agent Gateway reference implementation.</p><a href="https://github.com/arielcoro">Creator profile →</a></article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div>
+        <strong>Dealer Agent Gateway</strong>
+        <p>Reference implementation of Dealer Agent Protocol. Created by Ariel Coro.</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://dealeragentprotocol.com/">Protocol</a>
+        <a href="https://dealeragentprotocol.com/pilot/">Dealer pilot</a>
+        <a href="/LICENSE.txt">Apache-2.0</a>
+        <a href="/CONTRIBUTING.md">Contributing</a>
+        <a href="/NOTICE.txt">Attribution</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/terms/">Terms</a>
+      </div>
+      <p class="footer-note">Synthetic data only · Draft 0.1</p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,119 @@
+{
+  "vehicle_id": "veh.2024-002",
+  "organization_id": "org.example-motors",
+  "rooftop_id": "roof.downtown",
+  "vin": "2HGFC2F59JH000001",
+  "condition": "used",
+  "odometer": {
+    "reading": { "value": 18420, "unit": "mi" },
+    "status": "actual",
+    "observed_at": "2026-09-01T13:30:00Z",
+    "provenance": {
+      "sources": [{ "source_name": "dealer-inventory-system", "source_record_id": "U24002", "authority": "authoritative_dealer_system", "observed_at": "2026-09-01T13:30:00Z" }],
+      "authority_status": "authoritative"
+    },
+    "freshness": { "observed_at": "2026-09-01T13:30:00Z", "valid_until": "2026-09-02T13:30:00Z", "state": "current" }
+  },
+  "inventory_tenure": {
+    "stocked_at": "2026-07-16T10:00:00Z",
+    "first_public_listing_at": "2026-07-18T12:00:00Z",
+    "age_days": 47,
+    "age_as_of": "2026-09-01T14:00:00Z",
+    "age_basis": "stocked_at",
+    "provenance": {
+      "sources": [{ "source_name": "dealer-inventory-system", "source_record_id": "U24002", "authority": "authoritative_dealer_system", "observed_at": "2026-09-01T13:30:00Z" }],
+      "authority_status": "authoritative"
+    },
+    "freshness": { "observed_at": "2026-09-01T13:30:00Z", "valid_until": "2026-09-02T13:30:00Z", "state": "current" }
+  },
+  "history_reports": [
+    {
+      "provider_id": "com.carfax",
+      "provider_name": "CARFAX",
+      "report_id": "synthetic-carfax-002",
+      "status": "available",
+      "access": "public_link",
+      "report_url": "https://example.invalid/history/carfax/U24002",
+      "report_generated_at": "2026-08-25T14:00:00Z",
+      "observed_at": "2026-09-01T13:30:00Z",
+      "summary_sharing_authorized": true,
+      "summary": {
+        "accident_status": "no_events_reported",
+        "accident_event_count": 0,
+        "damage_status": "no_damage_reported",
+        "title_brand_status": "no_brands_reported",
+        "odometer_consistency": "consistent",
+        "owner_count_status": "known",
+        "owner_count": 1,
+        "prior_use": ["personal"],
+        "service_record_count": 6,
+        "last_reported_odometer": { "value": 18110, "unit": "mi" }
+      },
+      "provenance": {
+        "sources": [{ "source_name": "CARFAX synthetic fixture", "source_record_id": "synthetic-carfax-002", "authority": "third_party", "observed_at": "2026-09-01T13:30:00Z" }],
+        "authority_status": "unknown"
+      },
+      "freshness": { "observed_at": "2026-09-01T13:30:00Z", "valid_until": "2026-09-30T14:00:00Z", "state": "current" }
+    }
+  ],
+  "title": {
+    "status": "clear",
+    "brands": [],
+    "jurisdiction": "US-FL",
+    "provenance": {
+      "sources": [{ "source_name": "dealer-title-file", "source_record_id": "2HGFC2F59JH000001", "authority": "dealer_asserted", "observed_at": "2026-09-01T13:30:00Z" }],
+      "authority_status": "asserted"
+    },
+    "freshness": { "observed_at": "2026-09-01T13:30:00Z", "valid_until": "2026-09-02T13:30:00Z", "state": "current" }
+  },
+  "condition_report": {
+    "status": "completed",
+    "inspection_authority": "dealer",
+    "inspector_name": "Example Motors Used Vehicle Center",
+    "inspected_at": "2026-08-30T14:00:00Z",
+    "inspection_point_count": 125,
+    "grade": { "system": "Example Motors retail inspection v1", "value": "retail-ready with disclosed cosmetic wear" },
+    "components": [
+      { "component": "mechanical", "status": "pass" },
+      { "component": "exterior", "status": "attention", "note": "Small repaired scratch on the right rear door." }
+    ],
+    "disclosed_damage": ["Small repaired scratch on the right rear door."],
+    "provenance": {
+      "sources": [{ "source_name": "dealer-used-inspection", "source_record_id": "inspection-U24002", "authority": "dealer_asserted", "observed_at": "2026-09-01T13:30:00Z" }],
+      "authority_status": "asserted"
+    },
+    "freshness": { "observed_at": "2026-09-01T13:30:00Z", "valid_until": "2026-09-02T13:30:00Z", "state": "current" }
+  },
+  "certification": {
+    "type": "not_certified",
+    "provenance": {
+      "sources": [{ "source_name": "dealer-inventory-system", "source_record_id": "U24002", "authority": "authoritative_dealer_system", "observed_at": "2026-09-01T13:30:00Z" }],
+      "authority_status": "authoritative"
+    },
+    "freshness": { "observed_at": "2026-09-01T13:30:00Z", "valid_until": "2026-09-02T13:30:00Z", "state": "current" }
+  },
+  "reconditioning": {
+    "status": "completed",
+    "completed_at": "2026-08-31T14:00:00Z",
+    "items": [
+      { "category": "brakes", "description": "Front brake pads replaced.", "status": "completed" },
+      { "category": "cosmetic", "description": "Right rear door scratch repaired and disclosed.", "status": "completed" }
+    ],
+    "provenance": {
+      "sources": [{ "source_name": "dealer-reconditioning-status", "source_record_id": "recon-U24002", "authority": "dealer_asserted", "observed_at": "2026-09-01T13:30:00Z" }],
+      "authority_status": "asserted"
+    },
+    "freshness": { "observed_at": "2026-09-01T13:30:00Z", "valid_until": "2026-09-02T13:30:00Z", "state": "current" }
+  },
+  "discrepancies": [],
+  "provenance": {
+    "sources": [
+      { "source_name": "dealer-inventory-system", "source_record_id": "U24002", "authority": "authoritative_dealer_system", "observed_at": "2026-09-01T13:30:00Z" },
+      { "source_name": "CARFAX synthetic fixture", "source_record_id": "synthetic-carfax-002", "authority": "third_party", "observed_at": "2026-09-01T13:30:00Z" }
+    ],
+    "authority_status": "asserted",
+    "transformations": ["normalized licensed summary fields without copying raw report content"]
+  },
+  "freshness": { "observed_at": "2026-09-01T13:30:00Z", "valid_until": "2026-09-02T13:30:00Z", "state": "current" },
+  "trace_id": "trace.example.used.002"
+}

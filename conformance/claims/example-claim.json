@@ -1,0 +1,55 @@
+{
+  "claim_version": "1",
+  "claim_id": "claim.example-motors.20260901",
+  "status": "active",
+  "specification": {
+    "version": "0.1",
+    "uri": "https://dealeragentprotocol.com/spec/v0.1/",
+    "digest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+  },
+  "implementation": {
+    "name": "Example Dealer Agent Gateway",
+    "version": "0.1.0",
+    "endpoint": "https://dealer.example/mcp",
+    "source_revision": "0123456789abcdef0123456789abcdef01234567",
+    "operator": "Example Motors",
+    "organization_ids": ["org.example-motors"],
+    "rooftop_ids": ["roof.downtown"],
+    "tools": [
+      "dealeragent.discovery.get_manifest",
+      "dealeragent.dealer.get",
+      "dealeragent.inventory.search",
+      "dealeragent.inventory.get_vehicle",
+      "dealeragent.inventory.verify_availability",
+      "dealeragent.inventory.get_used_vehicle_details",
+      "dealeragent.pricing.get_disclosure"
+    ],
+    "resources": ["dealeragent://manifest", "dealeragent://organization/org.example-motors"],
+    "auth_modes": ["public", "oauth_2_1"],
+    "extensions": []
+  },
+  "profiles": [
+    "dealeragent.discovery/0.1",
+    "dealeragent.inventory.read/0.1",
+    "dealeragent.inventory.availability/0.1",
+    "dealeragent.pricing.disclosure/0.1",
+    "dealeragent.used-vehicle.read/0.1"
+  ],
+  "mcp_revisions": ["2026-07-28"],
+  "test_run": {
+    "suite_version": "0.1.0",
+    "result": "pass",
+    "completed_at": "2026-09-01T15:00:00Z",
+    "report_digest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "report_uri": "https://dealer.example/conformance/report-20260901.json"
+  },
+  "exceptions": [],
+  "issued_at": "2026-09-01T15:01:00Z",
+  "expires_at": "2026-12-01T15:01:00Z",
+  "signer": {
+    "organization": "Example Motors",
+    "key_id": "https://dealer.example/.well-known/jwks.json#conformance-1",
+    "algorithm": "ES256",
+    "signature": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.ZXhhbXBsZS1jb25mb3JtYW5jZS1jbGFpbQ.c3ludGhldGljLWV4YW1wbGUtc2lnbmF0dXJl"
+  }
+}

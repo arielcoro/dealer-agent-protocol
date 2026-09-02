@@ -1,0 +1,72 @@
+{
+  "vehicles": [
+    {
+      "vehicle_id": "veh.2026-001",
+      "organization_id": "org.example-motors",
+      "rooftop_id": "roof.downtown",
+      "vin": "1HGBH41JXMN109186",
+      "stock_number": "N26001",
+      "vehicle_type": "suv",
+      "year": 2026,
+      "make": "Example",
+      "model": "Northstar",
+      "trim": "Touring AWD",
+      "condition": "new",
+      "odometer": { "value": 7, "unit": "mi", "status": "actual" },
+      "advertised_price": {
+        "amount": { "amount_minor": 4287500, "currency": "USD" },
+        "availability": "generally_available",
+        "includes_required_dealer_charges": true,
+        "valid_until": "2026-09-03T03:59:59Z"
+      },
+      "availability": {
+        "status": "available",
+        "authority_status": "asserted",
+        "observed_at": "2026-09-01T13:58:00Z",
+        "valid_until": "2026-09-01T14:13:00Z",
+        "human_verification_required": false
+      },
+      "provenance": {
+        "sources": [
+          {
+            "source_name": "dealer-inventory-system",
+            "source_record_id": "N26001",
+            "authority": "authoritative_dealer_system",
+            "observed_at": "2026-09-01T13:58:00Z"
+          }
+        ],
+        "authority_status": "authoritative",
+        "transformed_at": "2026-09-01T13:58:01Z"
+      },
+      "freshness": {
+        "observed_at": "2026-09-01T13:58:00Z",
+        "valid_until": "2026-09-01T14:13:00Z",
+        "state": "current",
+        "max_age_seconds": 900
+      }
+    }
+  ],
+  "facets": {
+    "make": [{ "value": "Example", "count": 1 }],
+    "condition": [{ "value": "new", "count": 1 }]
+  },
+  "page": { "has_more": false },
+  "provenance": {
+    "sources": [
+      {
+        "source_name": "dealer-inventory-index",
+        "authority": "derived",
+        "observed_at": "2026-09-01T13:58:00Z"
+      }
+    ],
+    "authority_status": "derived",
+    "transformed_at": "2026-09-01T13:58:01Z"
+  },
+  "freshness": {
+    "observed_at": "2026-09-01T13:58:00Z",
+    "valid_until": "2026-09-01T14:13:00Z",
+    "state": "current",
+    "max_age_seconds": 900
+  },
+  "trace_id": "trace.search.0001"
+}

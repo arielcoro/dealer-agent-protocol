@@ -1,0 +1,23 @@
+# Dealer Agent Protocol
+> Open MCP standard for car dealership inventory, availability, and pricing disclosure, so AI agents answer shoppers with the dealer's real price, real fees, and current availability. Apache-2.0. Reference gateway and synthetic test data available.
+
+# DealershipMCP
+> Dealer Growth Hackers product and hosted implementation of Dealer Agent Protocol. It provides an AI Answer Audit, static publication, a managed Dealer Agent Gateway, freshness monitoring, conformance claim hosting, and optional consented ADF handoff.
+
+DealershipMCP can publish provider-neutral used-vehicle facts including mileage, dated inventory age, authorized history-report summaries, title, inspection, certification, warranty, public reconditioning facts, and unresolved source conflicts. CARFAX, AutoCheck, or other provider support depends on dealer authorization and contract rights and does not imply a partnership.
+
+## Important distinctions
+- Dealer Agent Protocol is the independently implementable open standard.
+- A Dealer Agent Gateway is software that implements the standard.
+- DealershipMCP is one commercial gateway product.
+- Dealer Agent Protocol is not Auto Agent Protocol; a compatibility bridge is documented.
+- Planned integrations are roadmap items, not partnership or availability claims.
+
+## Key pages
+- https://dealershipmcp.com/audit/ — free AI Answer Audit
+- https://dealershipmcp.com/connect/ — free static publication path
+- https://dealershipmcp.com/how-it-works/ — product and consent flow
+- https://dealershipmcp.com/compare/ — dated comparison with public alternatives
+- https://dealershipmcp.com/live/ — dealer roster with claim evidence
+- https://dealeragentprotocol.com/ — canonical open standard
+- https://github.com/arielcoro/dealer-agent-protocol — source and public review

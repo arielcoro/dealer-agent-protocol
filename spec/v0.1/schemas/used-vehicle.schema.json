@@ -1,0 +1,269 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dealeragentprotocol.com/spec/v0.1/schemas/used-vehicle.schema.json",
+  "title": "Dealer Agent Protocol used-vehicle disclosure",
+  "$defs": {
+    "distance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "unit"],
+      "properties": {
+        "value": { "type": "integer", "minimum": 0 },
+        "unit": { "type": "string", "enum": ["mi", "km"] }
+      }
+    },
+    "inventoryTenure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stocked_at", "age_days", "age_as_of", "age_basis", "provenance", "freshness"],
+      "properties": {
+        "stocked_at": { "$ref": "common.schema.json#/$defs/timestamp" },
+        "first_public_listing_at": { "$ref": "common.schema.json#/$defs/timestamp" },
+        "age_days": { "type": "integer", "minimum": 0 },
+        "age_as_of": { "$ref": "common.schema.json#/$defs/timestamp" },
+        "age_basis": { "type": "string", "enum": ["stocked_at", "first_public_listing_at", "source_reported"] },
+        "provenance": { "$ref": "common.schema.json#/$defs/provenance" },
+        "freshness": { "$ref": "common.schema.json#/$defs/freshness" }
+      }
+    },
+    "historySummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["accident_status", "damage_status", "title_brand_status", "odometer_consistency", "owner_count_status"],
+      "properties": {
+        "accident_status": { "type": "string", "enum": ["events_reported", "no_events_reported", "unknown"] },
+        "accident_event_count": { "type": "integer", "minimum": 0 },
+        "damage_status": { "type": "string", "enum": ["damage_reported", "no_damage_reported", "unknown"] },
+        "structural_damage_status": { "type": "string", "enum": ["reported", "not_reported", "unknown"] },
+        "airbag_deployment_status": { "type": "string", "enum": ["reported", "not_reported", "unknown"] },
+        "title_brand_status": { "type": "string", "enum": ["brands_reported", "no_brands_reported", "unknown"] },
+        "odometer_consistency": { "type": "string", "enum": ["consistent", "discrepancy_reported", "unknown"] },
+        "owner_count_status": { "type": "string", "enum": ["known", "unknown"] },
+        "owner_count": { "type": "integer", "minimum": 0 },
+        "prior_use": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "enum": ["personal", "lease", "rental", "fleet", "commercial", "government", "taxi_or_rideshare", "other", "unknown"] }
+        },
+        "service_record_count": { "type": "integer", "minimum": 0 },
+        "last_reported_odometer": { "$ref": "#/$defs/distance" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "owner_count_status": { "const": "known" } }, "required": ["owner_count_status"] },
+          "then": { "required": ["owner_count"] }
+        }
+      ]
+    },
+    "historyReport": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider_id", "provider_name", "status", "access", "summary_sharing_authorized", "observed_at", "provenance", "freshness"],
+      "properties": {
+        "provider_id": { "type": "string", "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)+$" },
+        "provider_name": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "report_id": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "status": { "type": "string", "enum": ["available", "not_available", "restricted", "unknown"] },
+        "access": { "type": "string", "enum": ["public_link", "dealer_presented", "on_request", "restricted", "none"] },
+        "report_url": { "type": "string", "format": "uri" },
+        "report_generated_at": { "$ref": "common.schema.json#/$defs/timestamp" },
+        "observed_at": { "$ref": "common.schema.json#/$defs/timestamp" },
+        "summary_sharing_authorized": { "type": "boolean" },
+        "summary": { "$ref": "#/$defs/historySummary" },
+        "provenance": { "$ref": "common.schema.json#/$defs/provenance" },
+        "freshness": { "$ref": "common.schema.json#/$defs/freshness" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "summary_sharing_authorized": { "const": false } }, "required": ["summary_sharing_authorized"] },
+          "then": { "properties": { "summary": false } }
+        }
+      ]
+    },
+    "titleDisclosure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "brands", "provenance", "freshness"],
+      "properties": {
+        "status": { "type": "string", "enum": ["clear", "branded", "pending", "in_transit", "unknown"] },
+        "brands": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "enum": ["salvage", "rebuilt", "flood", "lemon", "junk", "fire", "hail", "odometer", "manufacturer_buyback", "other"] }
+        },
+        "jurisdiction": { "type": "string", "pattern": "^[A-Z]{2}(?:-[A-Z0-9]{1,3})?$" },
+        "provenance": { "$ref": "common.schema.json#/$defs/provenance" },
+        "freshness": { "$ref": "common.schema.json#/$defs/freshness" }
+      }
+    },
+    "conditionComponent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["component", "status"],
+      "properties": {
+        "component": { "type": "string", "enum": ["exterior", "interior", "mechanical", "electrical", "tires", "brakes", "glass", "frame", "battery"] },
+        "status": { "type": "string", "enum": ["pass", "attention", "fail", "not_inspected", "unknown"] },
+        "note": { "type": "string", "maxLength": 500 }
+      }
+    },
+    "conditionReport": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "inspection_authority", "provenance", "freshness"],
+      "properties": {
+        "status": { "type": "string", "enum": ["completed", "partial", "not_inspected", "unknown"] },
+        "inspection_authority": { "type": "string", "enum": ["manufacturer_program", "independent_third_party", "dealer", "unknown"] },
+        "inspector_name": { "type": "string", "maxLength": 200 },
+        "inspected_at": { "$ref": "common.schema.json#/$defs/timestamp" },
+        "report_url": { "type": "string", "format": "uri" },
+        "inspection_point_count": { "type": "integer", "minimum": 0, "maximum": 1000 },
+        "grade": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["system", "value"],
+          "properties": {
+            "system": { "type": "string", "minLength": 1, "maxLength": 120 },
+            "value": { "type": "string", "minLength": 1, "maxLength": 80 }
+          }
+        },
+        "components": { "type": "array", "maxItems": 50, "items": { "$ref": "#/$defs/conditionComponent" } },
+        "disclosed_damage": { "type": "array", "maxItems": 100, "items": { "type": "string", "minLength": 1, "maxLength": 500 } },
+        "provenance": { "$ref": "common.schema.json#/$defs/provenance" },
+        "freshness": { "$ref": "common.schema.json#/$defs/freshness" }
+      }
+    },
+    "warrantyCoverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["coverage_type", "status"],
+      "properties": {
+        "coverage_type": { "type": "string", "enum": ["basic", "powertrain", "corrosion", "roadside", "ev_battery", "cpo_limited", "dealer_limited", "service_contract", "other"] },
+        "status": { "type": "string", "enum": ["included", "remaining_factory", "optional", "expired", "unknown"] },
+        "term_months": { "type": "integer", "minimum": 0, "maximum": 600 },
+        "distance_limit": { "$ref": "#/$defs/distance" },
+        "expires_at": { "$ref": "common.schema.json#/$defs/timestamp" },
+        "transferable": { "type": "boolean" },
+        "description": { "type": "string", "maxLength": 1000 }
+      }
+    },
+    "certification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "provenance", "freshness"],
+      "properties": {
+        "type": { "type": "string", "enum": ["manufacturer_cpo", "dealer_certified", "third_party_certified", "not_certified", "unknown"] },
+        "program_name": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "certified_at": { "$ref": "common.schema.json#/$defs/timestamp" },
+        "inspection_point_count": { "type": "integer", "minimum": 0, "maximum": 1000 },
+        "warranty": { "type": "array", "maxItems": 20, "items": { "$ref": "#/$defs/warrantyCoverage" } },
+        "provenance": { "$ref": "common.schema.json#/$defs/provenance" },
+        "freshness": { "$ref": "common.schema.json#/$defs/freshness" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "type": { "const": "manufacturer_cpo" } }, "required": ["type"] },
+          "then": { "required": ["program_name"] }
+        }
+      ]
+    },
+    "reconditioning": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "items", "provenance", "freshness"],
+      "properties": {
+        "status": { "type": "string", "enum": ["not_started", "in_progress", "completed", "unknown"] },
+        "completed_at": { "$ref": "common.schema.json#/$defs/timestamp" },
+        "items": {
+          "type": "array",
+          "maxItems": 100,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["category", "description", "status"],
+            "properties": {
+              "category": { "type": "string", "enum": ["mechanical", "safety", "tires", "brakes", "cosmetic", "interior", "glass", "electrical", "recall", "other"] },
+              "description": { "type": "string", "minLength": 1, "maxLength": 500 },
+              "status": { "type": "string", "enum": ["planned", "in_progress", "completed", "declined", "unknown"] }
+            }
+          }
+        },
+        "provenance": { "$ref": "common.schema.json#/$defs/provenance" },
+        "freshness": { "$ref": "common.schema.json#/$defs/freshness" }
+      }
+    },
+    "discrepancy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["field", "source_names", "description", "status"],
+      "properties": {
+        "field": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "source_names": { "type": "array", "minItems": 2, "uniqueItems": true, "items": { "type": "string", "minLength": 1, "maxLength": 200 } },
+        "description": { "type": "string", "minLength": 1, "maxLength": 1000 },
+        "status": { "type": "string", "enum": ["unresolved", "dealer_reviewed", "provider_corrected"] }
+      }
+    },
+    "usedVehicleSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["inventory_tenure", "history_report_status", "certification_type"],
+      "properties": {
+        "inventory_tenure": { "$ref": "#/$defs/inventoryTenure" },
+        "history_report_status": { "type": "string", "enum": ["available", "not_available", "restricted", "unknown", "conflicting"] },
+        "certification_type": { "type": "string", "enum": ["manufacturer_cpo", "dealer_certified", "third_party_certified", "not_certified", "unknown"] }
+      }
+    },
+    "usedVehicleRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["organization_id", "rooftop_id"],
+      "properties": {
+        "organization_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "rooftop_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "vehicle_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "vin": { "type": "string", "pattern": "^[A-HJ-NPR-Z0-9]{17}$" },
+        "stock_number": { "type": "string", "minLength": 1, "maxLength": 80 }
+      },
+      "oneOf": [
+        { "required": ["vehicle_id"] },
+        { "required": ["vin"] },
+        { "required": ["stock_number"] }
+      ]
+    },
+    "usedVehicleDetails": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["vehicle_id", "organization_id", "rooftop_id", "vin", "condition", "odometer", "inventory_tenure", "history_reports", "title", "condition_report", "certification", "reconditioning", "discrepancies", "provenance", "freshness", "trace_id"],
+      "properties": {
+        "vehicle_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "organization_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "rooftop_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "vin": { "type": "string", "pattern": "^[A-HJ-NPR-Z0-9]{17}$" },
+        "condition": { "type": "string", "enum": ["used", "certified", "demo"] },
+        "odometer": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["reading", "status", "observed_at", "provenance", "freshness"],
+          "properties": {
+            "reading": { "$ref": "#/$defs/distance" },
+            "status": { "type": "string", "enum": ["actual", "not_actual", "exceeds_mechanical_limits", "exempt", "unknown"] },
+            "observed_at": { "$ref": "common.schema.json#/$defs/timestamp" },
+            "provenance": { "$ref": "common.schema.json#/$defs/provenance" },
+            "freshness": { "$ref": "common.schema.json#/$defs/freshness" }
+          }
+        },
+        "inventory_tenure": { "$ref": "#/$defs/inventoryTenure" },
+        "history_reports": { "type": "array", "maxItems": 20, "items": { "$ref": "#/$defs/historyReport" } },
+        "title": { "$ref": "#/$defs/titleDisclosure" },
+        "condition_report": { "$ref": "#/$defs/conditionReport" },
+        "certification": { "$ref": "#/$defs/certification" },
+        "reconditioning": { "$ref": "#/$defs/reconditioning" },
+        "discrepancies": { "type": "array", "maxItems": 100, "items": { "$ref": "#/$defs/discrepancy" } },
+        "provenance": { "$ref": "common.schema.json#/$defs/provenance" },
+        "freshness": { "$ref": "common.schema.json#/$defs/freshness" },
+        "trace_id": { "$ref": "common.schema.json#/$defs/traceId" },
+        "extensions": { "$ref": "common.schema.json#/$defs/extensionBag" }
+      }
+    }
+  },
+  "$ref": "#/$defs/usedVehicleDetails"
+}

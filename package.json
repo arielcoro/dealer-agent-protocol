@@ -1,0 +1,21 @@
+{
+  "name": "dealer-agent-protocol",
+  "version": "0.1.0-draft.1",
+  "private": true,
+  "description": "Build and deployment tooling for the Dealer Agent Protocol public sites.",
+  "license": "Apache-2.0",
+  "scripts": {
+    "build:sites": "python3 scripts/build_public_site.py",
+    "validate": "python3 scripts/validate_deployment.py",
+    "pilot:list": "wrangler d1 execute dealer-agent-pilot --config deployment/cloudflare/wrangler.jsonc --remote --command \"SELECT id, created_at, dealership_name, contact_name, work_email, status FROM pilot_applications ORDER BY created_at DESC LIMIT 50\"",
+    "pilot:count": "wrangler d1 execute dealer-agent-pilot --config deployment/cloudflare/wrangler.jsonc --remote --command \"SELECT status, COUNT(*) AS applications FROM pilot_applications GROUP BY status ORDER BY status\"",
+    "deploy:protocol": "wrangler deploy --config deployment/cloudflare/wrangler.jsonc",
+    "deploy:gateway-site": "wrangler deploy --config deployment/cloudflare/gateway-site.wrangler.jsonc",
+    "deploy:product": "wrangler deploy --config deployment/cloudflare/dealershipmcp.wrangler.jsonc",
+    "deploy:reference": "wrangler deploy --config deployment/cloudflare/reference-gateway.wrangler.jsonc",
+    "deploy:sites": "npm run build:sites && npm run deploy:protocol && npm run deploy:product && npm run deploy:gateway-site"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "replace-with-product-worker-name",
+  "main": "product-site-worker.mjs",
+  "compatibility_date": "2026-09-02",
+  "assets": {
+    "binding": "ASSETS",
+    "directory": "../../dealershipmcp-site/dist",
+    "run_worker_first": true,
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash"
+  },
+  "d1_databases": [
+    {
+      "binding": "PILOT_DB",
+      "database_name": "replace-with-d1-database-name",
+      "database_id": "replace-with-d1-database-id",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "routes": [
+    { "pattern": "replace-with-product-domain.example", "custom_domain": true },
+    { "pattern": "www.replace-with-product-domain.example", "custom_domain": true }
+  ]
+}

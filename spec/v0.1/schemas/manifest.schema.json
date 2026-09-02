@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dealeragentprotocol.com/spec/v0.1/schemas/manifest.schema.json",
+  "title": "Dealer Agent Protocol capability manifest",
+  "$defs": {
+    "manifestRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "organization_id": { "$ref": "common.schema.json#/$defs/identifier" }
+      }
+    },
+    "capability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["profile", "status", "tools", "scopes"],
+      "properties": {
+        "profile": { "type": "string", "pattern": "^dealeragent\\.[a-z0-9.-]+/[0-9]+\\.[0-9]+$" },
+        "status": { "type": "string", "enum": ["draft", "experimental", "supported", "deprecated"] },
+        "tools": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^dealeragent\\.[a-z0-9._-]+$" }
+        },
+        "scopes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^dealeragent:[a-z0-9:_-]+$" }
+        }
+      }
+    },
+    "tenantRouting": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["organization_id_required", "rooftop_id_required_for_unit_reads", "group_delegation_explicit"],
+      "properties": {
+        "organization_id_required": { "const": true },
+        "rooftop_id_required_for_unit_reads": { "const": true },
+        "group_delegation_explicit": { "const": true }
+      }
+    },
+    "manifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "standard", "standard_version", "mcp_revision", "gateway_id", "operator",
+        "organization_ids", "rooftop_ids", "capabilities", "resources", "auth_modes",
+        "tenant_routing", "schema_base_uri", "policy_uri", "authority_policy",
+        "conformance", "freshness_sla_seconds", "issued_at", "expires_at"
+      ],
+      "properties": {
+        "standard": { "const": "dealer-agent-protocol" },
+        "standard_version": { "const": "0.1" },
+        "mcp_revision": { "const": "2026-07-28" },
+        "gateway_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "operator": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["name"],
+          "properties": {
+            "name": { "type": "string", "minLength": 1, "maxLength": 200 },
+            "uri": { "type": "string", "format": "uri" }
+          }
+        },
+        "organization_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "common.schema.json#/$defs/identifier" }
+        },
+        "rooftop_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "common.schema.json#/$defs/identifier" }
+        },
+        "capabilities": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/capability" } },
+        "resources": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^dealeragent://" }
+        },
+        "auth_modes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "enum": ["public", "oauth_2_1", "workload_identity"] }
+        },
+        "tenant_routing": { "$ref": "#/$defs/tenantRouting" },
+        "schema_base_uri": { "type": "string", "format": "uri" },
+        "policy_uri": { "type": "string", "format": "uri" },
+        "authority_policy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["uri", "inventory_max_age_seconds", "authoritative_availability_required_for_actions"],
+          "properties": {
+            "uri": { "type": "string", "format": "uri" },
+            "inventory_max_age_seconds": { "type": "integer", "minimum": 0, "maximum": 2592000 },
+            "authoritative_availability_required_for_actions": { "const": true }
+          }
+        },
+        "freshness_sla_seconds": {
+          "type": "object",
+          "minProperties": 1,
+          "propertyNames": { "pattern": "^[a-z0-9][a-z0-9._-]{0,127}$" },
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["inventory", "availability", "pricing"],
+            "properties": {
+              "inventory": { "type": "integer", "minimum": 1, "maximum": 2592000 },
+              "availability": { "type": "integer", "minimum": 1, "maximum": 2592000 },
+              "pricing": { "type": "integer", "minimum": 1, "maximum": 2592000 }
+            }
+          }
+        },
+        "conformance": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["claim_uri", "claim_digest"],
+          "properties": {
+            "claim_uri": { "type": "string", "format": "uri" },
+            "claim_digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" }
+          }
+        },
+        "jwks_uri": { "type": "string", "format": "uri" },
+        "a2a_agent_card_uri": { "type": "string", "format": "uri" },
+        "issued_at": { "$ref": "common.schema.json#/$defs/timestamp" },
+        "expires_at": { "$ref": "common.schema.json#/$defs/timestamp" },
+        "extensions": { "$ref": "common.schema.json#/$defs/extensionBag" }
+      }
+    }
+  },
+  "$ref": "#/$defs/manifest"
+}

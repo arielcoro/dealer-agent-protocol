@@ -1,0 +1,24 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "com.dealershipmcp/reference",
+  "title": "Dealer Agent Protocol Reference Gateway",
+  "description": "Synthetic dealer inventory, used-vehicle history, availability, pricing, and incentives.",
+  "version": "0.1.0",
+  "websiteUrl": "https://dealeragentprotocol.com/",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.dealershipmcp.com/mcp"
+    }
+  ],
+  "_meta": {
+    "io.modelcontextprotocol.registry/publisher-provided": {
+      "standard": {
+        "name": "Dealer Agent Protocol",
+        "version": "0.1",
+        "specification": "https://dealeragentprotocol.com/spec/v0.1/SPEC.md"
+      },
+      "dataStatus": "synthetic-reference-only"
+    }
+  }
+}

@@ -1,0 +1,5 @@
+# Public reference and policy pages are crawlable.
+User-agent: *
+Allow: /
+
+Sitemap: https://dealeragentgateway.com/sitemap.xml

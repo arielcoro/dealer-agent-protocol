@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dealeragentprotocol.com/spec/v0.1/schemas/consent.schema.json",
+  "title": "Dealer Agent Protocol consent binding",
+  "$defs": {
+    "purpose": { "type": "string", "enum": ["vehicle_inquiry", "quote_follow_up", "appointment", "trade_discussion", "other"] },
+    "channel": { "type": "string", "enum": ["email", "sms", "voice", "messaging_app"] },
+    "dataCategory": { "type": "string", "enum": ["contact", "vehicle_interest", "message", "appointment_preferences", "trade_summary"] },
+    "consentGrant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["purpose", "channels", "data_categories", "disclosure_version", "disclosure_digest", "granted_at", "expires_at"],
+      "properties": {
+        "purpose": { "$ref": "#/$defs/purpose" },
+        "channels": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/channel" } },
+        "data_categories": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/dataCategory" } },
+        "disclosure_version": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "disclosure_digest": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+        "granted_at": { "$ref": "common.schema.json#/$defs/timestamp" },
+        "expires_at": { "$ref": "common.schema.json#/$defs/timestamp" }
+      }
+    },
+    "consentBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["binding_id", "organization_id", "rooftop_id", "grant", "status", "disclosure_text", "subject_binding", "single_use", "expires_at", "binding_token", "issuer", "signature", "signature_algorithm", "provenance", "freshness"],
+      "properties": {
+        "binding_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "organization_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "rooftop_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "vehicle_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "grant": { "$ref": "#/$defs/consentGrant" },
+        "status": { "type": "string", "enum": ["prepared", "active", "consumed", "revoked", "expired"] },
+        "disclosure_text": { "type": "string", "minLength": 1, "maxLength": 8000 },
+        "subject_binding": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+        "single_use": { "const": true },
+        "expires_at": { "$ref": "common.schema.json#/$defs/timestamp" },
+        "binding_token": { "type": "string", "minLength": 32, "maxLength": 4096 },
+        "issuer": { "type": "string", "format": "uri" },
+        "signature": { "type": "string", "pattern": "^[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+$", "maxLength": 8192 },
+        "signature_algorithm": { "const": "ES256" },
+        "provenance": { "$ref": "common.schema.json#/$defs/provenance" },
+        "freshness": { "$ref": "common.schema.json#/$defs/freshness" }
+      }
+    }
+  },
+  "$ref": "#/$defs/consentBinding"
+}

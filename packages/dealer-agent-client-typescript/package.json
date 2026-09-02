@@ -1,0 +1,9 @@
+{
+  "name": "@dealer-agent/client",
+  "version": "0.1.0-dev.1",
+  "description": "Typed safety helpers for Dealer Agent Protocol clients",
+  "license": "Apache-2.0",
+  "type": "module",
+  "exports": "./src/index.ts",
+  "types": "./src/index.ts"
+}

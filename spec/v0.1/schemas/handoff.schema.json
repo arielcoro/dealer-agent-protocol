@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dealeragentprotocol.com/spec/v0.1/schemas/handoff.schema.json",
+  "title": "Dealer Agent Protocol consented handoff",
+  "$defs": {
+    "policyRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["organization_id", "rooftop_id"],
+      "properties": {
+        "organization_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "rooftop_id": { "$ref": "common.schema.json#/$defs/identifier" }
+      }
+    },
+    "handoffPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["organization_id", "rooftop_id", "accepted_purposes", "accepted_channels", "required_data_categories", "optional_data_categories", "disclosure_text", "disclosure_version", "retention_ceiling_days", "response_commitment_seconds", "adf_destination_present", "provenance", "freshness"],
+      "properties": {
+        "organization_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "rooftop_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "accepted_purposes": { "type": "array", "uniqueItems": true, "items": { "$ref": "consent.schema.json#/$defs/purpose" } },
+        "accepted_channels": { "type": "array", "uniqueItems": true, "items": { "$ref": "consent.schema.json#/$defs/channel" } },
+        "required_data_categories": { "type": "array", "uniqueItems": true, "items": { "$ref": "consent.schema.json#/$defs/dataCategory" } },
+        "optional_data_categories": { "type": "array", "uniqueItems": true, "items": { "$ref": "consent.schema.json#/$defs/dataCategory" } },
+        "disclosure_text": { "type": "string", "minLength": 1, "maxLength": 8000 },
+        "disclosure_version": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "retention_ceiling_days": { "type": "integer", "minimum": 0, "maximum": 3650 },
+        "response_commitment_seconds": { "type": "integer", "minimum": 1, "maximum": 604800 },
+        "adf_destination_present": { "type": "boolean" },
+        "provenance": { "$ref": "common.schema.json#/$defs/provenance" },
+        "freshness": { "$ref": "common.schema.json#/$defs/freshness" }
+      }
+    },
+    "prepareRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["organization_id", "rooftop_id", "purpose", "requested_channels", "requested_data_categories", "subject_binding", "idempotency_key"],
+      "properties": {
+        "organization_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "rooftop_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "vehicle_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "purpose": { "$ref": "consent.schema.json#/$defs/purpose" },
+        "requested_channels": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "consent.schema.json#/$defs/channel" } },
+        "requested_data_categories": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "consent.schema.json#/$defs/dataCategory" } },
+        "subject_binding": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+        "idempotency_key": { "$ref": "action-common.schema.json#/$defs/idempotencyKey" }
+      }
+    },
+    "contact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "preferred_channels"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "email": { "type": "string", "format": "email", "maxLength": 320 },
+        "phone": { "type": "string", "pattern": "^\\+[1-9][0-9]{7,14}$" },
+        "preferred_channels": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "consent.schema.json#/$defs/channel" } }
+      },
+      "anyOf": [{ "required": ["email"] }, { "required": ["phone"] }]
+    },
+    "handoffRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["organization_id", "rooftop_id", "binding_id", "binding_token", "subject_binding", "contact", "idempotency_key"],
+      "properties": {
+        "organization_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "rooftop_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "binding_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "binding_token": { "type": "string", "minLength": 32, "maxLength": 4096 },
+        "subject_binding": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+        "contact": { "$ref": "#/$defs/contact" },
+        "vehicle_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "message": { "type": "string", "maxLength": 4000 },
+        "idempotency_key": { "$ref": "action-common.schema.json#/$defs/idempotencyKey" }
+      }
+    },
+    "handoffResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["handoff_id", "organization_id", "rooftop_id", "status", "binding_status", "adf_xml", "provenance", "freshness", "trace_id"],
+      "properties": {
+        "handoff_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "organization_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "rooftop_id": { "$ref": "common.schema.json#/$defs/identifier" },
+        "status": { "type": "string", "enum": ["accepted", "queued", "rejected", "duplicate"] },
+        "binding_status": { "const": "consumed" },
+        "department": { "type": "string", "enum": ["sales", "internet_sales", "general"] },
+        "external_reference": { "type": "string", "minLength": 1, "maxLength": 256 },
+        "adf_xml": { "type": "string", "minLength": 1, "maxLength": 50000 },
+        "provenance": { "$ref": "common.schema.json#/$defs/provenance" },
+        "freshness": { "$ref": "common.schema.json#/$defs/freshness" },
+        "trace_id": { "$ref": "common.schema.json#/$defs/traceId" }
+      }
+    }
+  },
+  "$ref": "#/$defs/handoffResult"
+}

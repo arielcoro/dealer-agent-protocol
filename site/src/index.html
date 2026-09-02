@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Dealer Agent Protocol is an open contract for accurate dealer inventory, availability, pricing, fees, and incentives in AI shopping experiences.">
+    <meta name="theme-color" content="#f4f0e6">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Dealer Agent Protocol — Give every shopping agent the same retail truth">
+    <meta property="og:description" content="A dealer-controlled, open contract for vehicle inventory and offers.">
+    <meta property="og:url" content="https://dealeragentprotocol.com/">
+    <meta property="og:image" content="https://dealeragentprotocol.com/og.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://dealeragentprotocol.com/">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/styles.css">
+    <title>Dealer Agent Protocol — Dealer retail truth for AI agents</title>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "Dealer Agent Protocol",
+        "description": "An open retail inventory and offer profile for AI agents.",
+        "url": "https://dealeragentprotocol.com/",
+        "version": "0.1.0-draft.1",
+        "license": "https://www.apache.org/licenses/LICENSE-2.0",
+        "codeRepository": "https://github.com/arielcoro/dealer-agent-protocol"
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header page-shell">
+      <a class="wordmark" href="/" aria-label="Dealer Agent Protocol home"><span class="wordmark-mark" aria-hidden="true">D</span><span>Dealer Agent<br>Protocol</span></a>
+      <nav aria-label="Primary navigation"><a href="/why/">Why</a><a href="/used-vehicles/">Used vehicles</a><a href="/how-it-works/">How it works</a><a href="/compare/">Compare</a><a href="/adopt/">Adopt</a><a href="/docs/">Docs</a></nav>
+      <a class="header-cta" href="https://dealershipmcp.com/audit/">Free AI Answer Audit <span aria-hidden="true">→</span></a>
+    </header>
+
+    <main id="main">
+      <section class="hero page-shell" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow"><span></span> DAP · Version 0.1 open for review</p>
+          <h1 id="hero-title">Give every shopping agent the same <em>retail truth.</em></h1>
+          <p class="lede">Dealer Agent Protocol gives AI agents one precise way to read dealer-published vehicles, verify availability, and explain prices and offers—without exposing the DMS or CRM.</p>
+          <div class="actions"><a class="button button-primary" href="https://dealershipmcp.com/audit/">Get a free AI Answer Audit <span aria-hidden="true">→</span></a><a class="button button-secondary" href="/why/">Why this is different</a></div>
+          <ul class="proof-strip" aria-label="Draft contents"><li><strong>6</strong><span>read tools</span></li><li><strong>4</strong><span>profiles</span></li><li><strong>7</strong><span>JSON schemas</span></li><li><strong>24</strong><span>conformance checks</span></li></ul>
+        </div>
+        <aside class="truth-console" aria-label="Example agent answer assembled from protocol fields">
+          <div class="console-top"><span>Agent answer</span><span class="live-dot">source-aware</span></div>
+          <p class="console-query">“Is the blue EV9 still available, and what price applies?”</p>
+          <div class="answer-line"><span>Vehicle</span><strong>2026 Kia EV9 GT-Line</strong></div>
+          <div class="answer-line"><span>Availability</span><strong class="status-good">Available · verified 2m ago</strong></div>
+          <div class="answer-line"><span>Advertised price</span><strong>$74,590.00</strong></div>
+          <div class="answer-line"><span>Required dealer charges</span><strong>$899.00</strong></div>
+          <div class="answer-line"><span>Conditional offers</span><strong>2 · eligibility required</strong></div>
+          <div class="console-source"><span>Authority</span><b>Dealer pricing + inventory sources</b></div>
+        </aside>
+      </section>
+
+      <section class="problem-band"><div class="page-shell problem-grid"><div><p class="section-kicker">The adoption problem</p><h2>Dealer facts exist.<br>Agent-ready meaning does not.</h2></div><div class="problem-copy"><p>Inventory feeds, website pages, incentive programs, and availability signals describe different parts of the retail offer. An agent that scrapes and guesses can merge them incorrectly.</p><p><strong>The protocol defines the answer contract:</strong> what a fact means, who published it, how fresh it is, and what remains conditional or unknown.</p></div></div></section>
+
+      <section class="relationship-section page-shell" aria-labelledby="relationship-title">
+        <div class="section-heading"><p class="section-kicker">Protocol ≠ gateway</p><h2 id="relationship-title">The protocol is the rulebook. The gateway is software that follows it.</h2></div>
+        <div class="relationship-grid">
+          <article><span>OPEN SPECIFICATION</span><h3>Dealer Agent Protocol</h3><p>Defines the shared tool names, schemas, retail meaning, pricing disclosures, trust fields, and conformance rules.</p><strong>Anyone can implement it.</strong></article>
+          <div class="relationship-symbol" aria-hidden="true">≠</div>
+          <article><span>REFERENCE SOFTWARE</span><h3>Dealer Agent Gateway</h3><p>Connects approved dealer sources, applies policy, and serves protocol-compliant MCP tools to agents.</p><strong>One implementation of the protocol.</strong></article>
+        </div>
+        <p class="relationship-note"><b>MCP</b> is the transport between an agent and a gateway. <b>Dealer Agent Protocol</b> defines what the retail tools and answers mean.</p>
+      </section>
+
+      <section class="flow-section page-shell" aria-labelledby="flow-title">
+        <div class="section-heading"><p class="section-kicker">One boundary · many consumers</p><h2 id="flow-title">Keep the integrations behind the gateway. Publish only the retail facts agents need.</h2></div>
+        <div class="architecture-flow" role="img" aria-label="Dealer retail sources connect through a Dealer Agent Gateway, which exposes Dealer Agent Protocol tools over MCP to many shopping agents">
+          <div class="flow-group sources"><p class="flow-label">Dealer-controlled sources</p><div class="source-node"><i>01</i><span>Inventory feed</span></div><div class="source-node"><i>02</i><span>Pricing &amp; incentives</span></div><div class="source-node"><i>03</i><span>Availability source</span></div></div>
+          <div class="flow-arrow" aria-hidden="true"><span>normalize</span><b>→</b></div>
+          <div class="gateway-node"><small>Dealer policy boundary</small><strong>Dealer Agent<br>Gateway</strong><span>adapters · mapping · auth · audit</span></div>
+          <div class="flow-arrow" aria-hidden="true"><span>six read tools</span><b>→</b></div>
+          <div class="flow-group consumers"><p class="flow-label">Agent experiences</p><div class="consumer-node"><span>Shopping assistant</span><i>↗</i></div><div class="consumer-node"><span>Marketplace agent</span><i>↗</i></div><div class="consumer-node"><span>OEM experience</span><i>↗</i></div></div>
+        </div>
+        <p class="diagram-caption"><span>Dealer Agent Protocol</span> is the open contract between the gateway and agents. MCP carries the calls. The protocol supplies the retail vocabulary, schemas, disclosure rules, and conformance claims.</p>
+        <a class="text-link" href="/how-it-works/">Walk through the complete system <span aria-hidden="true">→</span></a>
+      </section>
+
+      <section class="journey-section"><div class="page-shell"><div class="section-heading compact"><p class="section-kicker">From question to grounded answer</p><h2>Five steps an agent can follow instead of improvising.</h2></div><ol class="agent-journey">
+        <li><span>01</span><strong>Discover</strong><p>Learn the gateway, supported profiles, dealer, and rooftop.</p><code>get_manifest</code></li>
+        <li><span>02</span><strong>Search</strong><p>Find published vehicles with stable filters and cursors.</p><code>inventory.search</code></li>
+        <li><span>03</span><strong>Inspect</strong><p>Read the exact vehicle facts, media, and source lineage.</p><code>get_vehicle</code></li>
+        <li><span>04</span><strong>Verify</strong><p>Check a fast-changing availability fact against authority.</p><code>verify_availability</code></li>
+        <li><span>05</span><strong>Explain</strong><p>Separate advertised price, required charges, and conditional offers.</p><code>get_disclosure</code></li>
+      </ol></div></section>
+
+      <section class="stakes page-shell" aria-labelledby="stakes-title"><div class="section-heading"><p class="section-kicker">Why each side adopts</p><h2 id="stakes-title">One contract. Three practical wins.</h2></div><div class="audience-rows">
+        <article><span class="audience-number">01</span><div><p class="mini-label">For dealers</p><h3>Control what an agent can claim.</h3></div><p>Publish only approved retail facts and policies—including used-vehicle history, inventory age, and condition. Keep internal records outside the boundary.</p><a href="/used-vehicles/">See used-vehicle truth →</a></article>
+        <article><span class="audience-number">02</span><div><p class="mini-label">For retail technology providers</p><h3>Build one agent-facing contract.</h3></div><p>Map existing feeds and APIs behind a gateway, then expose consistent schemas across rooftops without replacing systems of record.</p><a href="/adopt/#providers">Provider path →</a></article>
+        <article><span class="audience-number">03</span><div><p class="mini-label">For agent builders</p><h3>Stop reverse-engineering every dealer.</h3></div><p>Use typed, discoverable read tools for inventory and offers, with explicit freshness, authority, and uncertainty in every result.</p><a href="/adopt/#agents">Builder path →</a></article>
+      </div></section>
+
+      <section class="scope-section"><div class="page-shell scope-layout"><div><p class="section-kicker light">A deliberate first boundary</p><h2>Retail facts in.<br><em>Dealer-controlled.</em></h2><p>Version 0.1 focuses on the facts an agent needs to help someone understand a vehicle and its retail offer.</p></div><div class="scope-compare scope-single"><div><h3><span>+</span> The retail read</h3><ul><li>Dealer and rooftop identity</li><li>Published vehicle inventory</li><li>Used mileage, history, condition, and inventory age</li><li>Authoritative availability</li><li>Advertised price and dealer charges</li><li>Discount and incentive conditions</li><li>Provenance, freshness, uncertainty</li></ul></div></div></div></section>
+
+      <section class="cta-section page-shell"><div><p class="section-kicker">Founding dealer pilot</p><h2>Start with one rooftop. Prove the answers before agents repeat them.</h2></div><div class="cta-actions"><a class="button button-acid" href="/pilot/">Apply for the pilot <span aria-hidden="true">→</span></a><a class="button button-dark-outline" href="/docs/">Read the human guide</a><p>Applications open · Private evaluation · No customer data</p></div></section>
+
+      <section class="open-project-section"><div class="page-shell open-project-grid"><div><p class="section-kicker light">Open project</p><h2>Built in public for shared adoption.</h2></div><article><span>01</span><h3>Apache-2.0</h3><p>The specification, schemas, examples, tests, websites, and reference gateway are available under the Apache License 2.0, including its explicit patent grant.</p><a href="/LICENSE.txt">Read the license →</a></article><article><span>02</span><h3>Contribute</h3><p>Propose protocol changes, improve schemas and tests, or strengthen the reference gateway. Normative changes require a concrete interoperability case.</p><a href="/CONTRIBUTING.md">Contribution guide →</a></article><article><span>03</span><h3>Creator</h3><p>Dealer Agent Protocol and Dealer Agent Gateway were created by Ariel Coro, with future improvements welcomed from public contributors.</p><a href="https://github.com/arielcoro">Ariel Coro on GitHub →</a></article></div></section>
+    </main>
+
+    <footer class="site-footer"><div class="page-shell footer-grid"><div><a class="wordmark footer-wordmark" href="/"><span class="wordmark-mark">D</span><span>Dealer Agent<br>Protocol</span></a><p>An open retail inventory and offer contract for AI agents.</p></div><div><strong>Understand</strong><a href="/how-it-works/">How it works</a><a href="/used-vehicles/">Used vehicles</a><a href="/adopt/">Adoption paths</a><a href="/pilot/">Dealer pilot</a><a href="/docs/">Human guide</a></div><div><strong>Implement</strong><a href="/docs/quickstart/">Quickstart</a><a href="/docs/tools/">Tools</a><a href="/docs/used-vehicles/">Used-vehicle profile</a><a href="/docs/pricing/">Pricing model</a><a href="/spec/v0.1/schemas/">Schemas</a></div><div><strong>Project</strong><a href="/news/dealer-agent-protocol-launches/">Press release</a><a href="/LICENSE.txt">Apache-2.0 license</a><a href="/CONTRIBUTING.md">Contributing</a><a href="/NOTICE.txt">Attribution</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a></div></div><div class="page-shell footer-bottom"><span>Created by Ariel Coro</span><span>Version 0.1 editor's draft · Apache License 2.0</span><span>Built for accurate vehicle shopping by agents.</span></div></footer>
+  </body>
+</html>

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dealeragentprotocol.com/incubator/retail-actions/schemas/action-common.schema.json",
+  "title": "Incubating retail action types",
+  "$defs": {
+    "idempotencyKey": {
+      "type": "string",
+      "minLength": 16,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9._:-]+$"
+    },
+    "quoteLine": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["line_id", "kind", "name", "amount", "payee", "certainty"],
+      "properties": {
+        "line_id": { "$ref": "../../../spec/v0.1/schemas/common.schema.json#/$defs/identifier" },
+        "kind": { "type": "string", "enum": ["vehicle", "dealer_charge", "add_on", "discount", "rebate", "tax", "title", "registration", "government_charge", "trade_credit", "other"] },
+        "name": { "type": "string", "minLength": 1, "maxLength": 160 },
+        "amount": { "$ref": "../../../spec/v0.1/schemas/common.schema.json#/$defs/money" },
+        "payee": { "type": "string", "enum": ["dealer", "dealer_vendor", "government", "lender", "buyer", "other"] },
+        "certainty": { "type": "string", "enum": ["exact", "estimated"] },
+        "source_adjustment_id": { "$ref": "../../../spec/v0.1/schemas/common.schema.json#/$defs/identifier" },
+        "assumption": { "type": "string", "maxLength": 500 }
+      }
+    }
+  }
+}

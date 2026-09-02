@@ -1,0 +1,5 @@
+# Public protocol, documentation, and policy pages are crawlable.
+User-agent: *
+Allow: /
+
+Sitemap: https://dealeragentprotocol.com/sitemap.xml
