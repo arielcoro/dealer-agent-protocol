@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="How a Dealer Agent Gateway gets dealership inventory from authorized feeds, CSV exports, structured website data, and consented crawling without guessing at prices or incentives.">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="How a Dealer Agent Gateway gets dealership inventory">
+    <meta property="og:description" content="Feeds first. Dealer exports second. Consented website extraction as a monitored fallback—with source, freshness, and conflicts preserved.">
+    <meta property="og:url" content="https://dealeragentprotocol.com/inventory-sources/">
+    <meta property="og:image" content="https://dealeragentprotocol.com/og.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://dealeragentprotocol.com/inventory-sources/">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/styles.css">
+    <title>Dealership inventory sources for AI agents — Dealer Agent Protocol</title>
+    <script type="application/ld+json">
+      {
+        "@context":"https://schema.org",
+        "@type":"TechArticle",
+        "headline":"How a Dealer Agent Gateway gets dealership inventory",
+        "description":"A source hierarchy for dealer-authorized inventory feeds, scheduled exports, structured website data, and consented crawling.",
+        "datePublished":"2026-09-02",
+        "dateModified":"2026-09-02",
+        "author":{"@type":"Person","name":"Ariel Coro"},
+        "publisher":{"@type":"Organization","name":"Dealer Agent Protocol","url":"https://dealeragentprotocol.com/"},
+        "mainEntityOfPage":"https://dealeragentprotocol.com/inventory-sources/",
+        "license":"https://www.apache.org/licenses/LICENSE-2.0"
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header page-shell"><a class="wordmark" href="/"><span class="wordmark-mark">D</span><span>Dealer Agent<br>Protocol</span></a><nav aria-label="Primary navigation"><a href="/why/">Why</a><a href="/used-vehicles/">Used vehicles</a><a href="/inventory-sources/" aria-current="page">Inventory sources</a><a href="/adopt/">Adopt</a><a href="/docs/">Docs</a></nav><a class="header-cta" href="/pilot/">Apply for the pilot →</a></header>
+
+    <main id="main">
+      <section class="interior-hero page-shell"><div class="hero-grid"><div><p class="eyebrow"><span></span>Gateway ingestion</p><h1>Feeds first. Scraping only when it earns its place.</h1><p class="lede">Dealer Agent Protocol defines the answer contract. A Dealer Agent Gateway maps dealer-approved sources into that contract—and keeps each field’s source, timestamp, and authority attached.</p></div><aside class="page-note"><strong>The short answer</strong>Yes, a gateway can extract a dealer website with permission. It is a monitored bootstrap or fallback, not the source that turns a listing into “available now.”</aside></div></section>
+
+      <section class="content-section page-shell"><div class="content-grid"><aside><span>S1</span> · Source ladder</aside><div class="body-copy"><h2>Use the strongest available source for each fact.</h2><ol class="principle-list"><li><span>1</span><strong>Authorized feed or API</strong><p>Use a dealer-approved inventory manager, website provider, or licensed data integration where available.</p></li><li><span>2</span><strong>Scheduled dealer export</strong><p>Accept CSV/SFTP, object storage, or HTTPS exports, including the open Dealer Agent Inventory CSV profile.</p></li><li><span>3</span><strong>Structured web publication</strong><p>Read documented endpoints, JSON-LD, inventory sitemaps, and stable vehicle-detail fields on a dealer-authorized domain.</p></li><li><span>4</span><strong>Consented extraction</strong><p>Crawl only as a bootstrap or gap-filler, then reconcile it continuously against the dealer’s approved sources.</p></li></ol></div></div></section>
+
+      <section class="flow-section page-shell" aria-labelledby="ingestion-flow"><div class="section-heading"><p class="section-kicker">The implementation boundary</p><h2 id="ingestion-flow">Many sources enter. One controlled retail contract leaves.</h2></div><div class="architecture-flow" role="img" aria-label="Authorized provider feeds, scheduled dealer exports, and dealer website evidence enter source adapters. The Dealer Agent Gateway stores evidence, normalizes fields, applies precedence and policy, and exposes Dealer Agent Protocol tools to AI shopping agents."><div class="flow-group sources"><p class="flow-label">Dealer-approved inputs</p><div class="source-node"><i>01</i><span>Provider feed / API</span></div><div class="source-node"><i>02</i><span>CSV / SFTP export</span></div><div class="source-node"><i>03</i><span>Website evidence</span></div></div><div class="flow-arrow" aria-hidden="true"><span>adapters</span><b>→</b></div><div class="gateway-node"><small>Dealer policy boundary</small><strong>Evidence → normalize<br>→ reconcile</strong><span>source · time · authority · conflict</span></div><div class="flow-arrow" aria-hidden="true"><span>DAP tools</span><b>→</b></div><div class="flow-group consumers"><p class="flow-label">Controlled outputs</p><div class="consumer-node"><span>Inventory</span><i>↗</i></div><div class="consumer-node"><span>Price &amp; incentives</span><i>↗</i></div><div class="consumer-node"><span>Availability</span><i>↗</i></div></div></div><p class="diagram-caption"><span>The protocol stays source-neutral.</span> Vendor credentials and raw source data remain behind the gateway. An agent receives only approved retail facts with the evidence needed to interpret them correctly.</p></section>
+
+      <section class="content-section page-shell"><div class="content-grid"><aside><span>S2</span> · New inventory</aside><div class="body-copy"><h2>New vehicles and incentives are two different data problems.</h2><p>Base vehicle inventory can come from a dealer-approved vAuto, HomeNet, Dealer.com, or comparable export. Incentives need their own evidence path because a program can depend on model, geography, finance source, ownership, occupation, expiration, and stacking rules.</p><div class="docs-callout"><strong>Never scrape a rebate amount and assume every shopper qualifies.</strong> Prefer a licensed incentive feed or dealer-approved merchandising source. When only a public offer is available, return it as conditional evidence with its source URL, observation time, expiration, geography, and unresolved eligibility rules.</div><p>A dealer-maintained campaign file can bridge a missing provider feed during a pilot, but the dealer remains the publishing authority and must approve the mapping.</p></div></div></section>
+
+      <section class="content-section page-shell"><div class="content-grid"><aside><span>S3</span> · Used inventory</aside><div class="body-copy"><h2>Use vAuto, HomeNet, or the website—without flattening the evidence.</h2><p>An authorized inventory export is the preferred path for stock identifiers, mileage, stocked dates, price, photos, merchandising details, and removal events. Website extraction can bootstrap the connection or fill public merchandising gaps.</p><p>CARFAX, AutoCheck, and equivalent sources connect only under the dealer’s applicable provider rights. The gateway keeps separate report identifiers, timestamps, access methods, and conflicts. “No events reported” never becomes “accident-free.”</p><a class="button button-primary" href="/used-vehicles/">See the used-vehicle profile →</a></div></div></section>
+
+      <section class="content-section page-shell"><div class="content-grid"><aside><span>S4</span> · Crawl rules</aside><div class="body-copy"><h2>A crawl is evidence, not authority.</h2><ul><li>Dealer authorization for the domain and intended use</li><li>Respect for robots policy, applicable terms, rate limits, caching, and backoff</li><li>Preference for JSON-LD, sitemaps, and stable structured fields</li><li>Source URL, retrieval time, content digest, and extraction version on every record</li><li>Fast removal checks and stale-data cutoffs</li><li>Quarantine for surprising VIN, mileage, price, or availability changes</li><li>No bypass of authentication, access controls, or anti-bot measures</li></ul><p>Firecrawl can power this consented adapter during a live pilot. It is not required for the protocol, the synthetic reference gateway, or feed-based integrations.</p><p><a class="button button-secondary" href="https://github.com/arielcoro/dealer-agent-protocol/blob/main/reference/INVENTORY_INGESTION.md">Read the implementation guide →</a></p></div></div></section>
+
+      <section class="cta-section page-shell"><div><p class="section-kicker">Founding dealer pilot</p><h2>Bring one rooftop and the sources you already control.</h2></div><div class="cta-actions"><a class="button button-acid" href="/pilot/">Apply for the pilot →</a><p>Source review · field mapping · seven-day reconciliation</p></div></section>
+    </main>
+    <footer class="site-footer"><div class="page-shell footer-bottom"><a href="/">Dealer Agent Protocol</a><a href="/inventory-sources/">Inventory sources</a><a href="/pilot/">Dealer pilot</a><a href="/CONTRIBUTING.md">Contributing</a><span>Created by Ariel Coro</span></div></footer>
+  </body>
+</html>
