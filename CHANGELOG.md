@@ -4,6 +4,10 @@ All notable changes to Dealer Agent Protocol are recorded here.
 
 ## Unreleased — 2026-09-02
 
+- Deployed the first dealer-backed Gateway pilot at
+  `https://mcp.dealeragentgateway.com/mcp` using Howard Bentley Buick GMC's
+  authorized daily retail feed, public-safe field filtering, rate limiting,
+  honest pricing and availability uncertainty, and private query receipts.
 - Added the zero-server `/.well-known/dealer-agent.json` publication path,
   schema, example, and Dealer Agent Inventory CSV 0.1 format.
 - Added the first Dealer.com-style CSV adapter and executable edge-case tests.

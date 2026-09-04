@@ -9,13 +9,13 @@ async function checkGateway() {
       headers: { Accept: "application/json" },
       signal: AbortSignal.timeout(3500),
     });
-    if (!response.ok) throw new Error("Reference unavailable");
+    if (!response.ok) throw new Error("Gateway unavailable");
     const body = await response.json();
     status.dataset.state = "operational";
-    statusCopy.textContent = body.data_status?.startsWith("synthetic") ? "Reference online · synthetic" : "Reference online";
+    statusCopy.textContent = body.status === "ok" ? `Gateway online · ${body.inventory?.accepted_rows || 0} vehicles` : "Gateway online";
   } catch {
     status.dataset.state = "offline";
-    statusCopy.textContent = "Reference pending";
+    statusCopy.textContent = "Gateway unavailable";
   }
 }
 

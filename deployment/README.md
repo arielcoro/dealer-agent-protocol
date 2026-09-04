@@ -6,10 +6,11 @@ This deployment publishes three deliberately separate surfaces:
 |---|---|---|
 | Protocol publication | `https://dealeragentprotocol.com` | Specification, schemas, documentation, and registry metadata |
 | Gateway website | `https://dealeragentgateway.com` | Human-facing implementation overview, boundary, and connection details |
-| Synthetic reference gateway | `https://mcp.dealershipmcp.com/mcp` | Public Streamable HTTP MCP endpoint for discovery and interoperability testing |
+| Dealer Agent Gateway | `https://mcp.dealeragentgateway.com/mcp` | Public Streamable HTTP MCP endpoint for approved dealer retail inventory |
 
-The reference gateway is never a production dealer integration. It exposes
-synthetic data and an operator-controlled synthetic grant only.
+The public Gateway is an experimental dealer pilot. It exposes only approved
+retail fields and keeps source credentials, customer data, and dealer-private
+fields outside the public service.
 
 ## 1. Build and publish both websites
 
@@ -56,7 +57,7 @@ framing protections, explicit cache rules, and immutable caching for versioned
 specification artifacts. Configure `www` hostnames as permanent redirects to
 their respective apex domains.
 
-## 2. Publish the synthetic reference gateway service
+## 2. Publish the reference fixture locally
 
 Build the container from the repository root:
 
@@ -75,7 +76,8 @@ Deploy the same image to an ASGI-capable container service. Set:
 - `DEALER_AGENT_ALLOWED_ORIGINS=https://dealeragentprotocol.com,https://dealeragentgateway.com`; and
 - `DEALER_AGENT_PROJECT_ROOT=/app`.
 
-Map `mcp.dealershipmcp.com` to the service and require HTTPS. The service
+The container remains useful as a local synthetic interoperability fixture. Do
+not map it over the operated service at `mcp.dealeragentgateway.com`. It
 exposes:
 
 - `POST /mcp` — stateless MCP requests;
@@ -103,10 +105,9 @@ Verify the published entry through the official Registry API and test the
 remote with MCP Inspector. Registry metadata versions are immutable; increment
 the server version before republishing a change.
 
-## 4. Production gateway boundary
+## 4. Operated Gateway boundary
 
-A real dealer deployment is a separate service and security review. It replaces
-synthetic fixtures with a dealer-authorized retail-data adapter and introduces
-OAuth, tenant grants, upstream credential isolation, rate limiting, audit,
-monitoring, and incident response. It must not inherit the demo grant or demo
-cursor secret.
+The operated Gateway is a separate service and security boundary. A dealer
+deployment uses a dealer-authorized retail-data adapter, strict tenant routing,
+upstream credential isolation, rate limiting, audit, monitoring, and incident
+response. It must never inherit the demo grant or demo cursor secret.

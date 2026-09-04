@@ -26,7 +26,7 @@
         "name": "Dealer Agent Gateway",
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "MCP-compatible runtime",
-        "description": "An open reference implementation of Dealer Agent Protocol using synthetic dealership data.",
+        "description": "Public MCP infrastructure implementing Dealer Agent Protocol for dealer-authorized retail inventory.",
         "url": "https://dealeragentgateway.com/",
         "codeRepository": "https://github.com/arielcoro/dealer-agent-protocol",
         "license": "https://www.apache.org/licenses/LICENSE-2.0"
@@ -51,14 +51,14 @@
       </nav>
       <div class="status" id="gateway-status" data-state="checking" role="status">
         <span aria-hidden="true"></span>
-        <span class="status-copy">Checking reference</span>
+        <span class="status-copy">Checking gateway</span>
       </div>
     </header>
 
     <main id="main">
       <section class="hero" aria-labelledby="hero-title">
         <div class="hero-copy">
-          <p class="kicker">Open reference implementation · Core retail read</p>
+          <p class="kicker">Public MCP infrastructure · Founding dealer pilot</p>
           <h1 id="hero-title">Retail facts.<br><em>Agent ready.</em></h1>
           <p class="lede">A Dealer Agent Gateway turns dealer-published vehicle inventory, availability, prices, charges, and incentives into structured MCP tools an AI agent can use without guessing.</p>
           <div class="hero-actions">
@@ -76,15 +76,15 @@
 
         <div class="console" aria-label="Example MCP exchange">
           <div class="console-bar">
-            <span>REFERENCE / MCP</span>
-            <span class="console-mode">SYNTHETIC DATA</span>
+            <span>LIVE GATEWAY / MCP</span>
+            <span class="console-mode">DEALER-AUTHORIZED FEED</span>
           </div>
           <div class="console-body">
             <p class="prompt"><span>→</span> tools/call</p>
             <pre><code>{
   <b>"name"</b>: "dealeragent.inventory.search",
   <b>"arguments"</b>: {
-    "organization_id": "org.example-motors",
+    "organization_id": "org.howard-bentley",
     "filters": { "condition": ["new"] }
   }
 }</code></pre>
@@ -128,20 +128,20 @@
             <a href="https://dealeragentprotocol.com/">Explore the protocol →</a>
           </article>
           <article>
-            <span>REFERENCE SOFTWARE</span>
+            <span>OPERATED INFRASTRUCTURE</span>
             <h3>Dealer Agent Gateway</h3>
             <p>The running implementation: source adapters, dealer policy, normalization, authorization, audit, and MCP responses.</p>
-            <a href="#connect">Use the reference →</a>
+            <a href="#connect">Use the gateway →</a>
           </article>
         </div>
-        <p class="relationship-foot"><strong>Anyone can implement Dealer Agent Protocol.</strong> This gateway is the open reference implementation—not the protocol itself.</p>
+        <p class="relationship-foot"><strong>Anyone can implement Dealer Agent Protocol.</strong> This gateway is one operated implementation—not the protocol itself.</p>
       </section>
 
       <section class="capabilities" id="capabilities" aria-labelledby="capabilities-title">
         <div class="section-heading">
           <p class="section-code">01 / Capability surface</p>
           <h2 id="capabilities-title">Six tools.<br>Zero invented facts.</h2>
-          <p>The reference implements the complete draft Core Retail Read bundle. Each response keeps the rooftop, source, observation time, authority, and uncertainty attached.</p>
+          <p>The public pilot exposes six experimental retail-read tools. Each response keeps the rooftop, source, observation time, authority, and uncertainty attached; it does not claim full Core conformance.</p>
         </div>
         <ol class="tool-grid">
           <li>
@@ -162,7 +162,7 @@
           </li>
           <li>
             <span>05</span>
-            <div><code>dealeragent.inventory.verify_availability</code><p>Perform a fresh check against an authoritative inventory source.</p></div>
+            <div><code>dealeragent.inventory.verify_availability</code><p>Return the latest evidence and require a human check until a real-time authority is connected.</p></div>
           </li>
           <li>
             <span>06</span>
@@ -175,7 +175,7 @@
         <div class="boundary-copy">
           <p class="section-code">02 / Trust boundary</p>
           <h2 id="boundary-title">The adapter stays behind the line.</h2>
-          <p>A production gateway can connect to approved inventory, pricing, and availability sources. Agents receive normalized retail facts—not generic access to the dealer’s operational systems.</p>
+          <p>The Gateway connects to approved inventory sources and can add authoritative pricing and availability sources as dealers provide them. Agents receive normalized retail facts—not generic access to operational systems.</p>
         </div>
         <div class="boundary-map" aria-label="Gateway trust boundary diagram">
           <div class="map-source">
@@ -198,7 +198,7 @@
         <div>
           <p class="section-code">03 / Connect</p>
           <h2 id="connect-title">Test the contract,<br>not a sales pitch.</h2>
-          <p>This public endpoint is a conformance fixture with synthetic vehicles and no customer data. It is designed for client interoperability testing—not production dealer traffic.</p>
+          <p>This public endpoint serves Howard Bentley Buick GMC’s dealer-authorized daily retail inventory. It exposes public vehicle facts and photos, records privacy-filtered query receipts, and never exposes customer records or dealer-private inventory age.</p>
         </div>
         <div class="endpoint-card">
           <span class="endpoint-label">STREAMABLE HTTP</span>
@@ -213,7 +213,7 @@
       </section>
 
       <section class="open-project" id="open-project" aria-labelledby="open-project-title">
-        <div><p class="section-code">04 / Open project</p><h2 id="open-project-title">Use it. Inspect it.<br>Improve it.</h2><p>The gateway and the protocol are developed together in public, with separate responsibilities and one shared license.</p></div>
+        <div><p class="section-code">04 / Open project</p><h2 id="open-project-title">Use it. Inspect it.<br>Improve it.</h2><p>The open protocol and public reference materials use Apache-2.0. The operated service has a separate responsibility: securely serving enrolled dealers’ approved retail data.</p></div>
         <div class="open-project-list">
           <article><span>LICENSE</span><h3>Apache-2.0</h3><p>Reference software, specifications, schemas, tests, and documentation include an explicit patent grant.</p><a href="/LICENSE.txt">Read the license →</a></article>
           <article><span>CONTRIBUTING</span><h3>Two ways to help</h3><p>Improve the shared protocol contract or improve the gateway implementation. The contribution guide explains the difference.</p><a href="/CONTRIBUTING.md">Contribution guide →</a></article>
@@ -236,7 +236,7 @@
         <a href="/privacy/">Privacy</a>
         <a href="/terms/">Terms</a>
       </div>
-      <p class="footer-note">Synthetic data only · Draft 0.1</p>
+      <p class="footer-note">Howard Bentley founding pilot · Draft 0.1</p>
     </footer>
   </body>
 </html>
