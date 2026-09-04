@@ -1,5 +1,5 @@
 # Dealer Agent Protocol
-> Open MCP standard for car dealership inventory, availability, and pricing disclosure, so AI agents answer shoppers with the dealer's real price, real fees, and current availability. Apache-2.0. Reference gateway and synthetic test data available.
+> Open MCP standard for car dealership inventory, availability, and pricing disclosure. Apache-2.0. A public Gateway pilot serves dealer-authorized Howard Bentley inventory with explicit uncertainty and verification requirements.
 
 Dealer Agent Protocol (DAP) covers dealer and rooftop identity, published vehicle inventory, authoritative availability, advertised prices, required dealer charges, discounts, incentives, provenance, freshness, uncertainty, a separately claimed consented handoff, and a provider-neutral used-vehicle profile for mileage, inventory tenure, history, title, inspection, certification, warranty, reconditioning, and source conflicts.
 
@@ -33,11 +33,13 @@ Dealer Agent Protocol is the open specification and conformance contract. Dealer
 - Privacy Policy: https://dealeragentprotocol.com/privacy/
 - Terms of Use: https://dealeragentprotocol.com/terms/
 
-## Reference endpoint
+## Public Gateway endpoint
 
-- Streamable HTTP: https://mcp.dealershipmcp.com/mcp
-- Health: https://mcp.dealershipmcp.com/health
-- Data status: synthetic reference data only; never a production dealer claim
+- Streamable HTTP: https://mcp.dealeragentgateway.com/mcp
+- Health: https://mcp.dealeragentgateway.com/health
+- Policy: https://mcp.dealeragentgateway.com/policy
+- Conformance status: https://mcp.dealeragentgateway.com/conformance
+- Data status: dealer-authorized daily Howard Bentley retail feed; live price and availability verification required
 
 ## License
 

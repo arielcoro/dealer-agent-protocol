@@ -12,7 +12,8 @@ from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
 CANONICAL = "https://dealeragentprotocol.com"
-REMOTE = "https://mcp.dealershipmcp.com/mcp"
+GATEWAY = "https://dealeragentgateway.com"
+REMOTE = "https://mcp.dealeragentgateway.com/mcp"
 
 
 class LinkCollector(HTMLParser):
@@ -60,15 +61,15 @@ def main() -> int:
 
     server_path = ROOT / "registry" / "server.json"
     server = json.loads(server_path.read_text(encoding="utf-8"))
-    if server.get("name") != "com.dealershipmcp/reference":
+    if server.get("name") != "com.dealeragentgateway/public":
         failures.append("registry/server.json: unexpected registry name")
     if len(server.get("description", "")) > 100:
         failures.append("registry/server.json: description exceeds registry limit")
     remotes = server.get("remotes", [])
     if remotes != [{"type": "streamable-http", "url": REMOTE}]:
         failures.append("registry/server.json: remote endpoint differs from canonical deployment")
-    if server.get("websiteUrl") != f"{CANONICAL}/":
-        failures.append("registry/server.json: websiteUrl is not canonical")
+    if server.get("websiteUrl") != f"{GATEWAY}/":
+        failures.append("registry/server.json: websiteUrl is not the canonical Gateway site")
 
     required_site_files = [
         "index.html",

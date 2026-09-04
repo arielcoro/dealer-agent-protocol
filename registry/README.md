@@ -1,13 +1,13 @@
 # MCP Registry publication
 
-`server.json` describes the public synthetic reference gateway. The official
+`server.json` describes the public Dealer Agent Gateway. The official
 registry discovers server implementations, not the protocol specification
 itself. The canonical protocol publication remains
 `https://dealeragentprotocol.com`.
 
 Before publication:
 
-1. deploy and test `https://mcp.dealershipmcp.com/mcp`;
+1. deploy and test `https://mcp.dealeragentgateway.com/mcp`;
 2. add the public source repository to `server.json` after its final URL is
    known;
 3. install the official `mcp-publisher` release;

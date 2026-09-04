@@ -2,7 +2,7 @@ const SECURITY_HEADERS = {
   "Content-Security-Policy": [
     "default-src 'self'",
     "base-uri 'self'",
-    "connect-src 'self' https://mcp.dealershipmcp.com",
+    "connect-src 'self' https://mcp.dealeragentgateway.com",
     "font-src 'self' https://fonts.gstatic.com",
     "form-action 'self'",
     "frame-ancestors 'none'",
@@ -171,25 +171,18 @@ async function handlePilotApplication(request, env, requestUrl) {
 export default {
   async fetch(request, env) {
     const requestUrl = new URL(request.url);
-    if (requestUrl.hostname === "dealeragentgateway.com") {
-      const target = new URL(requestUrl.pathname + requestUrl.search, "https://dealershipmcp.com");
-      return Response.redirect(target.toString(), 301);
-    }
     if (requestUrl.hostname === PILOT_HOST && requestUrl.pathname === PILOT_PATH) {
       return handlePilotApplication(request, env, requestUrl);
     }
 
+    // Version the asset lookup so a newly deployed HTML document cannot be
+    // shadowed by an older Cloudflare asset-cache entry at the same pathname.
     let assetRequest = request;
-    if (
-      requestUrl.hostname === "dealeragentgateway.com" &&
-      requestUrl.pathname === "/privacy/" &&
-      (request.method === "GET" || request.method === "HEAD")
-    ) {
-      const assetUrl = new URL(requestUrl);
-      assetUrl.searchParams.set("_asset", "privacy-20260901");
+    if (request.method === "GET" || request.method === "HEAD") {
+      const assetUrl = new URL(request.url);
+      assetUrl.searchParams.set("_site_version", "20260904-gateway-pilot");
       assetRequest = new Request(assetUrl, request);
     }
-
     const response = await env.ASSETS.fetch(assetRequest);
     const headers = new Headers(response.headers);
     for (const [name, value] of Object.entries(SECURITY_HEADERS)) {

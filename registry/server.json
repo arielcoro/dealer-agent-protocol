@@ -1,14 +1,14 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "com.dealershipmcp/reference",
-  "title": "Dealer Agent Protocol Reference Gateway",
-  "description": "Synthetic dealer inventory, used-vehicle history, availability, pricing, and incentives.",
+  "name": "com.dealeragentgateway/public",
+  "title": "Dealer Agent Gateway",
+  "description": "Dealer-authorized retail inventory with provenance, freshness, and verification requirements.",
   "version": "0.1.0",
-  "websiteUrl": "https://dealeragentprotocol.com/",
+  "websiteUrl": "https://dealeragentgateway.com/",
   "remotes": [
     {
       "type": "streamable-http",
-      "url": "https://mcp.dealershipmcp.com/mcp"
+      "url": "https://mcp.dealeragentgateway.com/mcp"
     }
   ],
   "_meta": {
@@ -18,7 +18,9 @@
         "version": "0.1",
         "specification": "https://dealeragentprotocol.com/spec/v0.1/SPEC.md"
       },
-      "dataStatus": "synthetic-reference-only"
+      "dataStatus": "dealer-authorized-daily-feed-pilot",
+      "organizationIds": ["org.howard-bentley"],
+      "conformanceStatus": "experimental-no-core-claim"
     }
   }
 }
