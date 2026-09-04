@@ -42,7 +42,7 @@ def render_comparison(destination: Path, product: bool) -> None:
         home = "https://dealershipmcp.com/compare/"
         header_class = "site-header shell"
         main_class = "interior shell markdown-body"
-        navigation = '<nav><a href="/how-it-works/">How it works</a><a href="/connect/">Connect</a><a href="/live/">Live dealers</a></nav><a class="header-cta" href="/audit/">Free audit →</a>'
+        navigation = '<nav><a href="/visibility/">AI Visibility</a><a href="/ai-search/">AI Search</a><a href="/gateway/">Agent Gateway</a><a href="/live/">Live pilot</a></nav><a class="header-cta" href="/audit/">Start free →</a>'
     else:
         brand = '<a class="wordmark" href="/"><span class="wordmark-mark">D</span><span>Dealer Agent<br>Protocol</span></a>'
         stylesheet = "/styles.css"

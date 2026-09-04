@@ -2,7 +2,14 @@
 > Open MCP standard for car dealership inventory, availability, and pricing disclosure, so AI agents answer shoppers with the dealer's real price, real fees, and current availability. Apache-2.0. Reference gateway and synthetic test data available.
 
 # DealershipMCP
-> Dealer Growth Hackers product and hosted implementation of Dealer Agent Protocol. It provides an AI Answer Audit, static publication, a managed Dealer Agent Gateway, freshness monitoring, conformance claim hosting, and optional consented ADF handoff.
+> Dealer Growth Hackers' commercial dealer-answer platform. It combines Dealer AI Visibility, on-site conversational inventory search, and a managed Dealer Agent Gateway built on the open Dealer Agent Protocol.
+
+## Product system
+- Dealer AI Visibility measures whether AI systems can find and accurately represent a dealership and its competitive position.
+- Dealer AEO Audit diagnoses website, entity, content, and citation gaps that influence AI answers.
+- On-Site AI Search is a pilot module that translates natural-language shopper intent into dealer-approved inventory matches and dealer query receipts.
+- Dealer Agent Gateway is the operated dealer-specific MCP service for external AI agents.
+- Dealer Agent Protocol is the portable Apache-2.0 contract underneath the Gateway.
 
 DealershipMCP can publish provider-neutral used-vehicle facts including mileage, dated inventory age, authorized history-report summaries, title, inspection, certification, warranty, public reconditioning facts, and unresolved source conflicts. CARFAX, AutoCheck, or other provider support depends on dealer authorization and contract rights and does not imply a partnership.
 
@@ -14,11 +21,16 @@ DealershipMCP can publish provider-neutral used-vehicle facts including mileage,
 - Planned integrations are roadmap items, not partnership or availability claims.
 
 ## Key pages
-- https://dealershipmcp.com/audit/ — free AI Answer Audit
+- https://dealershipmcp.com/visibility/ — AI visibility product and diagnostic path
+- https://dealershipmcp.com/ai-search/ — on-site conversational inventory search pilot
+- https://dealershipmcp.com/gateway/ — managed dealer-specific MCP gateway
+- https://dealershipmcp.com/audit/ — three free diagnostic entry points
 - https://dealershipmcp.com/connect/ — free static publication path
 - https://dealershipmcp.com/how-it-works/ — product and consent flow
 - https://dealershipmcp.com/inventory-sources/ — provider feeds, dealer exports, incentive sources, and consented website extraction
 - https://dealershipmcp.com/compare/ — dated comparison with public alternatives
 - https://dealershipmcp.com/live/ — dealer roster with claim evidence
+- https://dealeraivisibility.com/ — free dealer AI visibility check
+- https://dealeraeoaudit.com/ — dealer website AEO audit
 - https://dealeragentprotocol.com/ — canonical open standard
 - https://github.com/arielcoro/dealer-agent-protocol — source and public review

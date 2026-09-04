@@ -155,8 +155,8 @@ def main() -> int:
             failures.append(f"gateway-site/dist/{relative}: missing generated publication file")
 
     required_product_files = [
-        "index.html", "styles.css", "app.js", "audit/index.html", "connect/index.html",
-        "how-it-works/index.html", "inventory-sources/index.html", "compare/index.html", "live/index.html", "privacy/index.html",
+        "index.html", "styles.css", "app.js", "visibility/index.html", "ai-search/index.html", "gateway/index.html",
+        "audit/index.html", "connect/index.html", "how-it-works/index.html", "inventory-sources/index.html", "compare/index.html", "live/index.html", "privacy/index.html",
         "terms/index.html", "robots.txt", "sitemap.xml", "llms.txt", "LICENSE.txt", "NOTICE.txt",
     ]
     for relative in required_product_files:
