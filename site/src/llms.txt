@@ -35,10 +35,11 @@ Dealer Agent Protocol is the open specification and conformance contract. Dealer
 
 ## Public Gateway endpoint
 
-- Streamable HTTP: https://mcp.dealeragentgateway.com/mcp
-- Health: https://mcp.dealeragentgateway.com/health
-- Policy: https://mcp.dealeragentgateway.com/policy
-- Conformance status: https://mcp.dealeragentgateway.com/conformance
+- Gateway platform status: https://mcp.dealeragentgateway.com/status
+- Howard Bentley Streamable HTTP: https://mcp.dealeragentgateway.com/dealers/howard-bentley/mcp
+- Howard Bentley health: https://mcp.dealeragentgateway.com/dealers/howard-bentley/health
+- Howard Bentley policy: https://mcp.dealeragentgateway.com/dealers/howard-bentley/policy
+- Howard Bentley conformance status: https://mcp.dealeragentgateway.com/dealers/howard-bentley/conformance
 - Data status: dealer-authorized daily Howard Bentley retail feed; live price and availability verification required
 
 ## License

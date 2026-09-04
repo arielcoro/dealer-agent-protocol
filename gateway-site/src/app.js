@@ -5,7 +5,7 @@ const statusCopy = status?.querySelector(".status-copy");
 async function checkGateway() {
   if (!status || !statusCopy) return;
   try {
-    const response = await fetch(`${endpoint}/health`, {
+    const response = await fetch(`${endpoint}/dealers/howard-bentley/health`, {
       headers: { Accept: "application/json" },
       signal: AbortSignal.timeout(3500),
     });

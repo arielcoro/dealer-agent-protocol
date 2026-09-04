@@ -10,10 +10,11 @@ Dealer Agent Protocol is the open specification and conformance contract. Dealer
 - Open protocol: https://dealeragentprotocol.com/
 - Protocol: https://dealeragentprotocol.com/
 - Founding dealer pilot: https://dealeragentprotocol.com/pilot/
-- MCP endpoint: https://mcp.dealeragentgateway.com/mcp
-- Gateway health: https://mcp.dealeragentgateway.com/health
-- Data and authority policy: https://mcp.dealeragentgateway.com/policy
-- Honest conformance status: https://mcp.dealeragentgateway.com/conformance
+- Platform status: https://mcp.dealeragentgateway.com/status
+- Howard Bentley MCP endpoint: https://mcp.dealeragentgateway.com/dealers/howard-bentley/mcp
+- Howard Bentley gateway status: https://mcp.dealeragentgateway.com/dealers/howard-bentley/status
+- Howard Bentley data and authority policy: https://mcp.dealeragentgateway.com/dealers/howard-bentley/policy
+- Howard Bentley conformance status: https://mcp.dealeragentgateway.com/dealers/howard-bentley/conformance
 - MCP Registry metadata: https://dealeragentprotocol.com/server.json
 - Source: https://github.com/arielcoro/dealer-agent-protocol
 - License: https://dealeragentgateway.com/LICENSE.txt (Apache-2.0)

@@ -13,7 +13,7 @@ from urllib.parse import urlparse
 ROOT = Path(__file__).resolve().parents[1]
 CANONICAL = "https://dealeragentprotocol.com"
 GATEWAY = "https://dealeragentgateway.com"
-REMOTE = "https://mcp.dealeragentgateway.com/mcp"
+REMOTE = "https://mcp.dealeragentgateway.com/dealers/howard-bentley/mcp"
 
 
 class LinkCollector(HTMLParser):
@@ -61,7 +61,7 @@ def main() -> int:
 
     server_path = ROOT / "registry" / "server.json"
     server = json.loads(server_path.read_text(encoding="utf-8"))
-    if server.get("name") != "com.dealeragentgateway/public":
+    if server.get("name") != "com.dealeragentgateway/howard-bentley":
         failures.append("registry/server.json: unexpected registry name")
     if len(server.get("description", "")) > 100:
         failures.append("registry/server.json: description exceeds registry limit")

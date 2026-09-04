@@ -6,9 +6,10 @@ This deployment publishes three deliberately separate surfaces:
 |---|---|---|
 | Protocol publication | `https://dealeragentprotocol.com` | Specification, schemas, documentation, and registry metadata |
 | Gateway website | `https://dealeragentgateway.com` | Human-facing implementation overview, boundary, and connection details |
-| Dealer Agent Gateway | `https://mcp.dealeragentgateway.com/mcp` | Public Streamable HTTP MCP endpoint for approved dealer retail inventory |
+| Gateway platform status | `https://mcp.dealeragentgateway.com/status` | Platform health and enrolled dealer directory |
+| Howard Bentley Gateway | `https://mcp.dealeragentgateway.com/dealers/howard-bentley/mcp` | Public Streamable HTTP MCP endpoint for Howard Bentley retail inventory |
 
-The public Gateway is an experimental dealer pilot. It exposes only approved
+The first dealer Gateway is an experimental pilot. It exposes only approved
 retail fields and keeps source credentials, customer data, and dealer-private
 fields outside the public service.
 
@@ -80,7 +81,7 @@ The container remains useful as a local synthetic interoperability fixture. Do
 not map it over the operated service at `mcp.dealeragentgateway.com`. It
 exposes:
 
-- `POST /mcp` — stateless MCP requests;
+- `POST /mcp` — stateless MCP requests in the local reference fixture;
 - `GET /health` — public liveness and synthetic-data declaration; and
 - `GET /` — human-readable service metadata as JSON.
 
@@ -99,15 +100,19 @@ mcp-publisher publish
 
 Follow the official publisher instructions to generate the DNS proof. Keep its
 private key in a secret manager, never in this repository. The registry name is
-`com.dealeragentgateway/reference`, matching the verified domain.
-
-Verify the published entry through the official Registry API and test the
-remote with MCP Inspector. Registry metadata versions are immutable; increment
-the server version before republishing a change.
+`com.dealeragentgateway/howard-bentley`, matching the dealer-scoped deployment
+under the verified domain. Verify the published entry through the official
+Registry API and test the remote with MCP Inspector. Registry metadata versions
+are immutable; increment the server version before republishing a change.
 
 ## 4. Operated Gateway boundary
 
-The operated Gateway is a separate service and security boundary. A dealer
+The operated Gateway is a multi-tenant service and security boundary. Each dealer
 deployment uses a dealer-authorized retail-data adapter, strict tenant routing,
 upstream credential isolation, rate limiting, audit, monitoring, and incident
 response. It must never inherit the demo grant or demo cursor secret.
+
+Dealer MCP endpoints are namespaced as `/dealers/{dealer-slug}/mcp`. Platform
+status lives at `/status`; dealer inventory health lives inside the matching
+dealer namespace. The original root-level routes remain temporary deprecated
+compatibility aliases and must not be used for new integrations.

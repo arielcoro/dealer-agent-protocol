@@ -1,14 +1,14 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "com.dealeragentgateway/public",
-  "title": "Dealer Agent Gateway",
-  "description": "Dealer-authorized retail inventory with provenance, freshness, and verification requirements.",
+  "name": "com.dealeragentgateway/howard-bentley",
+  "title": "Howard Bentley Dealer Agent Gateway",
+  "description": "Howard Bentley retail inventory with provenance, freshness, and verification requirements.",
   "version": "0.1.0",
   "websiteUrl": "https://dealeragentgateway.com/",
   "remotes": [
     {
       "type": "streamable-http",
-      "url": "https://mcp.dealeragentgateway.com/mcp"
+      "url": "https://mcp.dealeragentgateway.com/dealers/howard-bentley/mcp"
     }
   ],
   "_meta": {
