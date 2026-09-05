@@ -18,6 +18,8 @@ GATEWAY_SOURCE = ROOT / "gateway-site" / "src"
 GATEWAY_DIST = ROOT / "gateway-site" / "dist"
 PRODUCT_SOURCE = ROOT / "dealershipmcp-site" / "src"
 PRODUCT_DIST = ROOT / "dealershipmcp-site" / "dist"
+VISIBILITY_SOURCE = ROOT / "dealer-ai-visibility-site" / "src"
+VISIBILITY_DIST = ROOT / "dealer-ai-visibility-site" / "dist"
 SPEC_SOURCE = ROOT / "spec" / "v0.1"
 
 
@@ -95,9 +97,14 @@ def main() -> int:
     shutil.copy2(ROOT / "LICENSE", PRODUCT_DIST / "LICENSE.txt")
     shutil.copy2(ROOT / "NOTICE", PRODUCT_DIST / "NOTICE.txt")
 
+    if VISIBILITY_DIST.exists():
+        shutil.rmtree(VISIBILITY_DIST)
+    shutil.copytree(VISIBILITY_SOURCE, VISIBILITY_DIST)
+
     print(f"Built protocol site at {DIST}")
     print(f"Built gateway site at {GATEWAY_DIST}")
     print(f"Built DealershipMCP site at {PRODUCT_DIST}")
+    print(f"Built Dealer AI Visibility site at {VISIBILITY_DIST}")
     return 0
 
 

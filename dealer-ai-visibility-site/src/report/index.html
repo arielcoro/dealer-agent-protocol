@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{REPORT_TITLE}}</title>
+  <meta name="description" content="{{REPORT_DESCRIPTION}}">
+  <link rel="canonical" href="{{REPORT_CANONICAL}}">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="{{REPORT_CANONICAL}}">
+  <meta property="og:title" content="{{REPORT_TITLE}}">
+  <meta property="og:description" content="{{REPORT_DESCRIPTION}}">
+  <meta property="og:image" content="{{REPORT_IMAGE}}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{REPORT_TITLE}}">
+  <meta name="twitter:description" content="{{REPORT_DESCRIPTION}}">
+  <meta name="twitter:image" content="{{REPORT_IMAGE}}">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="report-header report-shell">
+    <a class="brand" href="/"><span class="brand-pulse"><i></i></span><span>Dealer AI<br><strong>Visibility</strong></span></a>
+    <div class="report-header-actions"><button class="ghost-button" id="share-report" type="button">Share report</button><a class="button button-small" href="/#scan">Scan another →</a></div>
+  </header>
+  <main class="report-main report-shell">
+    <div class="report-loading" id="report-loading"><span class="brand-pulse"><i></i></span><h1>Loading the evidence.</h1><p>Retrieving the public signals and recommendations.</p></div>
+    <div id="report-error" class="report-loading" hidden><h1>Report unavailable.</h1><p id="report-error-message">This report could not be loaded.</p><a class="button" href="/#scan">Run a new scan →</a></div>
+    <div id="report-content" hidden>
+      <section class="report-identity">
+        <div><p class="kicker"><span></span> Dealer AI visibility report</p><h1 id="dealer-name"></h1></div>
+        <div class="report-meta"><div id="dealer-domain"></div><div id="dealer-city"></div><div id="scan-date"></div></div>
+      </section>
+      <section class="score-hero">
+        <div class="score-dial" id="score-dial"><strong id="overall-score">—</strong><span>AI VISIBILITY / 100</span></div>
+        <div class="score-copy"><div class="grade" id="score-grade"></div><h2 id="score-headline"></h2><p id="score-summary"></p><a class="button" href="#priorities">See the priorities ↓</a></div>
+      </section>
+      <section class="report-section">
+        <div class="report-section-head"><h2>Platform likelihood</h2><p>A directional reading of the public signals each major AI experience can use—not a guarantee of inclusion or ranking.</p></div>
+        <div class="score-grid" id="platform-scores"></div>
+      </section>
+      <section class="report-section">
+        <div class="report-section-head"><h2>Signal health</h2><p>The six building blocks behind the overall visibility score.</p></div>
+        <div class="score-grid" id="category-scores"></div>
+      </section>
+      <section class="report-section" id="priorities">
+        <div class="report-section-head"><h2>What to fix next</h2><p>Open each finding to see the observed evidence, why it matters, and a concrete corrective action.</p></div>
+        <div class="findings" id="findings"></div>
+      </section>
+      <section class="report-cta">
+        <div><p class="kicker light"><span></span> Turn the score into a plan</p><h2>Get the dealer-specific 30-day fix list.</h2><p>We will review the automated findings, prioritize the work by commercial impact, and show how Dealer AEO Audit and DealershipMCP fit—if they fit.</p></div>
+        <form class="lead-form" id="lead-form">
+          <label>Work email<input type="email" name="email" autocomplete="email" required></label>
+          <label>Dealership<input name="dealership" autocomplete="organization" required></label>
+          <label>Phone <span>optional</span><input name="phone" autocomplete="tel"></label>
+          <button class="button button-lime button-block" type="submit">Request the fix plan →</button>
+          <p class="form-status" id="lead-status" role="status"></p>
+        </form>
+      </section>
+    </div>
+  </main>
+  <footer><div class="report-shell footer-bottom"><span>© 2026 Dealer Growth Hackers</span><span><a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="/disclaimer/">Disclaimer</a></span></div></footer>
+  <script src="/analytics.js" defer></script>
+  <script src="/report.js" defer></script>
+</body>
+</html>

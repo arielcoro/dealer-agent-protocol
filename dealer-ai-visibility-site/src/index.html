@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dealer AI Visibility — See if AI recommends your dealership</title>
+  <meta name="description" content="Run a free dealership AI visibility scan. See how ChatGPT, Google AI Overviews, Gemini, Perplexity, Claude, and Bing Copilot understand your store.">
+  <link rel="canonical" href="https://dealeraivisibility.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://dealeraivisibility.com/">
+  <meta property="og:title" content="Is AI recommending your dealership?">
+  <meta property="og:description" content="Measure what AI can see, what it gets wrong, and which competitors it is more likely to recommend.">
+  <meta property="og:image" content="https://dealeraivisibility.com/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Is AI recommending your dealership?">
+  <meta name="twitter:description" content="A free, evidence-based AI visibility scan for franchise dealerships.">
+  <meta name="twitter:image" content="https://dealeraivisibility.com/og.png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebApplication",
+    "name":"Dealer AI Visibility",
+    "url":"https://dealeraivisibility.com/",
+    "applicationCategory":"BusinessApplication",
+    "operatingSystem":"Web",
+    "description":"A free AI visibility and search-readiness scan for automotive dealerships.",
+    "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+    "provider":{"@type":"Organization","name":"Dealer Growth Hackers","url":"https://dealergrowthhackers.com/"}
+  }
+  </script>
+</head>
+<body>
+  <header class="topbar shell">
+    <a class="brand" href="/" aria-label="Dealer AI Visibility home">
+      <span class="brand-pulse" aria-hidden="true"><i></i></span>
+      <span>Dealer AI<br><strong>Visibility</strong></span>
+    </a>
+    <nav aria-label="Primary navigation">
+      <a href="#what-we-measure">What we measure</a>
+      <a href="#how-it-works">How it works</a>
+      <a href="https://dealershipmcp.com/visibility/?ref=dealeraivisibility-nav">The answer layer</a>
+    </nav>
+    <a class="button button-small" href="#scan">Run the scan <span aria-hidden="true">↘</span></a>
+  </header>
+
+  <main>
+    <section class="hero shell">
+      <div class="hero-copy reveal">
+        <p class="kicker"><span></span> Free dealership signal check</p>
+        <h1>Is AI recommending <em>your dealership?</em></h1>
+        <p class="hero-lede">Your next shopper may ask ChatGPT before visiting Google. See what AI can find, what it misunderstands, and which signals are costing your store the shortlist.</p>
+        <div class="hero-actions">
+          <a class="button" href="#scan">Scan my dealership <span aria-hidden="true">→</span></a>
+          <a class="text-link" href="#sample">See what the report reveals ↘</a>
+        </div>
+        <p class="microcopy">No login. No credit card. A shareable report built from your live website.</p>
+      </div>
+
+      <div class="signal-observatory reveal delay-1" aria-label="Illustration of dealership signals becoming an AI visibility score">
+        <div class="observatory-head"><span>LIVE SIGNAL MAP</span><span class="live-dot">OBSERVING</span></div>
+        <div class="radar-stage">
+          <span class="ring ring-one"></span><span class="ring ring-two"></span><span class="ring ring-three"></span>
+          <span class="axis axis-x"></span><span class="axis axis-y"></span>
+          <span class="signal signal-a"><b>?</b><small>AI answers</small></span>
+          <span class="signal signal-b"><b>✓</b><small>Website</small></span>
+          <span class="signal signal-c"><b>!</b><small>Citations</small></span>
+          <div class="score-core"><small>VISIBILITY</small><strong>?</strong><span>/100</span></div>
+        </div>
+        <div class="observatory-feed">
+          <div><span>01</span><p>Can agents crawl the store?</p><b>CHECK</b></div>
+          <div><span>02</span><p>Can they understand the business?</p><b>CHECK</b></div>
+          <div><span>03</span><p>Can they cite an answer?</p><b>CHECK</b></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="battle-strip" aria-hidden="true"><span>BE FOUND</span><i>→</i><span>BE UNDERSTOOD</span><i>→</i><span>BE RECOMMENDED</span></div>
+
+    <section class="scan-section shell" id="scan">
+      <div class="section-intro">
+        <p class="kicker coral"><span></span> Start with the evidence</p>
+        <h2>Find the gap before you <em>buy the solution.</em></h2>
+        <p>The scan tests the public signals AI systems can actually reach. It is a diagnostic—not a promise that any platform will rank or recommend a dealership.</p>
+      </div>
+      <form class="scan-form" id="scan-form" novalidate>
+        <div class="form-index">FREE SCAN / 01</div>
+        <label>Dealership name
+          <input name="dealership_name" autocomplete="organization" placeholder="Howard Bentley Buick GMC" required maxlength="160">
+        </label>
+        <label>Dealership website
+          <input name="website_url" inputmode="url" autocomplete="url" placeholder="https://yourdealership.com" required maxlength="300">
+        </label>
+        <label>City and state
+          <input name="city" autocomplete="address-level2" placeholder="Albertville, AL" required maxlength="120">
+        </label>
+        <label>Competitor website <span>optional</span>
+          <input name="competitor_url" inputmode="url" placeholder="https://competitor.com" maxlength="300">
+        </label>
+        <label class="honey" aria-hidden="true">Company website<input name="website_company" tabindex="-1" autocomplete="off"></label>
+        <button class="button button-block" type="submit">Measure my AI visibility <span aria-hidden="true">→</span></button>
+        <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <section class="measure-section" id="what-we-measure">
+      <div class="shell">
+        <div class="section-heading split-heading">
+          <p class="kicker light"><span></span> Six signals. One verdict.</p>
+          <h2>AI cannot recommend what it cannot <em>read, trust, or explain.</em></h2>
+        </div>
+        <div class="measure-grid">
+          <article><span>01</span><h3>Crawler access</h3><p>Whether major AI crawlers can reach the store without being blocked or trapped.</p></article>
+          <article><span>02</span><h3>Structured meaning</h3><p>Whether the site clearly identifies the dealership, inventory, services, people, and location.</p></article>
+          <article><span>03</span><h3>Citability</h3><p>Whether pages contain direct, specific answers an AI system can quote with confidence.</p></article>
+          <article><span>04</span><h3>Technical health</h3><p>Whether speed, security, rendering, and mobile experience create avoidable discovery friction.</p></article>
+          <article><span>05</span><h3>Authority</h3><p>Whether the store shows credible local identity, expertise, policies, reviews, and real people.</p></article>
+          <article class="accent-card"><span>06</span><h3>Brand connection</h3><p>Whether outside sources connect the dealership name, market, franchise, and website.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="sample-section shell" id="sample">
+      <div class="sample-copy">
+        <p class="kicker coral"><span></span> Not another vanity score</p>
+        <h2>A report your team can <em>actually use.</em></h2>
+        <p>Every finding separates the evidence from the implication and the fix. Your agency, website provider, or internal team can act without decoding an AI buzzword deck.</p>
+        <ul class="proof-list">
+          <li><span>Found</span> The exact public evidence we observed</li>
+          <li><span>Why</span> How the gap affects AI discovery</li>
+          <li><span>Fix</span> A specific corrective action</li>
+        </ul>
+      </div>
+      <div class="report-preview">
+        <div class="preview-top"><span>EXAMPLE OUTPUT</span><b>AI VISIBILITY / 100</b></div>
+        <div class="preview-score"><strong>65</strong><div><b>PARTIALLY VISIBLE</b><p>Your dealership can be found, but weak authority and brand signals may keep it off the shortlist.</p></div></div>
+        <div class="preview-bars">
+          <div><span>Crawler access</span><i style="--score:100%"></i><b>100</b></div>
+          <div><span>Structured data</span><i style="--score:50%"></i><b>50</b></div>
+          <div><span>Citability</span><i style="--score:65%"></i><b>65</b></div>
+          <div><span>Brand connection</span><i style="--score:10%"></i><b>10</b></div>
+        </div>
+        <div class="preview-finding"><span>PRIORITY FINDING</span><p>No machine-readable dealership summary was found.</p><b>ADD /LLMS.TXT →</b></div>
+      </div>
+    </section>
+
+    <section class="process-section" id="how-it-works">
+      <div class="shell">
+        <div class="section-heading">
+          <p class="kicker light"><span></span> The commercial path</p>
+          <h2>Measure first. Then <em>own the answer.</em></h2>
+        </div>
+        <div class="process-grid">
+          <article><span>01</span><h3>Measure</h3><p>Dealer AI Visibility establishes the baseline and exposes the weakest signals.</p><a href="#scan">Run the free scan →</a></article>
+          <article><span>02</span><h3>Repair</h3><p>Dealer AEO Audit turns the gaps into a deeper website and content action plan.</p><a href="https://dealeraeoaudit.com/?utm_source=dealeraivisibility&utm_medium=ecosystem">Open Dealer AEO Audit →</a></article>
+          <article><span>03</span><h3>Connect</h3><p>DealershipMCP makes approved inventory facts usable by shoppers and buyer agents.</p><a href="https://dealershipmcp.com/?ref=dealeraivisibility-process">See the answer layer →</a></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta shell">
+      <p class="kicker"><span></span> Your dealership is already being interpreted</p>
+      <h2>The only question is whether the answer is <em>accurate.</em></h2>
+      <a class="button button-lime" href="#scan">Check my dealership <span aria-hidden="true">→</span></a>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell footer-grid">
+      <div><a class="brand brand-footer" href="/"><span class="brand-pulse"><i></i></span><span>Dealer AI<br><strong>Visibility</strong></span></a><p>An independent dealer AI measurement product from Dealer Growth Hackers.</p></div>
+      <div><b>ECOSYSTEM</b><a href="https://dealeraeoaudit.com/?utm_source=dealeraivisibility&utm_medium=footer">Dealer AEO Audit</a><a href="https://dealershipmcp.com/?ref=dealeraivisibility-footer">DealershipMCP</a><a href="https://dealeragentprotocol.com/">Dealer Agent Protocol</a></div>
+      <div><b>LEGAL</b><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="/disclaimer/">Disclaimer</a><a href="/contact/">Contact</a></div>
+    </div>
+    <div class="shell footer-bottom"><span>© 2026 Dealer Growth Hackers</span><span>Independent. Evidence-led. Dealer-controlled.</span></div>
+  </footer>
+
+  <div class="scan-overlay" id="scan-overlay" hidden>
+    <div class="scan-console" role="dialog" aria-modal="true" aria-labelledby="scan-title">
+      <div class="console-head"><span>LIVE WEBSITE OBSERVATION</span><span class="live-dot">SCANNING</span></div>
+      <h2 id="scan-title">Reading the signals AI can see.</h2>
+      <p id="scan-target"></p>
+      <ol class="scan-steps">
+        <li class="active"><span>01</span><p>Testing crawler access</p><b>RUNNING</b></li>
+        <li><span>02</span><p>Reading structured meaning</p><b>QUEUED</b></li>
+        <li><span>03</span><p>Measuring technical evidence</p><b>QUEUED</b></li>
+        <li><span>04</span><p>Building the action report</p><b>QUEUED</b></li>
+      </ol>
+      <div class="console-progress"><i></i></div>
+      <small>This normally takes about 20–40 seconds. Keep this window open.</small>
+    </div>
+  </div>
+
+  <script src="/analytics.js" defer></script>
+  <script src="/app.js" defer></script>
+</body>
+</html>

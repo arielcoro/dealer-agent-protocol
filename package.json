@@ -12,6 +12,7 @@
     "deploy:protocol": "wrangler deploy --config deployment/cloudflare/wrangler.jsonc",
     "deploy:gateway-site": "wrangler deploy --config deployment/cloudflare/gateway-site.wrangler.jsonc",
     "deploy:product": "wrangler deploy --config deployment/cloudflare/dealershipmcp.wrangler.jsonc",
+    "deploy:visibility": "wrangler deploy --config deployment/cloudflare/dealer-ai-visibility.wrangler.jsonc",
     "deploy:reference": "wrangler deploy --config deployment/cloudflare/reference-gateway.wrangler.jsonc",
     "deploy:sites": "npm run build:sites && npm run deploy:protocol && npm run deploy:product && npm run deploy:gateway-site"
   },

@@ -163,6 +163,17 @@ def main() -> int:
         if not (ROOT / "dealershipmcp-site" / "dist" / relative).is_file():
             failures.append(f"dealershipmcp-site/dist/{relative}: missing generated publication file")
     failures.extend(validate_internal_links(ROOT / "dealershipmcp-site" / "dist"))
+
+    required_visibility_files = [
+        "index.html", "styles.css", "app.js", "analytics.js", "report/index.html", "report.js",
+        "privacy/index.html", "terms/index.html", "disclaimer/index.html", "contact/index.html",
+        "unsubscribe/index.html", "unsubscribe.js", "robots.txt", "sitemap.xml", "llms.txt",
+        "favicon.svg", "site.webmanifest", "404.html", "og.png",
+    ]
+    for relative in required_visibility_files:
+        if not (ROOT / "dealer-ai-visibility-site" / "dist" / relative).is_file():
+            failures.append(f"dealer-ai-visibility-site/dist/{relative}: missing generated visibility file")
+    failures.extend(validate_internal_links(ROOT / "dealer-ai-visibility-site" / "dist"))
     if failures:
         print("Deployment validation failed:", file=sys.stderr)
         for failure in failures:
@@ -172,7 +183,7 @@ def main() -> int:
     print(
         f"Validated {len(schema_paths)} canonical schema IDs, registry metadata, "
         f"{len(required_site_files)} protocol files, {len(required_product_files)} product files, "
-        f"and {len(required_gateway_files)} redirect-site files."
+        f"{len(required_visibility_files)} visibility files, and {len(required_gateway_files)} gateway-site files."
     )
     return 0
 

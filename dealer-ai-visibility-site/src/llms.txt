@@ -1,0 +1,27 @@
+# Dealer AI Visibility
+
+> Dealer AI Visibility is a free, evidence-based scan showing how well public dealership website signals support discovery and accurate interpretation by AI systems.
+
+Operator: Dealer Growth Hackers
+Canonical URL: https://dealeraivisibility.com/
+Commercial ecosystem: https://dealershipmcp.com/
+Deeper website analysis: https://dealeraeoaudit.com/
+
+## What the scan measures
+
+- AI crawler access
+- Structured dealership meaning
+- Citability and answer-ready content
+- Technical website health
+- Authority and experience signals
+- Brand connections across public sources
+
+Scores are directional diagnostics, not guarantees that any AI platform will rank, cite, or recommend a dealership.
+
+## Important pages
+
+- Home and free scan: https://dealeraivisibility.com/
+- Methodology disclaimer: https://dealeraivisibility.com/disclaimer/
+- Privacy: https://dealeraivisibility.com/privacy/
+- Terms: https://dealeraivisibility.com/terms/
+- Contact: https://dealeraivisibility.com/contact/
