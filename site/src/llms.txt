@@ -1,5 +1,5 @@
 # Dealer Agent Protocol
-> Open MCP standard for car dealership inventory, availability, and pricing disclosure. Apache-2.0. A public Gateway pilot serves dealer-authorized Howard Bentley inventory with explicit uncertainty and verification requirements.
+> Open MCP standard for car dealership inventory, availability, and pricing disclosure. Apache-2.0. A public Gateway pilot serves dealer-authorized inventory from a Buick GMC dealer in Alabama with explicit uncertainty and verification requirements.
 
 Dealer Agent Protocol (DAP) covers dealer and rooftop identity, published vehicle inventory, authoritative availability, advertised prices, required dealer charges, discounts, incentives, provenance, freshness, uncertainty, a separately claimed consented handoff, and a provider-neutral used-vehicle profile for mileage, inventory tenure, history, title, inspection, certification, warranty, reconditioning, and source conflicts.
 
@@ -36,11 +36,11 @@ Dealer Agent Protocol is the open specification and conformance contract. Dealer
 ## Public Gateway endpoint
 
 - Gateway platform status: https://mcp.dealeragentgateway.com/status
-- Howard Bentley Streamable HTTP: https://mcp.dealeragentgateway.com/dealers/howard-bentley/mcp
-- Howard Bentley health: https://mcp.dealeragentgateway.com/dealers/howard-bentley/health
-- Howard Bentley policy: https://mcp.dealeragentgateway.com/dealers/howard-bentley/policy
-- Howard Bentley conformance status: https://mcp.dealeragentgateway.com/dealers/howard-bentley/conformance
-- Data status: dealer-authorized daily Howard Bentley retail feed; live price and availability verification required
+- Pilot dealer (a Buick GMC dealer in Alabama) Streamable HTTP: https://mcp.dealeragentgateway.com/dealers/howard-bentley/mcp
+- Pilot dealer health: https://mcp.dealeragentgateway.com/dealers/howard-bentley/health
+- Pilot dealer policy: https://mcp.dealeragentgateway.com/dealers/howard-bentley/policy
+- Pilot dealer conformance status: https://mcp.dealeragentgateway.com/dealers/howard-bentley/conformance
+- Data status: dealer-authorized daily retail feed from a Buick GMC dealer in Alabama; live price and availability verification required
 
 ## License
 
