@@ -1,8 +1,8 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "com.dealeragentgateway/howard-bentley",
-  "title": "Howard Bentley Dealer Agent Gateway",
-  "description": "Howard Bentley retail inventory with provenance, freshness, and verification requirements.",
+  "title": "Dealer Agent Gateway: Alabama Buick GMC Pilot",
+  "description": "Alabama Buick GMC dealer inventory with provenance, freshness, and verification requirements.",
   "version": "0.1.0",
   "websiteUrl": "https://dealeragentgateway.com/",
   "remotes": [

@@ -1,14 +1,21 @@
+import { protocolLeadEmail, sendLeadEmails } from "./lead-email.mjs";
+import { FIELD_LIMITS, cleanField, isValidEmail, protectLeadSubmission } from "./lead-form-guards.mjs";
+import { LeadRateLimiter } from "./lead-rate-limiter.mjs";
+
+export { LeadRateLimiter };
+
 const SECURITY_HEADERS = {
   "Content-Security-Policy": [
     "default-src 'self'",
     "base-uri 'self'",
-    "connect-src 'self' https://mcp.dealeragentgateway.com",
+    "connect-src 'self' https://mcp.dealeragentgateway.com https://demo.dealeragentprotocol.com https://cloudflareinsights.com",
     "font-src 'self' https://fonts.gstatic.com",
     "form-action 'self'",
+    "frame-src https://challenges.cloudflare.com",
     "frame-ancestors 'none'",
     "img-src 'self' data:",
     "object-src 'none'",
-    "script-src 'self' 'sha256-EtRh/Lpd/+zG9sc3VzdI4hQ4IZZZxAE6xNMhPg9AfBE=' 'sha256-lfc6WCwUB2uWDuTNaoiwHdXdVgzuxhcgarmhtB1mj78='",
+    "script-src 'self' 'sha256-EtRh/Lpd/+zG9sc3VzdI4hQ4IZZZxAE6xNMhPg9AfBE=' 'sha256-lfc6WCwUB2uWDuTNaoiwHdXdVgzuxhcgarmhtB1mj78=' https://challenges.cloudflare.com https://static.cloudflareinsights.com",
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
     "upgrade-insecure-requests",
   ].join("; "),
@@ -33,14 +40,6 @@ function jsonResponse(body, status = 200) {
       ...SECURITY_HEADERS,
     },
   });
-}
-
-function cleanField(value, maxLength) {
-  return typeof value === "string" ? value.trim().slice(0, maxLength) : "";
-}
-
-function isValidEmail(value) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) && value.length <= 200;
 }
 
 function isValidWebsite(value) {
@@ -74,7 +73,34 @@ async function readPilotBody(request) {
   throw new Error("unsupported_media_type");
 }
 
-async function handlePilotApplication(request, env, requestUrl) {
+
+function leadGuardResponse(result, wantsHtml, requestUrl) {
+  if (result.kind === "honeypot") {
+    if (wantsHtml) return Response.redirect(`${requestUrl.origin}/pilot/?submitted=1`, 303);
+    return jsonResponse({ accepted: true }, 201);
+  }
+  if (result.kind === "unavailable") {
+    return jsonResponse({ error: "applications_temporarily_unavailable" }, 503);
+  }
+  if (result.kind === "rate_limited") {
+    return new Response(JSON.stringify({ error: "rate_limited", retry_after: result.retryAfter || 60 }), {
+      status: 429,
+      headers: {
+        "Cache-Control": "no-store",
+        "Content-Type": "application/json; charset=utf-8",
+        "Retry-After": String(result.retryAfter || 60),
+        ...SECURITY_HEADERS,
+      },
+    });
+  }
+  if (result.kind === "turnstile") {
+    const status = result.reason === "token_missing" ? 400 : 403;
+    return jsonResponse({ error: "turnstile_failed", reason: result.reason, fields: { turnstile: "Confirm you are human and try again." } }, status);
+  }
+  return jsonResponse({ error: "applications_temporarily_unavailable" }, 503);
+}
+
+async function handlePilotApplication(request, env, requestUrl, context) {
   if (request.method !== "POST") {
     return jsonResponse({ error: "method_not_allowed" }, 405);
   }
@@ -97,24 +123,20 @@ async function handlePilotApplication(request, env, requestUrl) {
   }
 
   const wantsHtml = !request.headers.get("Accept")?.includes("application/json");
-  const honeypot = cleanField(body.website_company, 200);
-  if (honeypot) {
-    if (wantsHtml) {
-      return Response.redirect(`${requestUrl.origin}/pilot/?submitted=1`, 303);
-    }
-    return jsonResponse({ accepted: true }, 201);
-  }
+  const protection = await protectLeadSubmission(request, env, body);
+  if (!protection.ok) return leadGuardResponse(protection, wantsHtml, requestUrl);
+  body = protection.body;
 
   const application = {
-    contactName: cleanField(body.contact_name, 120),
-    workEmail: cleanField(body.work_email, 200).toLowerCase(),
-    dealershipName: cleanField(body.dealership_name, 180),
-    dealershipWebsite: cleanField(body.dealership_website, 300),
-    role: cleanField(body.role, 120),
-    rooftopCount: cleanField(body.rooftop_count, 20),
-    pilotGoal: cleanField(body.pilot_goal, 1200),
-    timeline: cleanField(body.timeline, 40) || null,
-    sourcePath: cleanField(body.source_path, 120) || "/pilot/",
+    contactName: cleanField(body.contact_name, FIELD_LIMITS.contact_name),
+    workEmail: cleanField(body.work_email, FIELD_LIMITS.work_email).toLowerCase(),
+    dealershipName: cleanField(body.dealership_name, FIELD_LIMITS.dealership_name),
+    dealershipWebsite: cleanField(body.dealership_website, FIELD_LIMITS.dealership_website),
+    role: cleanField(body.role, FIELD_LIMITS.role),
+    rooftopCount: cleanField(body.rooftop_count, FIELD_LIMITS.rooftop_count),
+    pilotGoal: cleanField(body.pilot_goal, FIELD_LIMITS.pilot_goal),
+    timeline: cleanField(body.timeline, FIELD_LIMITS.timeline) || null,
+    sourcePath: cleanField(body.source_path, FIELD_LIMITS.source_path) || "/pilot/",
   };
 
   const consent = body.consent === true || body.consent === "true" || body.consent === "on" || body.consent === "1";
@@ -162,6 +184,8 @@ async function handlePilotApplication(request, env, requestUrl) {
     return jsonResponse({ error: "application_not_saved" }, 500);
   }
 
+  context.waitUntil(sendLeadEmails(env.EMAIL, protocolLeadEmail(application, id)));
+
   if (wantsHtml) {
     return Response.redirect(`${requestUrl.origin}/pilot/?submitted=1`, 303);
   }
@@ -169,10 +193,15 @@ async function handlePilotApplication(request, env, requestUrl) {
 }
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, context) {
     const requestUrl = new URL(request.url);
     if (requestUrl.hostname === PILOT_HOST && requestUrl.pathname === PILOT_PATH) {
-      return handlePilotApplication(request, env, requestUrl);
+      return handlePilotApplication(request, env, requestUrl, context);
+    }
+    if (requestUrl.pathname === "/api/turnstile-config" && (request.method === "GET" || request.method === "HEAD")) {
+      const siteKey = env.TURNSTILE_SITE_KEY || "replace-with-turnstile-site-key";
+      const configured = Boolean(env.TURNSTILE_SECRET) && siteKey !== "replace-with-turnstile-site-key" && siteKey !== "0x4AAAAAAA_REPLACE_WITH_SITE_KEY";
+      return jsonResponse({ site_key: siteKey, configured });
     }
 
     // Version the asset lookup so a newly deployed HTML document cannot be

@@ -1,9 +1,18 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "replace-with-reference-worker-name",
+  "name": "dealer-agent-protocol-demo-gateway",
   "main": "reference-gateway-worker.mjs",
   "compatibility_date": "2026-09-02",
   "routes": [
-    { "pattern": "replace-with-reference-mcp-domain.example", "custom_domain": true }
-  ]
+    { "pattern": "demo.dealeragentprotocol.com", "custom_domain": true }
+  ],
+  "vars": {
+    "PUBLIC_ORIGIN": "https://demo.dealeragentprotocol.com"
+  },
+  "kv_namespaces": [
+    { "binding": "DEMO_STATE", "id": "replace-with-kv-namespace-id" }
+  ],
+  "observability": { "enabled": true }
+  // Secrets (wrangler secret put): HANDOFF_SIGNING_JWK (private EC P-256 JWK with kid), CURSOR_SECRET.
+  // Without HANDOFF_SIGNING_JWK the worker signs with an ephemeral per-instance key and says so in the manifest.
 }

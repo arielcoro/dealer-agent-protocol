@@ -7,7 +7,7 @@ This deployment publishes three deliberately separate surfaces:
 | Protocol publication | `https://dealeragentprotocol.com` | Specification, schemas, documentation, and registry metadata |
 | Gateway website | `https://dealeragentgateway.com` | Human-facing implementation overview, boundary, and connection details |
 | Gateway platform status | `https://mcp.dealeragentgateway.com/status` | Platform health and enrolled dealer directory |
-| Howard Bentley Gateway | `https://mcp.dealeragentgateway.com/dealers/howard-bentley/mcp` | Public Streamable HTTP MCP endpoint for Howard Bentley retail inventory |
+| Pilot dealer Gateway | `https://mcp.dealeragentgateway.com/dealers/howard-bentley/mcp` | Public Streamable HTTP MCP endpoint for retail inventory from a Buick GMC dealer in Alabama |
 
 The first dealer Gateway is an experimental pilot. It exposes only approved
 retail fields and keeps source credentials, customer data, and dealer-private

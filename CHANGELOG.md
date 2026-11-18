@@ -4,9 +4,14 @@ All notable changes to Dealer Agent Protocol are recorded here.
 
 ## Unreleased — 2026-09-02
 
+- The public demo gateway now negotiates MCP `2026-07-28` (including `resultType` and list-cache hints) as well as the initialize-era revisions still sent by Claude, ChatGPT, Cursor, and the Inspector CLI default (`2025-11-25`, `2025-06-18`, `2025-03-26`, `2024-11-05`).
+- Lead forms fail closed without the EMAIL binding or TURNSTILE_SECRET, use a per-IP Durable Object rate limit, verify Turnstile server-side, keep the honeypot, cap field lengths, and send mail only to a server-fixed inbox plus the validated applicant address.
+- Pricing disclosure summaries no longer garble conditional-offer eligibility text.
+- Added `docs/quickstart-developers.md` for AI agent developers. The public demo host is `https://demo.dealeragentprotocol.com/mcp`.
+
 - Deployed the first dealer-backed Gateway pilot at
-  `https://mcp.dealeragentgateway.com/dealers/howard-bentley/mcp` using Howard Bentley Buick GMC's
-  authorized daily retail feed, public-safe field filtering, rate limiting,
+  `https://mcp.dealeragentgateway.com/dealers/howard-bentley/mcp` using the authorized daily retail feed
+  of a Buick GMC dealer in Alabama, public-safe field filtering, rate limiting,
   honest pricing and availability uncertainty, and private query receipts.
 - Added the zero-server `/.well-known/dealer-agent.json` publication path,
   schema, example, and Dealer Agent Inventory CSV 0.1 format.

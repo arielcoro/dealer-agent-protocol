@@ -32,7 +32,7 @@ def write_schema_index(schema_dir: Path) -> None:
         title = html.escape(schema.get("title", path.name))
         links.append(f'<li><a href="{html.escape(path.name)}">{title}</a><code>{html.escape(path.name)}</code></li>')
     page = """<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/styles.css"><link rel="canonical" href="https://dealeragentprotocol.com/spec/v0.1/schemas/"><title>JSON Schemas — Dealer Agent Protocol</title></head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/styles.css?v=20261117-try"><link rel="canonical" href="https://dealeragentprotocol.com/spec/v0.1/schemas/"><title>JSON Schemas — Dealer Agent Protocol</title></head>
 <body><main class="page-shell" style="padding:9vh 0"><p class="eyebrow"><span></span>Version 0.1</p><h1 style="font-size:clamp(54px,9vw,110px)">Normative<br><em>JSON Schemas.</em></h1><p class="lede">Canonical JSON Schema 2020-12 documents for Dealer Agent Protocol.</p><ul class="schema-index">%s</ul><p><a class="button button-secondary" href="/">Return home</a></p></main></body></html>""" % "".join(links)
     (schema_dir / "index.html").write_text(page, encoding="utf-8")
 
@@ -42,14 +42,14 @@ def render_comparison(destination: Path, product: bool) -> None:
     content = markdown.markdown(source, extensions=["tables", "fenced_code"])
     if product:
         brand = '<a class="brand" href="/"><span class="brand-mark">M</span><span>Dealership<br>MCP</span></a>'
-        stylesheet = "/styles.css"
+        stylesheet = "/styles.css?v=20261117-try"
         home = "https://dealershipmcp.com/compare/"
         header_class = "site-header shell"
         main_class = "interior shell markdown-body"
         navigation = '<nav><a href="/visibility/">AI Visibility</a><a href="/ai-search/">AI Search</a><a href="/gateway/">Agent Gateway</a><a href="/live/">Live pilot</a></nav><a class="header-cta" href="/audit/">Start free →</a>'
     else:
         brand = '<a class="wordmark" href="/"><span class="wordmark-mark">D</span><span>Dealer Agent<br>Protocol</span></a>'
-        stylesheet = "/styles.css"
+        stylesheet = "/styles.css?v=20261117-try"
         home = "https://dealeragentprotocol.com/compare/"
         header_class = "site-header page-shell"
         main_class = "page-shell markdown-body"
@@ -59,10 +59,11 @@ def render_comparison(destination: Path, product: bool) -> None:
         "@type": "FAQPage",
         "mainEntity": [
             {"@type": "Question", "name": "Is Dealer Agent Protocol the same as Auto Agent Protocol?", "acceptedAnswer": {"@type": "Answer", "text": "No. AAP is an A2A automotive profile. DAP is an MCP-native retail data and disclosure standard. They can run together through an adapter."}},
+            {"@type": "Question", "name": "Is Dealer Agent Protocol competing with AutomotiveMCP?", "acceptedAnswer": {"@type": "Answer", "text": "They overlap on inventory and pricing. AutomotiveMCP is a broad catalog plus a multi-vendor gateway and consent-portability spec; DAP is a narrow inventory-truth profile covering the freshness and price substantiation AutomotiveMCP lists as open gaps. A DAP gateway can serve the inventory domain behind an AutomotiveMCP gateway."}},
             {"@type": "Question", "name": "Can another vendor implement Dealer Agent Protocol?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The specification, schemas, tests, examples, and open gateway are Apache-2.0 licensed."}},
         ],
     }
-    article = {"@context": "https://schema.org", "@type": "TechArticle", "headline": "Compare dealer agent standards", "dateModified": "2026-09-02", "author": {"@type": "Person", "name": "Ariel Coro"}, "url": home}
+    article = {"@context": "https://schema.org", "@type": "TechArticle", "headline": "Compare dealer agent standards", "dateModified": "2026-10-25", "author": {"@type": "Person", "name": "Ariel Coro"}, "url": home}
     page = f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="A dated, sourced comparison of Dealer Agent Protocol, DMC-12, Auto Agent Protocol, and AutomotiveMCP."><link rel="canonical" href="{home}"><link rel="stylesheet" href="{stylesheet}"><title>Compare dealer agent standards</title><script type="application/ld+json">{json.dumps(article)}</script><script type="application/ld+json">{json.dumps(faq)}</script></head><body><header class="{header_class}">{brand}{navigation}</header><main class="{main_class}">{content}</main></body></html>'''
     destination.mkdir(parents=True, exist_ok=True)
     (destination / "index.html").write_text(page, encoding="utf-8")

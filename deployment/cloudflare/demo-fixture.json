@@ -1,0 +1,4566 @@
+{
+  "dealer": {
+    "freshness": {
+      "max_age_seconds": 3900,
+      "observed_at": "2026-10-25T11:55:00Z",
+      "state": "current",
+      "valid_until": "2026-10-25T13:00:00Z"
+    },
+    "legal_name": "Example Motors Group LLC",
+    "name": "Example Motors Group",
+    "organization_id": "org.example-motors",
+    "provenance": {
+      "authority_status": "authoritative",
+      "sources": [
+        {
+          "authority": "authoritative_dealer_system",
+          "observed_at": "2026-10-25T11:55:00Z",
+          "source_name": "dealer-directory",
+          "source_record_id": "org.example-motors"
+        }
+      ],
+      "transformed_at": "2026-10-25T11:55:01Z"
+    },
+    "rooftops": [
+      {
+        "address": {
+          "country": "US",
+          "lines": [
+            "100 Example Avenue"
+          ],
+          "locality": "Miami",
+          "postal_code": "33101",
+          "region": "FL"
+        },
+        "contacts": [
+          {
+            "channel": "phone",
+            "department": "internet_sales",
+            "public": true,
+            "value": "+13055550100"
+          }
+        ],
+        "departments": [
+          "sales",
+          "internet_sales",
+          "service",
+          "parts"
+        ],
+        "name": "Example Motors Downtown",
+        "rooftop_id": "roof.downtown",
+        "supported_currencies": [
+          "USD"
+        ],
+        "supported_languages": [
+          "en-US",
+          "es-US"
+        ],
+        "timezone": "America/New_York",
+        "website": "https://dealer.example/downtown"
+      },
+      {
+        "address": {
+          "country": "US",
+          "lines": [
+            "200 Example Avenue"
+          ],
+          "locality": "Fort Lauderdale",
+          "postal_code": "33301",
+          "region": "FL"
+        },
+        "departments": [
+          "sales",
+          "internet_sales",
+          "service"
+        ],
+        "name": "Example Motors North",
+        "rooftop_id": "roof.north",
+        "supported_currencies": [
+          "USD"
+        ],
+        "supported_languages": [
+          "en-US"
+        ],
+        "timezone": "America/New_York",
+        "website": "https://dealer.example/north"
+      }
+    ]
+  },
+  "example_claim_digest": "sha256:6c1404427ca3da0a2a9bb274f6ffc7bd0cea9ba2c2fc168678a4ca823f3c945b",
+  "generated_with_clock": "2026-10-25T12:00:00Z",
+  "note": "Synthetic Example Motors Group records. No real dealer, vehicle, VIN, price, or person.",
+  "pricing": {
+    "veh.2021-013": {
+      "advertised_price": {
+        "amount": {
+          "amount_minor": 1699500,
+          "currency": "USD"
+        },
+        "availability": "generally_available",
+        "includes_required_dealer_charges": true,
+        "valid_until": "2026-10-25T12:57:00Z"
+      },
+      "conditional_adjustments": [
+        {
+          "adjustment_id": "incentive.military",
+          "amount": {
+            "amount_minor": 50000,
+            "currency": "USD"
+          },
+          "amount_status": "known",
+          "criteria": [
+            {
+              "criterion": "military",
+              "description": "Dealer verification of current or qualifying prior service is required.",
+              "evidence_status": "required",
+              "operator": "verified",
+              "value": true
+            }
+          ],
+          "criteria_mode": "all",
+          "direction": "discount",
+          "jurisdictions": [
+            {
+              "country": "US"
+            }
+          ],
+          "name": "Military appreciation incentive",
+          "provenance": {
+            "authority_status": "authoritative",
+            "sources": [
+              {
+                "authority": "authoritative_dealer_system",
+                "observed_at": "2026-10-25T11:57:00Z",
+                "source_name": "dealer-pricing-system",
+                "source_record_id": "military-2026-09"
+              }
+            ],
+            "transformed_at": "2026-10-25T11:57:01Z"
+          },
+          "stacking": {
+            "combinability": "rule_defined",
+            "group": "affinity"
+          },
+          "valid_until": "2026-11-24T12:00:00Z"
+        }
+      ],
+      "disclosure_completeness": {
+        "components": {
+          "advertised_price_present_and_authoritative": true,
+          "availability_band": "recent_authoritative",
+          "conditional_adjustments_have_eligibility_and_stacking": true,
+          "government_charges_classified": true,
+          "required_dealer_charges_itemized": true
+        },
+        "score": 85
+      },
+      "disclosure_id": "pricing.veh.2021-013",
+      "disclosure_text": "Government charges depend on buyer and registration facts. Conditional incentives require verification.",
+      "freshness": {
+        "max_age_seconds": 3600,
+        "observed_at": "2026-10-25T11:57:00Z",
+        "state": "current",
+        "valid_until": "2026-10-25T12:57:00Z"
+      },
+      "government_charges": {
+        "assumptions": [
+          "Buyer registration jurisdiction has not been supplied."
+        ],
+        "provenance": {
+          "authority_status": "asserted",
+          "sources": [
+            {
+              "authority": "dealer_asserted",
+              "observed_at": "2026-10-25T11:57:00Z",
+              "source_name": "dealer-pricing-policy",
+              "source_record_id": "government-charge-policy"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:57:01Z"
+        },
+        "status": "unknown"
+      },
+      "organization_id": "org.example-motors",
+      "provenance": {
+        "authority_status": "authoritative",
+        "sources": [
+          {
+            "authority": "authoritative_dealer_system",
+            "observed_at": "2026-10-25T11:57:00Z",
+            "source_name": "dealer-pricing-system",
+            "source_record_id": "veh.2021-013"
+          }
+        ],
+        "transformed_at": "2026-10-25T11:57:01Z"
+      },
+      "required_dealer_charges": [
+        {
+          "amount": {
+            "amount_minor": 99500,
+            "currency": "USD"
+          },
+          "charge_id": "charge.documentation",
+          "included_in_advertised_price": true,
+          "name": "Documentation charge",
+          "payee": "dealer",
+          "provenance": {
+            "authority_status": "authoritative",
+            "sources": [
+              {
+                "authority": "authoritative_dealer_system",
+                "observed_at": "2026-10-25T11:57:00Z",
+                "source_name": "dealer-pricing-system",
+                "source_record_id": "documentation-charge"
+              }
+            ],
+            "transformed_at": "2026-10-25T11:57:01Z"
+          },
+          "required": true,
+          "taxable_status": "jurisdiction_dependent"
+        }
+      ],
+      "rooftop_id": "roof.north",
+      "uncertainty": {
+        "assumptions": [
+          "No conditional incentive is included in the advertised price."
+        ],
+        "reason": "Government charges and incentive eligibility are not yet known.",
+        "status": "unknown"
+      },
+      "vehicle_id": "veh.2021-013"
+    },
+    "veh.2022-011": {
+      "advertised_price": {
+        "amount": {
+          "amount_minor": 4199500,
+          "currency": "USD"
+        },
+        "availability": "generally_available",
+        "includes_required_dealer_charges": true,
+        "valid_until": "2026-10-25T12:57:00Z"
+      },
+      "conditional_adjustments": [
+        {
+          "adjustment_id": "incentive.military",
+          "amount": {
+            "amount_minor": 50000,
+            "currency": "USD"
+          },
+          "amount_status": "known",
+          "criteria": [
+            {
+              "criterion": "military",
+              "description": "Dealer verification of current or qualifying prior service is required.",
+              "evidence_status": "required",
+              "operator": "verified",
+              "value": true
+            }
+          ],
+          "criteria_mode": "all",
+          "direction": "discount",
+          "jurisdictions": [
+            {
+              "country": "US"
+            }
+          ],
+          "name": "Military appreciation incentive",
+          "provenance": {
+            "authority_status": "authoritative",
+            "sources": [
+              {
+                "authority": "authoritative_dealer_system",
+                "observed_at": "2026-10-25T11:57:00Z",
+                "source_name": "dealer-pricing-system",
+                "source_record_id": "military-2026-09"
+              }
+            ],
+            "transformed_at": "2026-10-25T11:57:01Z"
+          },
+          "stacking": {
+            "combinability": "rule_defined",
+            "group": "affinity"
+          },
+          "valid_until": "2026-11-24T12:00:00Z"
+        }
+      ],
+      "disclosure_completeness": {
+        "components": {
+          "advertised_price_present_and_authoritative": true,
+          "availability_band": "recent_authoritative",
+          "conditional_adjustments_have_eligibility_and_stacking": true,
+          "government_charges_classified": true,
+          "required_dealer_charges_itemized": true
+        },
+        "score": 85
+      },
+      "disclosure_id": "pricing.veh.2022-011",
+      "disclosure_text": "Government charges depend on buyer and registration facts. Conditional incentives require verification.",
+      "freshness": {
+        "max_age_seconds": 3600,
+        "observed_at": "2026-10-25T11:57:00Z",
+        "state": "current",
+        "valid_until": "2026-10-25T12:57:00Z"
+      },
+      "government_charges": {
+        "assumptions": [
+          "Buyer registration jurisdiction has not been supplied."
+        ],
+        "provenance": {
+          "authority_status": "asserted",
+          "sources": [
+            {
+              "authority": "dealer_asserted",
+              "observed_at": "2026-10-25T11:57:00Z",
+              "source_name": "dealer-pricing-policy",
+              "source_record_id": "government-charge-policy"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:57:01Z"
+        },
+        "status": "unknown"
+      },
+      "organization_id": "org.example-motors",
+      "provenance": {
+        "authority_status": "authoritative",
+        "sources": [
+          {
+            "authority": "authoritative_dealer_system",
+            "observed_at": "2026-10-25T11:57:00Z",
+            "source_name": "dealer-pricing-system",
+            "source_record_id": "veh.2022-011"
+          }
+        ],
+        "transformed_at": "2026-10-25T11:57:01Z"
+      },
+      "required_dealer_charges": [
+        {
+          "amount": {
+            "amount_minor": 99500,
+            "currency": "USD"
+          },
+          "charge_id": "charge.documentation",
+          "included_in_advertised_price": true,
+          "name": "Documentation charge",
+          "payee": "dealer",
+          "provenance": {
+            "authority_status": "authoritative",
+            "sources": [
+              {
+                "authority": "authoritative_dealer_system",
+                "observed_at": "2026-10-25T11:57:00Z",
+                "source_name": "dealer-pricing-system",
+                "source_record_id": "documentation-charge"
+              }
+            ],
+            "transformed_at": "2026-10-25T11:57:01Z"
+          },
+          "required": true,
+          "taxable_status": "jurisdiction_dependent"
+        }
+      ],
+      "rooftop_id": "roof.north",
+      "uncertainty": {
+        "assumptions": [
+          "No conditional incentive is included in the advertised price."
+        ],
+        "reason": "Government charges and incentive eligibility are not yet known.",
+        "status": "unknown"
+      },
+      "vehicle_id": "veh.2022-011"
+    },
+    "veh.2023-010": {
+      "advertised_price": {
+        "amount": {
+          "amount_minor": 2349500,
+          "currency": "USD"
+        },
+        "availability": "generally_available",
+        "includes_required_dealer_charges": true,
+        "valid_until": "2026-10-25T12:57:00Z"
+      },
+      "conditional_adjustments": [
+        {
+          "adjustment_id": "incentive.military",
+          "amount": {
+            "amount_minor": 50000,
+            "currency": "USD"
+          },
+          "amount_status": "known",
+          "criteria": [
+            {
+              "criterion": "military",
+              "description": "Dealer verification of current or qualifying prior service is required.",
+              "evidence_status": "required",
+              "operator": "verified",
+              "value": true
+            }
+          ],
+          "criteria_mode": "all",
+          "direction": "discount",
+          "jurisdictions": [
+            {
+              "country": "US"
+            }
+          ],
+          "name": "Military appreciation incentive",
+          "provenance": {
+            "authority_status": "authoritative",
+            "sources": [
+              {
+                "authority": "authoritative_dealer_system",
+                "observed_at": "2026-10-25T11:57:00Z",
+                "source_name": "dealer-pricing-system",
+                "source_record_id": "military-2026-09"
+              }
+            ],
+            "transformed_at": "2026-10-25T11:57:01Z"
+          },
+          "stacking": {
+            "combinability": "rule_defined",
+            "group": "affinity"
+          },
+          "valid_until": "2026-11-24T12:00:00Z"
+        }
+      ],
+      "disclosure_completeness": {
+        "components": {
+          "advertised_price_present_and_authoritative": true,
+          "availability_band": "recent_authoritative",
+          "conditional_adjustments_have_eligibility_and_stacking": true,
+          "government_charges_classified": true,
+          "required_dealer_charges_itemized": true
+        },
+        "score": 85
+      },
+      "disclosure_id": "pricing.veh.2023-010",
+      "disclosure_text": "Government charges depend on buyer and registration facts. Conditional incentives require verification.",
+      "freshness": {
+        "max_age_seconds": 3600,
+        "observed_at": "2026-10-25T11:57:00Z",
+        "state": "current",
+        "valid_until": "2026-10-25T12:57:00Z"
+      },
+      "government_charges": {
+        "assumptions": [
+          "Buyer registration jurisdiction has not been supplied."
+        ],
+        "provenance": {
+          "authority_status": "asserted",
+          "sources": [
+            {
+              "authority": "dealer_asserted",
+              "observed_at": "2026-10-25T11:57:00Z",
+              "source_name": "dealer-pricing-policy",
+              "source_record_id": "government-charge-policy"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:57:01Z"
+        },
+        "status": "unknown"
+      },
+      "organization_id": "org.example-motors",
+      "provenance": {
+        "authority_status": "authoritative",
+        "sources": [
+          {
+            "authority": "authoritative_dealer_system",
+            "observed_at": "2026-10-25T11:57:00Z",
+            "source_name": "dealer-pricing-system",
+            "source_record_id": "veh.2023-010"
+          }
+        ],
+        "transformed_at": "2026-10-25T11:57:01Z"
+      },
+      "required_dealer_charges": [
+        {
+          "amount": {
+            "amount_minor": 99500,
+            "currency": "USD"
+          },
+          "charge_id": "charge.documentation",
+          "included_in_advertised_price": true,
+          "name": "Documentation charge",
+          "payee": "dealer",
+          "provenance": {
+            "authority_status": "authoritative",
+            "sources": [
+              {
+                "authority": "authoritative_dealer_system",
+                "observed_at": "2026-10-25T11:57:00Z",
+                "source_name": "dealer-pricing-system",
+                "source_record_id": "documentation-charge"
+              }
+            ],
+            "transformed_at": "2026-10-25T11:57:01Z"
+          },
+          "required": true,
+          "taxable_status": "jurisdiction_dependent"
+        }
+      ],
+      "rooftop_id": "roof.downtown",
+      "uncertainty": {
+        "assumptions": [
+          "No conditional incentive is included in the advertised price."
+        ],
+        "reason": "Government charges and incentive eligibility are not yet known.",
+        "status": "unknown"
+      },
+      "vehicle_id": "veh.2023-010"
+    },
+    "veh.2024-002": {
+      "advertised_price": {
+        "amount": {
+          "amount_minor": 3199500,
+          "currency": "USD"
+        },
+        "availability": "generally_available",
+        "includes_required_dealer_charges": true,
+        "valid_until": "2026-10-25T11:00:00Z"
+      },
+      "conditional_adjustments": [
+        {
+          "adjustment_id": "incentive.military",
+          "amount": {
+            "amount_minor": 50000,
+            "currency": "USD"
+          },
+          "amount_status": "known",
+          "criteria": [
+            {
+              "criterion": "military",
+              "description": "Dealer verification of current or qualifying prior service is required.",
+              "evidence_status": "required",
+              "operator": "verified",
+              "value": true
+            }
+          ],
+          "criteria_mode": "all",
+          "direction": "discount",
+          "jurisdictions": [
+            {
+              "country": "US"
+            }
+          ],
+          "name": "Military appreciation incentive",
+          "provenance": {
+            "authority_status": "authoritative",
+            "sources": [
+              {
+                "authority": "authoritative_dealer_system",
+                "observed_at": "2026-10-25T10:00:00Z",
+                "source_name": "dealer-pricing-system",
+                "source_record_id": "military-2026-09"
+              }
+            ],
+            "transformed_at": "2026-10-25T10:00:01Z"
+          },
+          "stacking": {
+            "combinability": "rule_defined",
+            "group": "affinity"
+          },
+          "valid_until": "2026-11-24T12:00:00Z"
+        }
+      ],
+      "disclosure_completeness": {
+        "components": {
+          "advertised_price_present_and_authoritative": false,
+          "availability_band": "stale",
+          "conditional_adjustments_have_eligibility_and_stacking": true,
+          "government_charges_classified": true,
+          "required_dealer_charges_itemized": true
+        },
+        "score": 60
+      },
+      "disclosure_id": "pricing.veh.2024-002",
+      "disclosure_text": "Government charges depend on buyer and registration facts. Conditional incentives require verification.",
+      "freshness": {
+        "max_age_seconds": 3600,
+        "observed_at": "2026-10-25T10:00:00Z",
+        "state": "stale",
+        "valid_until": "2026-10-25T11:00:00Z"
+      },
+      "government_charges": {
+        "assumptions": [
+          "Buyer registration jurisdiction has not been supplied."
+        ],
+        "provenance": {
+          "authority_status": "asserted",
+          "sources": [
+            {
+              "authority": "dealer_asserted",
+              "observed_at": "2026-10-25T10:00:00Z",
+              "source_name": "dealer-pricing-policy",
+              "source_record_id": "government-charge-policy"
+            }
+          ],
+          "transformed_at": "2026-10-25T10:00:01Z"
+        },
+        "status": "unknown"
+      },
+      "organization_id": "org.example-motors",
+      "provenance": {
+        "authority_status": "asserted",
+        "sources": [
+          {
+            "authority": "dealer_asserted",
+            "observed_at": "2026-10-25T10:00:00Z",
+            "source_name": "dealer-pricing-system",
+            "source_record_id": "veh.2024-002"
+          }
+        ],
+        "transformed_at": "2026-10-25T10:00:01Z"
+      },
+      "required_dealer_charges": [
+        {
+          "amount": {
+            "amount_minor": 99500,
+            "currency": "USD"
+          },
+          "charge_id": "charge.documentation",
+          "included_in_advertised_price": true,
+          "name": "Documentation charge",
+          "payee": "dealer",
+          "provenance": {
+            "authority_status": "authoritative",
+            "sources": [
+              {
+                "authority": "authoritative_dealer_system",
+                "observed_at": "2026-10-25T10:00:00Z",
+                "source_name": "dealer-pricing-system",
+                "source_record_id": "documentation-charge"
+              }
+            ],
+            "transformed_at": "2026-10-25T10:00:01Z"
+          },
+          "required": true,
+          "taxable_status": "jurisdiction_dependent"
+        }
+      ],
+      "rooftop_id": "roof.downtown",
+      "uncertainty": {
+        "assumptions": [
+          "No conditional incentive is included in the advertised price."
+        ],
+        "reason": "Government charges and incentive eligibility are not yet known.",
+        "status": "unknown"
+      },
+      "vehicle_id": "veh.2024-002"
+    },
+    "veh.2024-012": {
+      "advertised_price": {
+        "amount": {
+          "amount_minor": 3349500,
+          "currency": "USD"
+        },
+        "availability": "generally_available",
+        "includes_required_dealer_charges": true,
+        "valid_until": "2026-10-25T12:57:00Z"
+      },
+      "conditional_adjustments": [
+        {
+          "adjustment_id": "incentive.military",
+          "amount": {
+            "amount_minor": 50000,
+            "currency": "USD"
+          },
+          "amount_status": "known",
+          "criteria": [
+            {
+              "criterion": "military",
+              "description": "Dealer verification of current or qualifying prior service is required.",
+              "evidence_status": "required",
+              "operator": "verified",
+              "value": true
+            }
+          ],
+          "criteria_mode": "all",
+          "direction": "discount",
+          "jurisdictions": [
+            {
+              "country": "US"
+            }
+          ],
+          "name": "Military appreciation incentive",
+          "provenance": {
+            "authority_status": "authoritative",
+            "sources": [
+              {
+                "authority": "authoritative_dealer_system",
+                "observed_at": "2026-10-25T11:57:00Z",
+                "source_name": "dealer-pricing-system",
+                "source_record_id": "military-2026-09"
+              }
+            ],
+            "transformed_at": "2026-10-25T11:57:01Z"
+          },
+          "stacking": {
+            "combinability": "rule_defined",
+            "group": "affinity"
+          },
+          "valid_until": "2026-11-24T12:00:00Z"
+        }
+      ],
+      "disclosure_completeness": {
+        "components": {
+          "advertised_price_present_and_authoritative": true,
+          "availability_band": "recent_authoritative",
+          "conditional_adjustments_have_eligibility_and_stacking": true,
+          "government_charges_classified": true,
+          "required_dealer_charges_itemized": true
+        },
+        "score": 85
+      },
+      "disclosure_id": "pricing.veh.2024-012",
+      "disclosure_text": "Government charges depend on buyer and registration facts. Conditional incentives require verification.",
+      "freshness": {
+        "max_age_seconds": 3600,
+        "observed_at": "2026-10-25T11:57:00Z",
+        "state": "current",
+        "valid_until": "2026-10-25T12:57:00Z"
+      },
+      "government_charges": {
+        "assumptions": [
+          "Buyer registration jurisdiction has not been supplied."
+        ],
+        "provenance": {
+          "authority_status": "asserted",
+          "sources": [
+            {
+              "authority": "dealer_asserted",
+              "observed_at": "2026-10-25T11:57:00Z",
+              "source_name": "dealer-pricing-policy",
+              "source_record_id": "government-charge-policy"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:57:01Z"
+        },
+        "status": "unknown"
+      },
+      "organization_id": "org.example-motors",
+      "provenance": {
+        "authority_status": "authoritative",
+        "sources": [
+          {
+            "authority": "authoritative_dealer_system",
+            "observed_at": "2026-10-25T11:57:00Z",
+            "source_name": "dealer-pricing-system",
+            "source_record_id": "veh.2024-012"
+          }
+        ],
+        "transformed_at": "2026-10-25T11:57:01Z"
+      },
+      "required_dealer_charges": [
+        {
+          "amount": {
+            "amount_minor": 99500,
+            "currency": "USD"
+          },
+          "charge_id": "charge.documentation",
+          "included_in_advertised_price": true,
+          "name": "Documentation charge",
+          "payee": "dealer",
+          "provenance": {
+            "authority_status": "authoritative",
+            "sources": [
+              {
+                "authority": "authoritative_dealer_system",
+                "observed_at": "2026-10-25T11:57:00Z",
+                "source_name": "dealer-pricing-system",
+                "source_record_id": "documentation-charge"
+              }
+            ],
+            "transformed_at": "2026-10-25T11:57:01Z"
+          },
+          "required": true,
+          "taxable_status": "jurisdiction_dependent"
+        }
+      ],
+      "rooftop_id": "roof.downtown",
+      "uncertainty": {
+        "assumptions": [
+          "No conditional incentive is included in the advertised price."
+        ],
+        "reason": "Government charges and incentive eligibility are not yet known.",
+        "status": "unknown"
+      },
+      "vehicle_id": "veh.2024-012"
+    },
+    "veh.2025-009": {
+      "advertised_price": {
+        "amount": {
+          "amount_minor": 4049500,
+          "currency": "USD"
+        },
+        "availability": "generally_available",
+        "includes_required_dealer_charges": true,
+        "valid_until": "2026-10-25T12:57:00Z"
+      },
+      "conditional_adjustments": [
+        {
+          "adjustment_id": "incentive.military",
+          "amount": {
+            "amount_minor": 50000,
+            "currency": "USD"
+          },
+          "amount_status": "known",
+          "criteria": [
+            {
+              "criterion": "military",
+              "description": "Dealer verification of current or qualifying prior service is required.",
+              "evidence_status": "required",
+              "operator": "verified",
+              "value": true
+            }
+          ],
+          "criteria_mode": "all",
+          "direction": "discount",
+          "jurisdictions": [
+            {
+              "country": "US"
+            }
+          ],
+          "name": "Military appreciation incentive",
+          "provenance": {
+            "authority_status": "authoritative",
+            "sources": [
+              {
+                "authority": "authoritative_dealer_system",
+                "observed_at": "2026-10-25T11:57:00Z",
+                "source_name": "dealer-pricing-system",
+                "source_record_id": "military-2026-09"
+              }
+            ],
+            "transformed_at": "2026-10-25T11:57:01Z"
+          },
+          "stacking": {
+            "combinability": "rule_defined",
+            "group": "affinity"
+          },
+          "valid_until": "2026-11-24T12:00:00Z"
+        }
+      ],
+      "disclosure_completeness": {
+        "components": {
+          "advertised_price_present_and_authoritative": true,
+          "availability_band": "recent_authoritative",
+          "conditional_adjustments_have_eligibility_and_stacking": true,
+          "government_charges_classified": true,
+          "required_dealer_charges_itemized": true
+        },
+        "score": 85
+      },
+      "disclosure_id": "pricing.veh.2025-009",
+      "disclosure_text": "Government charges depend on buyer and registration facts. Conditional incentives require verification.",
+      "freshness": {
+        "max_age_seconds": 3600,
+        "observed_at": "2026-10-25T11:57:00Z",
+        "state": "current",
+        "valid_until": "2026-10-25T12:57:00Z"
+      },
+      "government_charges": {
+        "assumptions": [
+          "Buyer registration jurisdiction has not been supplied."
+        ],
+        "provenance": {
+          "authority_status": "asserted",
+          "sources": [
+            {
+              "authority": "dealer_asserted",
+              "observed_at": "2026-10-25T11:57:00Z",
+              "source_name": "dealer-pricing-policy",
+              "source_record_id": "government-charge-policy"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:57:01Z"
+        },
+        "status": "unknown"
+      },
+      "organization_id": "org.example-motors",
+      "provenance": {
+        "authority_status": "authoritative",
+        "sources": [
+          {
+            "authority": "authoritative_dealer_system",
+            "observed_at": "2026-10-25T11:57:00Z",
+            "source_name": "dealer-pricing-system",
+            "source_record_id": "veh.2025-009"
+          }
+        ],
+        "transformed_at": "2026-10-25T11:57:01Z"
+      },
+      "required_dealer_charges": [
+        {
+          "amount": {
+            "amount_minor": 99500,
+            "currency": "USD"
+          },
+          "charge_id": "charge.documentation",
+          "included_in_advertised_price": true,
+          "name": "Documentation charge",
+          "payee": "dealer",
+          "provenance": {
+            "authority_status": "authoritative",
+            "sources": [
+              {
+                "authority": "authoritative_dealer_system",
+                "observed_at": "2026-10-25T11:57:00Z",
+                "source_name": "dealer-pricing-system",
+                "source_record_id": "documentation-charge"
+              }
+            ],
+            "transformed_at": "2026-10-25T11:57:01Z"
+          },
+          "required": true,
+          "taxable_status": "jurisdiction_dependent"
+        }
+      ],
+      "rooftop_id": "roof.north",
+      "uncertainty": {
+        "assumptions": [
+          "No conditional incentive is included in the advertised price."
+        ],
+        "reason": "Government charges and incentive eligibility are not yet known.",
+        "status": "unknown"
+      },
+      "vehicle_id": "veh.2025-009"
+    },
+    "veh.2026-001": {
+      "advertised_price": {
+        "amount": {
+          "amount_minor": 4287500,
+          "currency": "USD"
+        },
+        "availability": "generally_available",
+        "includes_required_dealer_charges": true,
+        "valid_until": "2026-10-25T12:57:00Z"
+      },
+      "conditional_adjustments": [
+        {
+          "adjustment_id": "incentive.military",
+          "amount": {
+            "amount_minor": 50000,
+            "currency": "USD"
+          },
+          "amount_status": "known",
+          "criteria": [
+            {
+              "criterion": "military",
+              "description": "Dealer verification of current or qualifying prior service is required.",
+              "evidence_status": "required",
+              "operator": "verified",
+              "value": true
+            }
+          ],
+          "criteria_mode": "all",
+          "direction": "discount",
+          "jurisdictions": [
+            {
+              "country": "US"
+            }
+          ],
+          "name": "Military appreciation incentive",
+          "provenance": {
+            "authority_status": "authoritative",
+            "sources": [
+              {
+                "authority": "authoritative_dealer_system",
+                "observed_at": "2026-10-25T11:57:00Z",
+                "source_name": "dealer-pricing-system",
+                "source_record_id": "military-2026-09"
+              }
+            ],
+            "transformed_at": "2026-10-25T11:57:01Z"
+          },
+          "stacking": {
+            "combinability": "rule_defined",
+            "group": "affinity"
+          },
+          "valid_until": "2026-11-24T12:00:00Z"
+        }
+      ],
+      "disclosure_completeness": {
+        "components": {
+          "advertised_price_present_and_authoritative": true,
+          "availability_band": "recent_authoritative",
+          "conditional_adjustments_have_eligibility_and_stacking": true,
+          "government_charges_classified": true,
+          "required_dealer_charges_itemized": true
+        },
+        "score": 85
+      },
+      "disclosure_id": "pricing.veh.2026-001",
+      "disclosure_text": "Government charges depend on buyer and registration facts. Conditional incentives require verification.",
+      "freshness": {
+        "max_age_seconds": 3600,
+        "observed_at": "2026-10-25T11:57:00Z",
+        "state": "current",
+        "valid_until": "2026-10-25T12:57:00Z"
+      },
+      "government_charges": {
+        "assumptions": [
+          "Buyer registration jurisdiction has not been supplied."
+        ],
+        "provenance": {
+          "authority_status": "asserted",
+          "sources": [
+            {
+              "authority": "dealer_asserted",
+              "observed_at": "2026-10-25T11:57:00Z",
+              "source_name": "dealer-pricing-policy",
+              "source_record_id": "government-charge-policy"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:57:01Z"
+        },
+        "status": "unknown"
+      },
+      "organization_id": "org.example-motors",
+      "provenance": {
+        "authority_status": "authoritative",
+        "sources": [
+          {
+            "authority": "authoritative_dealer_system",
+            "observed_at": "2026-10-25T11:57:00Z",
+            "source_name": "dealer-pricing-system",
+            "source_record_id": "veh.2026-001"
+          }
+        ],
+        "transformed_at": "2026-10-25T11:57:01Z"
+      },
+      "required_dealer_charges": [
+        {
+          "amount": {
+            "amount_minor": 99500,
+            "currency": "USD"
+          },
+          "charge_id": "charge.documentation",
+          "included_in_advertised_price": true,
+          "name": "Documentation charge",
+          "payee": "dealer",
+          "provenance": {
+            "authority_status": "authoritative",
+            "sources": [
+              {
+                "authority": "authoritative_dealer_system",
+                "observed_at": "2026-10-25T11:57:00Z",
+                "source_name": "dealer-pricing-system",
+                "source_record_id": "documentation-charge"
+              }
+            ],
+            "transformed_at": "2026-10-25T11:57:01Z"
+          },
+          "required": true,
+          "taxable_status": "jurisdiction_dependent"
+        }
+      ],
+      "rooftop_id": "roof.downtown",
+      "uncertainty": {
+        "assumptions": [
+          "No conditional incentive is included in the advertised price."
+        ],
+        "reason": "Government charges and incentive eligibility are not yet known.",
+        "status": "unknown"
+      },
+      "vehicle_id": "veh.2026-001"
+    },
+    "veh.2026-003": {
+      "advertised_price": {
+        "amount": {
+          "amount_minor": 3975000,
+          "currency": "USD"
+        },
+        "availability": "generally_available",
+        "includes_required_dealer_charges": true,
+        "valid_until": "2026-10-25T12:57:00Z"
+      },
+      "conditional_adjustments": [
+        {
+          "adjustment_id": "incentive.military",
+          "amount": {
+            "amount_minor": 50000,
+            "currency": "USD"
+          },
+          "amount_status": "known",
+          "criteria": [
+            {
+              "criterion": "military",
+              "description": "Dealer verification of current or qualifying prior service is required.",
+              "evidence_status": "required",
+              "operator": "verified",
+              "value": true
+            }
+          ],
+          "criteria_mode": "all",
+          "direction": "discount",
+          "jurisdictions": [
+            {
+              "country": "US"
+            }
+          ],
+          "name": "Military appreciation incentive",
+          "provenance": {
+            "authority_status": "authoritative",
+            "sources": [
+              {
+                "authority": "authoritative_dealer_system",
+                "observed_at": "2026-10-25T11:57:00Z",
+                "source_name": "dealer-pricing-system",
+                "source_record_id": "military-2026-09"
+              }
+            ],
+            "transformed_at": "2026-10-25T11:57:01Z"
+          },
+          "stacking": {
+            "combinability": "rule_defined",
+            "group": "affinity"
+          },
+          "valid_until": "2026-11-24T12:00:00Z"
+        }
+      ],
+      "disclosure_completeness": {
+        "components": {
+          "advertised_price_present_and_authoritative": true,
+          "availability_band": "recent_authoritative",
+          "conditional_adjustments_have_eligibility_and_stacking": true,
+          "government_charges_classified": true,
+          "required_dealer_charges_itemized": true
+        },
+        "score": 85
+      },
+      "disclosure_id": "pricing.veh.2026-003",
+      "disclosure_text": "Government charges depend on buyer and registration facts. Conditional incentives require verification.",
+      "freshness": {
+        "max_age_seconds": 3600,
+        "observed_at": "2026-10-25T11:57:00Z",
+        "state": "current",
+        "valid_until": "2026-10-25T12:57:00Z"
+      },
+      "government_charges": {
+        "assumptions": [
+          "Buyer registration jurisdiction has not been supplied."
+        ],
+        "provenance": {
+          "authority_status": "asserted",
+          "sources": [
+            {
+              "authority": "dealer_asserted",
+              "observed_at": "2026-10-25T11:57:00Z",
+              "source_name": "dealer-pricing-policy",
+              "source_record_id": "government-charge-policy"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:57:01Z"
+        },
+        "status": "unknown"
+      },
+      "organization_id": "org.example-motors",
+      "provenance": {
+        "authority_status": "authoritative",
+        "sources": [
+          {
+            "authority": "authoritative_dealer_system",
+            "observed_at": "2026-10-25T11:57:00Z",
+            "source_name": "dealer-pricing-system",
+            "source_record_id": "veh.2026-003"
+          }
+        ],
+        "transformed_at": "2026-10-25T11:57:01Z"
+      },
+      "required_dealer_charges": [
+        {
+          "amount": {
+            "amount_minor": 99500,
+            "currency": "USD"
+          },
+          "charge_id": "charge.documentation",
+          "included_in_advertised_price": true,
+          "name": "Documentation charge",
+          "payee": "dealer",
+          "provenance": {
+            "authority_status": "authoritative",
+            "sources": [
+              {
+                "authority": "authoritative_dealer_system",
+                "observed_at": "2026-10-25T11:57:00Z",
+                "source_name": "dealer-pricing-system",
+                "source_record_id": "documentation-charge"
+              }
+            ],
+            "transformed_at": "2026-10-25T11:57:01Z"
+          },
+          "required": true,
+          "taxable_status": "jurisdiction_dependent"
+        }
+      ],
+      "rooftop_id": "roof.north",
+      "uncertainty": {
+        "assumptions": [
+          "No conditional incentive is included in the advertised price."
+        ],
+        "reason": "Government charges and incentive eligibility are not yet known.",
+        "status": "unknown"
+      },
+      "vehicle_id": "veh.2026-003"
+    },
+    "veh.2026-004": {
+      "advertised_price": {
+        "amount": {
+          "amount_minor": 3649500,
+          "currency": "USD"
+        },
+        "availability": "generally_available",
+        "includes_required_dealer_charges": true,
+        "valid_until": "2026-10-25T12:57:00Z"
+      },
+      "conditional_adjustments": [
+        {
+          "adjustment_id": "incentive.military",
+          "amount": {
+            "amount_minor": 50000,
+            "currency": "USD"
+          },
+          "amount_status": "known",
+          "criteria": [
+            {
+              "criterion": "military",
+              "description": "Dealer verification of current or qualifying prior service is required.",
+              "evidence_status": "required",
+              "operator": "verified",
+              "value": true
+            }
+          ],
+          "criteria_mode": "all",
+          "direction": "discount",
+          "jurisdictions": [
+            {
+              "country": "US"
+            }
+          ],
+          "name": "Military appreciation incentive",
+          "provenance": {
+            "authority_status": "authoritative",
+            "sources": [
+              {
+                "authority": "authoritative_dealer_system",
+                "observed_at": "2026-10-25T11:57:00Z",
+                "source_name": "dealer-pricing-system",
+                "source_record_id": "military-2026-09"
+              }
+            ],
+            "transformed_at": "2026-10-25T11:57:01Z"
+          },
+          "stacking": {
+            "combinability": "rule_defined",
+            "group": "affinity"
+          },
+          "valid_until": "2026-11-24T12:00:00Z"
+        }
+      ],
+      "disclosure_completeness": {
+        "components": {
+          "advertised_price_present_and_authoritative": true,
+          "availability_band": "recent_authoritative",
+          "conditional_adjustments_have_eligibility_and_stacking": true,
+          "government_charges_classified": true,
+          "required_dealer_charges_itemized": true
+        },
+        "score": 85
+      },
+      "disclosure_id": "pricing.veh.2026-004",
+      "disclosure_text": "Government charges depend on buyer and registration facts. Conditional incentives require verification.",
+      "freshness": {
+        "max_age_seconds": 3600,
+        "observed_at": "2026-10-25T11:57:00Z",
+        "state": "current",
+        "valid_until": "2026-10-25T12:57:00Z"
+      },
+      "government_charges": {
+        "assumptions": [
+          "Buyer registration jurisdiction has not been supplied."
+        ],
+        "provenance": {
+          "authority_status": "asserted",
+          "sources": [
+            {
+              "authority": "dealer_asserted",
+              "observed_at": "2026-10-25T11:57:00Z",
+              "source_name": "dealer-pricing-policy",
+              "source_record_id": "government-charge-policy"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:57:01Z"
+        },
+        "status": "unknown"
+      },
+      "organization_id": "org.example-motors",
+      "provenance": {
+        "authority_status": "authoritative",
+        "sources": [
+          {
+            "authority": "authoritative_dealer_system",
+            "observed_at": "2026-10-25T11:57:00Z",
+            "source_name": "dealer-pricing-system",
+            "source_record_id": "veh.2026-004"
+          }
+        ],
+        "transformed_at": "2026-10-25T11:57:01Z"
+      },
+      "required_dealer_charges": [
+        {
+          "amount": {
+            "amount_minor": 99500,
+            "currency": "USD"
+          },
+          "charge_id": "charge.documentation",
+          "included_in_advertised_price": true,
+          "name": "Documentation charge",
+          "payee": "dealer",
+          "provenance": {
+            "authority_status": "authoritative",
+            "sources": [
+              {
+                "authority": "authoritative_dealer_system",
+                "observed_at": "2026-10-25T11:57:00Z",
+                "source_name": "dealer-pricing-system",
+                "source_record_id": "documentation-charge"
+              }
+            ],
+            "transformed_at": "2026-10-25T11:57:01Z"
+          },
+          "required": true,
+          "taxable_status": "jurisdiction_dependent"
+        }
+      ],
+      "rooftop_id": "roof.downtown",
+      "uncertainty": {
+        "assumptions": [
+          "No conditional incentive is included in the advertised price."
+        ],
+        "reason": "Government charges and incentive eligibility are not yet known.",
+        "status": "unknown"
+      },
+      "vehicle_id": "veh.2026-004"
+    },
+    "veh.2026-005": {
+      "advertised_price": {
+        "amount": {
+          "amount_minor": 3395000,
+          "currency": "USD"
+        },
+        "availability": "generally_available",
+        "includes_required_dealer_charges": true,
+        "valid_until": "2026-10-25T12:57:00Z"
+      },
+      "conditional_adjustments": [
+        {
+          "adjustment_id": "incentive.military",
+          "amount": {
+            "amount_minor": 50000,
+            "currency": "USD"
+          },
+          "amount_status": "known",
+          "criteria": [
+            {
+              "criterion": "military",
+              "description": "Dealer verification of current or qualifying prior service is required.",
+              "evidence_status": "required",
+              "operator": "verified",
+              "value": true
+            }
+          ],
+          "criteria_mode": "all",
+          "direction": "discount",
+          "jurisdictions": [
+            {
+              "country": "US"
+            }
+          ],
+          "name": "Military appreciation incentive",
+          "provenance": {
+            "authority_status": "authoritative",
+            "sources": [
+              {
+                "authority": "authoritative_dealer_system",
+                "observed_at": "2026-10-25T11:57:00Z",
+                "source_name": "dealer-pricing-system",
+                "source_record_id": "military-2026-09"
+              }
+            ],
+            "transformed_at": "2026-10-25T11:57:01Z"
+          },
+          "stacking": {
+            "combinability": "rule_defined",
+            "group": "affinity"
+          },
+          "valid_until": "2026-11-24T12:00:00Z"
+        }
+      ],
+      "disclosure_completeness": {
+        "components": {
+          "advertised_price_present_and_authoritative": true,
+          "availability_band": "recent_authoritative",
+          "conditional_adjustments_have_eligibility_and_stacking": true,
+          "government_charges_classified": true,
+          "required_dealer_charges_itemized": true
+        },
+        "score": 85
+      },
+      "disclosure_id": "pricing.veh.2026-005",
+      "disclosure_text": "Government charges depend on buyer and registration facts. Conditional incentives require verification.",
+      "freshness": {
+        "max_age_seconds": 3600,
+        "observed_at": "2026-10-25T11:57:00Z",
+        "state": "current",
+        "valid_until": "2026-10-25T12:57:00Z"
+      },
+      "government_charges": {
+        "assumptions": [
+          "Buyer registration jurisdiction has not been supplied."
+        ],
+        "provenance": {
+          "authority_status": "asserted",
+          "sources": [
+            {
+              "authority": "dealer_asserted",
+              "observed_at": "2026-10-25T11:57:00Z",
+              "source_name": "dealer-pricing-policy",
+              "source_record_id": "government-charge-policy"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:57:01Z"
+        },
+        "status": "unknown"
+      },
+      "organization_id": "org.example-motors",
+      "provenance": {
+        "authority_status": "authoritative",
+        "sources": [
+          {
+            "authority": "authoritative_dealer_system",
+            "observed_at": "2026-10-25T11:57:00Z",
+            "source_name": "dealer-pricing-system",
+            "source_record_id": "veh.2026-005"
+          }
+        ],
+        "transformed_at": "2026-10-25T11:57:01Z"
+      },
+      "required_dealer_charges": [
+        {
+          "amount": {
+            "amount_minor": 99500,
+            "currency": "USD"
+          },
+          "charge_id": "charge.documentation",
+          "included_in_advertised_price": true,
+          "name": "Documentation charge",
+          "payee": "dealer",
+          "provenance": {
+            "authority_status": "authoritative",
+            "sources": [
+              {
+                "authority": "authoritative_dealer_system",
+                "observed_at": "2026-10-25T11:57:00Z",
+                "source_name": "dealer-pricing-system",
+                "source_record_id": "documentation-charge"
+              }
+            ],
+            "transformed_at": "2026-10-25T11:57:01Z"
+          },
+          "required": true,
+          "taxable_status": "jurisdiction_dependent"
+        }
+      ],
+      "rooftop_id": "roof.downtown",
+      "uncertainty": {
+        "assumptions": [
+          "No conditional incentive is included in the advertised price."
+        ],
+        "reason": "Government charges and incentive eligibility are not yet known.",
+        "status": "unknown"
+      },
+      "vehicle_id": "veh.2026-005"
+    },
+    "veh.2026-006": {
+      "advertised_price": {
+        "amount": {
+          "amount_minor": 2899000,
+          "currency": "USD"
+        },
+        "availability": "generally_available",
+        "includes_required_dealer_charges": true,
+        "valid_until": "2026-10-25T12:57:00Z"
+      },
+      "conditional_adjustments": [
+        {
+          "adjustment_id": "incentive.military",
+          "amount": {
+            "amount_minor": 50000,
+            "currency": "USD"
+          },
+          "amount_status": "known",
+          "criteria": [
+            {
+              "criterion": "military",
+              "description": "Dealer verification of current or qualifying prior service is required.",
+              "evidence_status": "required",
+              "operator": "verified",
+              "value": true
+            }
+          ],
+          "criteria_mode": "all",
+          "direction": "discount",
+          "jurisdictions": [
+            {
+              "country": "US"
+            }
+          ],
+          "name": "Military appreciation incentive",
+          "provenance": {
+            "authority_status": "authoritative",
+            "sources": [
+              {
+                "authority": "authoritative_dealer_system",
+                "observed_at": "2026-10-25T11:57:00Z",
+                "source_name": "dealer-pricing-system",
+                "source_record_id": "military-2026-09"
+              }
+            ],
+            "transformed_at": "2026-10-25T11:57:01Z"
+          },
+          "stacking": {
+            "combinability": "rule_defined",
+            "group": "affinity"
+          },
+          "valid_until": "2026-11-24T12:00:00Z"
+        }
+      ],
+      "disclosure_completeness": {
+        "components": {
+          "advertised_price_present_and_authoritative": true,
+          "availability_band": "recent_authoritative",
+          "conditional_adjustments_have_eligibility_and_stacking": true,
+          "government_charges_classified": true,
+          "required_dealer_charges_itemized": true
+        },
+        "score": 85
+      },
+      "disclosure_id": "pricing.veh.2026-006",
+      "disclosure_text": "Government charges depend on buyer and registration facts. Conditional incentives require verification.",
+      "freshness": {
+        "max_age_seconds": 3600,
+        "observed_at": "2026-10-25T11:57:00Z",
+        "state": "current",
+        "valid_until": "2026-10-25T12:57:00Z"
+      },
+      "government_charges": {
+        "assumptions": [
+          "Buyer registration jurisdiction has not been supplied."
+        ],
+        "provenance": {
+          "authority_status": "asserted",
+          "sources": [
+            {
+              "authority": "dealer_asserted",
+              "observed_at": "2026-10-25T11:57:00Z",
+              "source_name": "dealer-pricing-policy",
+              "source_record_id": "government-charge-policy"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:57:01Z"
+        },
+        "status": "unknown"
+      },
+      "organization_id": "org.example-motors",
+      "provenance": {
+        "authority_status": "authoritative",
+        "sources": [
+          {
+            "authority": "authoritative_dealer_system",
+            "observed_at": "2026-10-25T11:57:00Z",
+            "source_name": "dealer-pricing-system",
+            "source_record_id": "veh.2026-006"
+          }
+        ],
+        "transformed_at": "2026-10-25T11:57:01Z"
+      },
+      "required_dealer_charges": [
+        {
+          "amount": {
+            "amount_minor": 99500,
+            "currency": "USD"
+          },
+          "charge_id": "charge.documentation",
+          "included_in_advertised_price": true,
+          "name": "Documentation charge",
+          "payee": "dealer",
+          "provenance": {
+            "authority_status": "authoritative",
+            "sources": [
+              {
+                "authority": "authoritative_dealer_system",
+                "observed_at": "2026-10-25T11:57:00Z",
+                "source_name": "dealer-pricing-system",
+                "source_record_id": "documentation-charge"
+              }
+            ],
+            "transformed_at": "2026-10-25T11:57:01Z"
+          },
+          "required": true,
+          "taxable_status": "jurisdiction_dependent"
+        }
+      ],
+      "rooftop_id": "roof.downtown",
+      "uncertainty": {
+        "assumptions": [
+          "No conditional incentive is included in the advertised price."
+        ],
+        "reason": "Government charges and incentive eligibility are not yet known.",
+        "status": "unknown"
+      },
+      "vehicle_id": "veh.2026-006"
+    },
+    "veh.2026-007": {
+      "advertised_price": {
+        "amount": {
+          "amount_minor": 5249500,
+          "currency": "USD"
+        },
+        "availability": "generally_available",
+        "includes_required_dealer_charges": true,
+        "valid_until": "2026-10-25T12:57:00Z"
+      },
+      "conditional_adjustments": [
+        {
+          "adjustment_id": "incentive.military",
+          "amount": {
+            "amount_minor": 50000,
+            "currency": "USD"
+          },
+          "amount_status": "known",
+          "criteria": [
+            {
+              "criterion": "military",
+              "description": "Dealer verification of current or qualifying prior service is required.",
+              "evidence_status": "required",
+              "operator": "verified",
+              "value": true
+            }
+          ],
+          "criteria_mode": "all",
+          "direction": "discount",
+          "jurisdictions": [
+            {
+              "country": "US"
+            }
+          ],
+          "name": "Military appreciation incentive",
+          "provenance": {
+            "authority_status": "authoritative",
+            "sources": [
+              {
+                "authority": "authoritative_dealer_system",
+                "observed_at": "2026-10-25T11:57:00Z",
+                "source_name": "dealer-pricing-system",
+                "source_record_id": "military-2026-09"
+              }
+            ],
+            "transformed_at": "2026-10-25T11:57:01Z"
+          },
+          "stacking": {
+            "combinability": "rule_defined",
+            "group": "affinity"
+          },
+          "valid_until": "2026-11-24T12:00:00Z"
+        }
+      ],
+      "disclosure_completeness": {
+        "components": {
+          "advertised_price_present_and_authoritative": true,
+          "availability_band": "recent_authoritative",
+          "conditional_adjustments_have_eligibility_and_stacking": true,
+          "government_charges_classified": true,
+          "required_dealer_charges_itemized": true
+        },
+        "score": 85
+      },
+      "disclosure_id": "pricing.veh.2026-007",
+      "disclosure_text": "Government charges depend on buyer and registration facts. Conditional incentives require verification.",
+      "freshness": {
+        "max_age_seconds": 3600,
+        "observed_at": "2026-10-25T11:57:00Z",
+        "state": "current",
+        "valid_until": "2026-10-25T12:57:00Z"
+      },
+      "government_charges": {
+        "assumptions": [
+          "Buyer registration jurisdiction has not been supplied."
+        ],
+        "provenance": {
+          "authority_status": "asserted",
+          "sources": [
+            {
+              "authority": "dealer_asserted",
+              "observed_at": "2026-10-25T11:57:00Z",
+              "source_name": "dealer-pricing-policy",
+              "source_record_id": "government-charge-policy"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:57:01Z"
+        },
+        "status": "unknown"
+      },
+      "organization_id": "org.example-motors",
+      "provenance": {
+        "authority_status": "authoritative",
+        "sources": [
+          {
+            "authority": "authoritative_dealer_system",
+            "observed_at": "2026-10-25T11:57:00Z",
+            "source_name": "dealer-pricing-system",
+            "source_record_id": "veh.2026-007"
+          }
+        ],
+        "transformed_at": "2026-10-25T11:57:01Z"
+      },
+      "required_dealer_charges": [
+        {
+          "amount": {
+            "amount_minor": 99500,
+            "currency": "USD"
+          },
+          "charge_id": "charge.documentation",
+          "included_in_advertised_price": true,
+          "name": "Documentation charge",
+          "payee": "dealer",
+          "provenance": {
+            "authority_status": "authoritative",
+            "sources": [
+              {
+                "authority": "authoritative_dealer_system",
+                "observed_at": "2026-10-25T11:57:00Z",
+                "source_name": "dealer-pricing-system",
+                "source_record_id": "documentation-charge"
+              }
+            ],
+            "transformed_at": "2026-10-25T11:57:01Z"
+          },
+          "required": true,
+          "taxable_status": "jurisdiction_dependent"
+        }
+      ],
+      "rooftop_id": "roof.north",
+      "uncertainty": {
+        "assumptions": [
+          "No conditional incentive is included in the advertised price."
+        ],
+        "reason": "Government charges and incentive eligibility are not yet known.",
+        "status": "unknown"
+      },
+      "vehicle_id": "veh.2026-007"
+    },
+    "veh.2026-008": {
+      "advertised_price": {
+        "amount": {
+          "amount_minor": 4495000,
+          "currency": "USD"
+        },
+        "availability": "generally_available",
+        "includes_required_dealer_charges": true,
+        "valid_until": "2026-10-25T12:57:00Z"
+      },
+      "conditional_adjustments": [
+        {
+          "adjustment_id": "incentive.military",
+          "amount": {
+            "amount_minor": 50000,
+            "currency": "USD"
+          },
+          "amount_status": "known",
+          "criteria": [
+            {
+              "criterion": "military",
+              "description": "Dealer verification of current or qualifying prior service is required.",
+              "evidence_status": "required",
+              "operator": "verified",
+              "value": true
+            }
+          ],
+          "criteria_mode": "all",
+          "direction": "discount",
+          "jurisdictions": [
+            {
+              "country": "US"
+            }
+          ],
+          "name": "Military appreciation incentive",
+          "provenance": {
+            "authority_status": "authoritative",
+            "sources": [
+              {
+                "authority": "authoritative_dealer_system",
+                "observed_at": "2026-10-25T11:57:00Z",
+                "source_name": "dealer-pricing-system",
+                "source_record_id": "military-2026-09"
+              }
+            ],
+            "transformed_at": "2026-10-25T11:57:01Z"
+          },
+          "stacking": {
+            "combinability": "rule_defined",
+            "group": "affinity"
+          },
+          "valid_until": "2026-11-24T12:00:00Z"
+        }
+      ],
+      "disclosure_completeness": {
+        "components": {
+          "advertised_price_present_and_authoritative": true,
+          "availability_band": "recent_authoritative",
+          "conditional_adjustments_have_eligibility_and_stacking": true,
+          "government_charges_classified": true,
+          "required_dealer_charges_itemized": true
+        },
+        "score": 85
+      },
+      "disclosure_id": "pricing.veh.2026-008",
+      "disclosure_text": "Government charges depend on buyer and registration facts. Conditional incentives require verification.",
+      "freshness": {
+        "max_age_seconds": 3600,
+        "observed_at": "2026-10-25T11:57:00Z",
+        "state": "current",
+        "valid_until": "2026-10-25T12:57:00Z"
+      },
+      "government_charges": {
+        "assumptions": [
+          "Buyer registration jurisdiction has not been supplied."
+        ],
+        "provenance": {
+          "authority_status": "asserted",
+          "sources": [
+            {
+              "authority": "dealer_asserted",
+              "observed_at": "2026-10-25T11:57:00Z",
+              "source_name": "dealer-pricing-policy",
+              "source_record_id": "government-charge-policy"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:57:01Z"
+        },
+        "status": "unknown"
+      },
+      "organization_id": "org.example-motors",
+      "provenance": {
+        "authority_status": "authoritative",
+        "sources": [
+          {
+            "authority": "authoritative_dealer_system",
+            "observed_at": "2026-10-25T11:57:00Z",
+            "source_name": "dealer-pricing-system",
+            "source_record_id": "veh.2026-008"
+          }
+        ],
+        "transformed_at": "2026-10-25T11:57:01Z"
+      },
+      "required_dealer_charges": [
+        {
+          "amount": {
+            "amount_minor": 99500,
+            "currency": "USD"
+          },
+          "charge_id": "charge.documentation",
+          "included_in_advertised_price": true,
+          "name": "Documentation charge",
+          "payee": "dealer",
+          "provenance": {
+            "authority_status": "authoritative",
+            "sources": [
+              {
+                "authority": "authoritative_dealer_system",
+                "observed_at": "2026-10-25T11:57:00Z",
+                "source_name": "dealer-pricing-system",
+                "source_record_id": "documentation-charge"
+              }
+            ],
+            "transformed_at": "2026-10-25T11:57:01Z"
+          },
+          "required": true,
+          "taxable_status": "jurisdiction_dependent"
+        }
+      ],
+      "rooftop_id": "roof.north",
+      "uncertainty": {
+        "assumptions": [
+          "No conditional incentive is included in the advertised price."
+        ],
+        "reason": "Government charges and incentive eligibility are not yet known.",
+        "status": "unknown"
+      },
+      "vehicle_id": "veh.2026-008"
+    }
+  },
+  "used_vehicle_details": {
+    "veh.2021-013": {
+      "certification": {
+        "freshness": {
+          "max_age_seconds": 86400,
+          "observed_at": "2026-10-25T11:30:00Z",
+          "state": "current",
+          "valid_until": "2026-10-26T11:30:00Z"
+        },
+        "provenance": {
+          "authority_status": "authoritative",
+          "sources": [
+            {
+              "authority": "authoritative_dealer_system",
+              "observed_at": "2026-10-25T11:30:00Z",
+              "source_name": "dealer-inventory-system",
+              "source_record_id": "U21013"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:30:01Z"
+        },
+        "type": "not_certified"
+      },
+      "condition": "used",
+      "condition_report": {
+        "components": [
+          {
+            "component": "mechanical",
+            "status": "pass"
+          },
+          {
+            "component": "brakes",
+            "status": "pass"
+          },
+          {
+            "component": "tires",
+            "status": "pass"
+          },
+          {
+            "component": "exterior",
+            "note": "Small repaired scratch on the right rear door.",
+            "status": "attention"
+          }
+        ],
+        "disclosed_damage": [
+          "Small repaired scratch on the right rear door."
+        ],
+        "freshness": {
+          "max_age_seconds": 86400,
+          "observed_at": "2026-10-25T11:30:00Z",
+          "state": "current",
+          "valid_until": "2026-10-26T11:30:00Z"
+        },
+        "grade": {
+          "system": "Example Motors retail inspection v1",
+          "value": "retail-ready with disclosed cosmetic wear"
+        },
+        "inspected_at": "2026-10-23T12:00:00Z",
+        "inspection_authority": "dealer",
+        "inspection_point_count": 125,
+        "inspector_name": "Example Motors Used Vehicle Center",
+        "provenance": {
+          "authority_status": "asserted",
+          "sources": [
+            {
+              "authority": "dealer_asserted",
+              "observed_at": "2026-10-25T11:30:00Z",
+              "source_name": "dealer-used-inspection",
+              "source_record_id": "inspection-U24002"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:30:01Z"
+        },
+        "status": "completed"
+      },
+      "discrepancies": [],
+      "freshness": {
+        "max_age_seconds": 86400,
+        "observed_at": "2026-10-25T11:30:00Z",
+        "state": "current",
+        "valid_until": "2026-10-26T11:30:00Z"
+      },
+      "history_reports": [
+        {
+          "access": "public_link",
+          "freshness": {
+            "max_age_seconds": 2507400,
+            "observed_at": "2026-10-25T11:30:00Z",
+            "state": "current",
+            "valid_until": "2026-11-23T12:00:00Z"
+          },
+          "observed_at": "2026-10-25T11:30:00Z",
+          "provenance": {
+            "authority_status": "unknown",
+            "sources": [
+              {
+                "authority": "third_party",
+                "observed_at": "2026-10-25T11:30:00Z",
+                "source_name": "CARFAX synthetic fixture",
+                "source_record_id": "synthetic-carfax-002"
+              }
+            ],
+            "transformed_at": "2026-10-25T11:30:01Z"
+          },
+          "provider_id": "com.carfax",
+          "provider_name": "CARFAX",
+          "report_generated_at": "2026-10-18T12:00:00Z",
+          "report_id": "synthetic-carfax-002",
+          "report_url": "https://example.invalid/history/carfax/U24002",
+          "status": "available",
+          "summary": {
+            "accident_event_count": 0,
+            "accident_status": "no_events_reported",
+            "airbag_deployment_status": "not_reported",
+            "damage_status": "no_damage_reported",
+            "last_reported_odometer": {
+              "unit": "mi",
+              "value": 60734
+            },
+            "odometer_consistency": "consistent",
+            "owner_count": 1,
+            "owner_count_status": "known",
+            "prior_use": [
+              "personal"
+            ],
+            "service_record_count": 6,
+            "structural_damage_status": "not_reported",
+            "title_brand_status": "no_brands_reported"
+          },
+          "summary_sharing_authorized": true
+        }
+      ],
+      "inventory_tenure": {
+        "age_as_of": "2026-10-25T12:00:00Z",
+        "age_basis": "stocked_at",
+        "age_days": 71,
+        "first_public_listing_at": "2026-08-17T08:00:00Z",
+        "freshness": {
+          "max_age_seconds": 86400,
+          "observed_at": "2026-10-25T11:30:00Z",
+          "state": "current",
+          "valid_until": "2026-10-26T11:30:00Z"
+        },
+        "provenance": {
+          "authority_status": "authoritative",
+          "sources": [
+            {
+              "authority": "authoritative_dealer_system",
+              "observed_at": "2026-10-25T11:30:00Z",
+              "source_name": "dealer-inventory-system",
+              "source_record_id": "U21013"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:30:01Z"
+        },
+        "stocked_at": "2026-08-15T08:00:00Z"
+      },
+      "odometer": {
+        "freshness": {
+          "max_age_seconds": 86400,
+          "observed_at": "2026-10-25T11:30:00Z",
+          "state": "current",
+          "valid_until": "2026-10-26T11:30:00Z"
+        },
+        "observed_at": "2026-10-25T11:30:00Z",
+        "provenance": {
+          "authority_status": "authoritative",
+          "sources": [
+            {
+              "authority": "authoritative_dealer_system",
+              "observed_at": "2026-10-25T11:30:00Z",
+              "source_name": "dealer-inventory-system",
+              "source_record_id": "U21013"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:30:01Z"
+        },
+        "reading": {
+          "unit": "mi",
+          "value": 61044
+        },
+        "status": "actual"
+      },
+      "organization_id": "org.example-motors",
+      "provenance": {
+        "authority_status": "asserted",
+        "sources": [
+          {
+            "authority": "authoritative_dealer_system",
+            "observed_at": "2026-10-25T11:30:00Z",
+            "source_name": "dealer-inventory-system",
+            "source_record_id": "U21013"
+          },
+          {
+            "authority": "third_party",
+            "observed_at": "2026-10-25T11:30:00Z",
+            "source_name": "CARFAX synthetic fixture",
+            "source_record_id": "synthetic-carfax-002"
+          },
+          {
+            "authority": "third_party",
+            "observed_at": "2026-10-25T11:30:00Z",
+            "source_name": "AutoCheck synthetic fixture",
+            "source_record_id": "synthetic-autocheck-002"
+          }
+        ],
+        "transformations": [
+          "normalized provider-specific fields without resolving the provider conflict"
+        ],
+        "transformed_at": "2026-10-25T12:00:00Z"
+      },
+      "reconditioning": {
+        "completed_at": "2026-10-24T12:00:00Z",
+        "freshness": {
+          "max_age_seconds": 86400,
+          "observed_at": "2026-10-25T11:30:00Z",
+          "state": "current",
+          "valid_until": "2026-10-26T11:30:00Z"
+        },
+        "items": [
+          {
+            "category": "brakes",
+            "description": "Front brake pads replaced.",
+            "status": "completed"
+          },
+          {
+            "category": "tires",
+            "description": "Four tires measured and passed retail inspection.",
+            "status": "completed"
+          },
+          {
+            "category": "cosmetic",
+            "description": "Right rear door scratch repaired and disclosed.",
+            "status": "completed"
+          }
+        ],
+        "provenance": {
+          "authority_status": "asserted",
+          "sources": [
+            {
+              "authority": "dealer_asserted",
+              "observed_at": "2026-10-25T11:30:00Z",
+              "source_name": "dealer-reconditioning-status",
+              "source_record_id": "recon-U24002"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:30:01Z"
+        },
+        "status": "completed"
+      },
+      "rooftop_id": "roof.north",
+      "title": {
+        "brands": [],
+        "freshness": {
+          "max_age_seconds": 86400,
+          "observed_at": "2026-10-25T11:30:00Z",
+          "state": "current",
+          "valid_until": "2026-10-26T11:30:00Z"
+        },
+        "jurisdiction": "US-FL",
+        "provenance": {
+          "authority_status": "asserted",
+          "sources": [
+            {
+              "authority": "dealer_asserted",
+              "observed_at": "2026-10-25T11:30:00Z",
+              "source_name": "dealer-title-file",
+              "source_record_id": "EXMDA1B2C3D400013"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:30:01Z"
+        },
+        "status": "clear"
+      },
+      "trace_id": "trace.fixture.used.002",
+      "vehicle_id": "veh.2021-013",
+      "vin": "EXMDA1B2C3D400013"
+    },
+    "veh.2022-011": {
+      "certification": {
+        "certified_at": "2026-10-13T12:00:00Z",
+        "freshness": {
+          "max_age_seconds": 86400,
+          "observed_at": "2026-10-25T11:30:00Z",
+          "state": "current",
+          "valid_until": "2026-10-26T11:30:00Z"
+        },
+        "program_name": "Example Certified Pre-Owned",
+        "provenance": {
+          "authority_status": "authoritative",
+          "sources": [
+            {
+              "authority": "authoritative_dealer_system",
+              "observed_at": "2026-10-25T11:30:00Z",
+              "source_name": "dealer-inventory-system",
+              "source_record_id": "C22011"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:30:01Z"
+        },
+        "type": "manufacturer_cpo"
+      },
+      "condition": "certified",
+      "condition_report": {
+        "components": [
+          {
+            "component": "mechanical",
+            "status": "pass"
+          },
+          {
+            "component": "brakes",
+            "status": "pass"
+          },
+          {
+            "component": "tires",
+            "status": "pass"
+          },
+          {
+            "component": "exterior",
+            "note": "Small repaired scratch on the right rear door.",
+            "status": "attention"
+          }
+        ],
+        "disclosed_damage": [
+          "Small repaired scratch on the right rear door."
+        ],
+        "freshness": {
+          "max_age_seconds": 86400,
+          "observed_at": "2026-10-25T11:30:00Z",
+          "state": "current",
+          "valid_until": "2026-10-26T11:30:00Z"
+        },
+        "grade": {
+          "system": "Example Motors retail inspection v1",
+          "value": "retail-ready with disclosed cosmetic wear"
+        },
+        "inspected_at": "2026-10-23T12:00:00Z",
+        "inspection_authority": "dealer",
+        "inspection_point_count": 125,
+        "inspector_name": "Example Motors Used Vehicle Center",
+        "provenance": {
+          "authority_status": "asserted",
+          "sources": [
+            {
+              "authority": "dealer_asserted",
+              "observed_at": "2026-10-25T11:30:00Z",
+              "source_name": "dealer-used-inspection",
+              "source_record_id": "inspection-U24002"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:30:01Z"
+        },
+        "status": "completed"
+      },
+      "discrepancies": [],
+      "freshness": {
+        "max_age_seconds": 86400,
+        "observed_at": "2026-10-25T11:30:00Z",
+        "state": "current",
+        "valid_until": "2026-10-26T11:30:00Z"
+      },
+      "history_reports": [
+        {
+          "access": "public_link",
+          "freshness": {
+            "max_age_seconds": 2507400,
+            "observed_at": "2026-10-25T11:30:00Z",
+            "state": "current",
+            "valid_until": "2026-11-23T12:00:00Z"
+          },
+          "observed_at": "2026-10-25T11:30:00Z",
+          "provenance": {
+            "authority_status": "unknown",
+            "sources": [
+              {
+                "authority": "third_party",
+                "observed_at": "2026-10-25T11:30:00Z",
+                "source_name": "CARFAX synthetic fixture",
+                "source_record_id": "synthetic-carfax-002"
+              }
+            ],
+            "transformed_at": "2026-10-25T11:30:01Z"
+          },
+          "provider_id": "com.carfax",
+          "provider_name": "CARFAX",
+          "report_generated_at": "2026-10-18T12:00:00Z",
+          "report_id": "synthetic-carfax-002",
+          "report_url": "https://example.invalid/history/carfax/U24002",
+          "status": "available",
+          "summary": {
+            "accident_event_count": 0,
+            "accident_status": "no_events_reported",
+            "airbag_deployment_status": "not_reported",
+            "damage_status": "no_damage_reported",
+            "last_reported_odometer": {
+              "unit": "mi",
+              "value": 38602
+            },
+            "odometer_consistency": "consistent",
+            "owner_count": 1,
+            "owner_count_status": "known",
+            "prior_use": [
+              "personal"
+            ],
+            "service_record_count": 6,
+            "structural_damage_status": "not_reported",
+            "title_brand_status": "no_brands_reported"
+          },
+          "summary_sharing_authorized": true
+        }
+      ],
+      "inventory_tenure": {
+        "age_as_of": "2026-10-25T12:00:00Z",
+        "age_basis": "stocked_at",
+        "age_days": 49,
+        "first_public_listing_at": "2026-09-08T08:00:00Z",
+        "freshness": {
+          "max_age_seconds": 86400,
+          "observed_at": "2026-10-25T11:30:00Z",
+          "state": "current",
+          "valid_until": "2026-10-26T11:30:00Z"
+        },
+        "provenance": {
+          "authority_status": "authoritative",
+          "sources": [
+            {
+              "authority": "authoritative_dealer_system",
+              "observed_at": "2026-10-25T11:30:00Z",
+              "source_name": "dealer-inventory-system",
+              "source_record_id": "C22011"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:30:01Z"
+        },
+        "stocked_at": "2026-09-06T08:00:00Z"
+      },
+      "odometer": {
+        "freshness": {
+          "max_age_seconds": 86400,
+          "observed_at": "2026-10-25T11:30:00Z",
+          "state": "current",
+          "valid_until": "2026-10-26T11:30:00Z"
+        },
+        "observed_at": "2026-10-25T11:30:00Z",
+        "provenance": {
+          "authority_status": "authoritative",
+          "sources": [
+            {
+              "authority": "authoritative_dealer_system",
+              "observed_at": "2026-10-25T11:30:00Z",
+              "source_name": "dealer-inventory-system",
+              "source_record_id": "C22011"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:30:01Z"
+        },
+        "reading": {
+          "unit": "mi",
+          "value": 38912
+        },
+        "status": "actual"
+      },
+      "organization_id": "org.example-motors",
+      "provenance": {
+        "authority_status": "asserted",
+        "sources": [
+          {
+            "authority": "authoritative_dealer_system",
+            "observed_at": "2026-10-25T11:30:00Z",
+            "source_name": "dealer-inventory-system",
+            "source_record_id": "C22011"
+          },
+          {
+            "authority": "third_party",
+            "observed_at": "2026-10-25T11:30:00Z",
+            "source_name": "CARFAX synthetic fixture",
+            "source_record_id": "synthetic-carfax-002"
+          },
+          {
+            "authority": "third_party",
+            "observed_at": "2026-10-25T11:30:00Z",
+            "source_name": "AutoCheck synthetic fixture",
+            "source_record_id": "synthetic-autocheck-002"
+          }
+        ],
+        "transformations": [
+          "normalized provider-specific fields without resolving the provider conflict"
+        ],
+        "transformed_at": "2026-10-25T12:00:00Z"
+      },
+      "reconditioning": {
+        "completed_at": "2026-10-24T12:00:00Z",
+        "freshness": {
+          "max_age_seconds": 86400,
+          "observed_at": "2026-10-25T11:30:00Z",
+          "state": "current",
+          "valid_until": "2026-10-26T11:30:00Z"
+        },
+        "items": [
+          {
+            "category": "brakes",
+            "description": "Front brake pads replaced.",
+            "status": "completed"
+          },
+          {
+            "category": "tires",
+            "description": "Four tires measured and passed retail inspection.",
+            "status": "completed"
+          },
+          {
+            "category": "cosmetic",
+            "description": "Right rear door scratch repaired and disclosed.",
+            "status": "completed"
+          }
+        ],
+        "provenance": {
+          "authority_status": "asserted",
+          "sources": [
+            {
+              "authority": "dealer_asserted",
+              "observed_at": "2026-10-25T11:30:00Z",
+              "source_name": "dealer-reconditioning-status",
+              "source_record_id": "recon-U24002"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:30:01Z"
+        },
+        "status": "completed"
+      },
+      "rooftop_id": "roof.north",
+      "title": {
+        "brands": [],
+        "freshness": {
+          "max_age_seconds": 86400,
+          "observed_at": "2026-10-25T11:30:00Z",
+          "state": "current",
+          "valid_until": "2026-10-26T11:30:00Z"
+        },
+        "jurisdiction": "US-FL",
+        "provenance": {
+          "authority_status": "asserted",
+          "sources": [
+            {
+              "authority": "dealer_asserted",
+              "observed_at": "2026-10-25T11:30:00Z",
+              "source_name": "dealer-title-file",
+              "source_record_id": "EXMBA1B2C3D400011"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:30:01Z"
+        },
+        "status": "clear"
+      },
+      "trace_id": "trace.fixture.used.002",
+      "vehicle_id": "veh.2022-011",
+      "vin": "EXMBA1B2C3D400011"
+    },
+    "veh.2023-010": {
+      "certification": {
+        "freshness": {
+          "max_age_seconds": 86400,
+          "observed_at": "2026-10-25T11:30:00Z",
+          "state": "current",
+          "valid_until": "2026-10-26T11:30:00Z"
+        },
+        "provenance": {
+          "authority_status": "authoritative",
+          "sources": [
+            {
+              "authority": "authoritative_dealer_system",
+              "observed_at": "2026-10-25T11:30:00Z",
+              "source_name": "dealer-inventory-system",
+              "source_record_id": "U23010"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:30:01Z"
+        },
+        "type": "not_certified"
+      },
+      "condition": "used",
+      "condition_report": {
+        "components": [
+          {
+            "component": "mechanical",
+            "status": "pass"
+          },
+          {
+            "component": "brakes",
+            "status": "pass"
+          },
+          {
+            "component": "tires",
+            "status": "pass"
+          },
+          {
+            "component": "exterior",
+            "note": "Small repaired scratch on the right rear door.",
+            "status": "attention"
+          }
+        ],
+        "disclosed_damage": [
+          "Small repaired scratch on the right rear door."
+        ],
+        "freshness": {
+          "max_age_seconds": 86400,
+          "observed_at": "2026-10-25T11:30:00Z",
+          "state": "current",
+          "valid_until": "2026-10-26T11:30:00Z"
+        },
+        "grade": {
+          "system": "Example Motors retail inspection v1",
+          "value": "retail-ready with disclosed cosmetic wear"
+        },
+        "inspected_at": "2026-10-23T12:00:00Z",
+        "inspection_authority": "dealer",
+        "inspection_point_count": 125,
+        "inspector_name": "Example Motors Used Vehicle Center",
+        "provenance": {
+          "authority_status": "asserted",
+          "sources": [
+            {
+              "authority": "dealer_asserted",
+              "observed_at": "2026-10-25T11:30:00Z",
+              "source_name": "dealer-used-inspection",
+              "source_record_id": "inspection-U24002"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:30:01Z"
+        },
+        "status": "completed"
+      },
+      "discrepancies": [],
+      "freshness": {
+        "max_age_seconds": 86400,
+        "observed_at": "2026-10-25T11:30:00Z",
+        "state": "current",
+        "valid_until": "2026-10-26T11:30:00Z"
+      },
+      "history_reports": [
+        {
+          "access": "public_link",
+          "freshness": {
+            "max_age_seconds": 2507400,
+            "observed_at": "2026-10-25T11:30:00Z",
+            "state": "current",
+            "valid_until": "2026-11-23T12:00:00Z"
+          },
+          "observed_at": "2026-10-25T11:30:00Z",
+          "provenance": {
+            "authority_status": "unknown",
+            "sources": [
+              {
+                "authority": "third_party",
+                "observed_at": "2026-10-25T11:30:00Z",
+                "source_name": "CARFAX synthetic fixture",
+                "source_record_id": "synthetic-carfax-002"
+              }
+            ],
+            "transformed_at": "2026-10-25T11:30:01Z"
+          },
+          "provider_id": "com.carfax",
+          "provider_name": "CARFAX",
+          "report_generated_at": "2026-10-18T12:00:00Z",
+          "report_id": "synthetic-carfax-002",
+          "report_url": "https://example.invalid/history/carfax/U24002",
+          "status": "available",
+          "summary": {
+            "accident_event_count": 0,
+            "accident_status": "no_events_reported",
+            "airbag_deployment_status": "not_reported",
+            "damage_status": "no_damage_reported",
+            "last_reported_odometer": {
+              "unit": "mi",
+              "value": 27140
+            },
+            "odometer_consistency": "consistent",
+            "owner_count": 1,
+            "owner_count_status": "known",
+            "prior_use": [
+              "personal"
+            ],
+            "service_record_count": 6,
+            "structural_damage_status": "not_reported",
+            "title_brand_status": "no_brands_reported"
+          },
+          "summary_sharing_authorized": true
+        }
+      ],
+      "inventory_tenure": {
+        "age_as_of": "2026-10-25T12:00:00Z",
+        "age_basis": "stocked_at",
+        "age_days": 38,
+        "first_public_listing_at": "2026-09-19T08:00:00Z",
+        "freshness": {
+          "max_age_seconds": 86400,
+          "observed_at": "2026-10-25T11:30:00Z",
+          "state": "current",
+          "valid_until": "2026-10-26T11:30:00Z"
+        },
+        "provenance": {
+          "authority_status": "authoritative",
+          "sources": [
+            {
+              "authority": "authoritative_dealer_system",
+              "observed_at": "2026-10-25T11:30:00Z",
+              "source_name": "dealer-inventory-system",
+              "source_record_id": "U23010"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:30:01Z"
+        },
+        "stocked_at": "2026-09-17T08:00:00Z"
+      },
+      "odometer": {
+        "freshness": {
+          "max_age_seconds": 86400,
+          "observed_at": "2026-10-25T11:30:00Z",
+          "state": "current",
+          "valid_until": "2026-10-26T11:30:00Z"
+        },
+        "observed_at": "2026-10-25T11:30:00Z",
+        "provenance": {
+          "authority_status": "authoritative",
+          "sources": [
+            {
+              "authority": "authoritative_dealer_system",
+              "observed_at": "2026-10-25T11:30:00Z",
+              "source_name": "dealer-inventory-system",
+              "source_record_id": "U23010"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:30:01Z"
+        },
+        "reading": {
+          "unit": "mi",
+          "value": 27450
+        },
+        "status": "actual"
+      },
+      "organization_id": "org.example-motors",
+      "provenance": {
+        "authority_status": "asserted",
+        "sources": [
+          {
+            "authority": "authoritative_dealer_system",
+            "observed_at": "2026-10-25T11:30:00Z",
+            "source_name": "dealer-inventory-system",
+            "source_record_id": "U23010"
+          },
+          {
+            "authority": "third_party",
+            "observed_at": "2026-10-25T11:30:00Z",
+            "source_name": "CARFAX synthetic fixture",
+            "source_record_id": "synthetic-carfax-002"
+          },
+          {
+            "authority": "third_party",
+            "observed_at": "2026-10-25T11:30:00Z",
+            "source_name": "AutoCheck synthetic fixture",
+            "source_record_id": "synthetic-autocheck-002"
+          }
+        ],
+        "transformations": [
+          "normalized provider-specific fields without resolving the provider conflict"
+        ],
+        "transformed_at": "2026-10-25T12:00:00Z"
+      },
+      "reconditioning": {
+        "completed_at": "2026-10-24T12:00:00Z",
+        "freshness": {
+          "max_age_seconds": 86400,
+          "observed_at": "2026-10-25T11:30:00Z",
+          "state": "current",
+          "valid_until": "2026-10-26T11:30:00Z"
+        },
+        "items": [
+          {
+            "category": "brakes",
+            "description": "Front brake pads replaced.",
+            "status": "completed"
+          },
+          {
+            "category": "tires",
+            "description": "Four tires measured and passed retail inspection.",
+            "status": "completed"
+          },
+          {
+            "category": "cosmetic",
+            "description": "Right rear door scratch repaired and disclosed.",
+            "status": "completed"
+          }
+        ],
+        "provenance": {
+          "authority_status": "asserted",
+          "sources": [
+            {
+              "authority": "dealer_asserted",
+              "observed_at": "2026-10-25T11:30:00Z",
+              "source_name": "dealer-reconditioning-status",
+              "source_record_id": "recon-U24002"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:30:01Z"
+        },
+        "status": "completed"
+      },
+      "rooftop_id": "roof.downtown",
+      "title": {
+        "brands": [],
+        "freshness": {
+          "max_age_seconds": 86400,
+          "observed_at": "2026-10-25T11:30:00Z",
+          "state": "current",
+          "valid_until": "2026-10-26T11:30:00Z"
+        },
+        "jurisdiction": "US-FL",
+        "provenance": {
+          "authority_status": "asserted",
+          "sources": [
+            {
+              "authority": "dealer_asserted",
+              "observed_at": "2026-10-25T11:30:00Z",
+              "source_name": "dealer-title-file",
+              "source_record_id": "EXMAA1B2C3D400010"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:30:01Z"
+        },
+        "status": "clear"
+      },
+      "trace_id": "trace.fixture.used.002",
+      "vehicle_id": "veh.2023-010",
+      "vin": "EXMAA1B2C3D400010"
+    },
+    "veh.2024-002": {
+      "certification": {
+        "freshness": {
+          "max_age_seconds": 86400,
+          "observed_at": "2026-10-25T11:30:00Z",
+          "state": "current",
+          "valid_until": "2026-10-26T11:30:00Z"
+        },
+        "provenance": {
+          "authority_status": "authoritative",
+          "sources": [
+            {
+              "authority": "authoritative_dealer_system",
+              "observed_at": "2026-10-25T11:30:00Z",
+              "source_name": "dealer-inventory-system",
+              "source_record_id": "U24002"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:30:01Z"
+        },
+        "type": "not_certified"
+      },
+      "condition": "used",
+      "condition_report": {
+        "components": [
+          {
+            "component": "mechanical",
+            "status": "pass"
+          },
+          {
+            "component": "brakes",
+            "status": "pass"
+          },
+          {
+            "component": "tires",
+            "status": "pass"
+          },
+          {
+            "component": "exterior",
+            "note": "Small repaired scratch on the right rear door.",
+            "status": "attention"
+          }
+        ],
+        "disclosed_damage": [
+          "Small repaired scratch on the right rear door."
+        ],
+        "freshness": {
+          "max_age_seconds": 86400,
+          "observed_at": "2026-10-25T11:30:00Z",
+          "state": "current",
+          "valid_until": "2026-10-26T11:30:00Z"
+        },
+        "grade": {
+          "system": "Example Motors retail inspection v1",
+          "value": "retail-ready with disclosed cosmetic wear"
+        },
+        "inspected_at": "2026-10-23T12:00:00Z",
+        "inspection_authority": "dealer",
+        "inspection_point_count": 125,
+        "inspector_name": "Example Motors Used Vehicle Center",
+        "provenance": {
+          "authority_status": "asserted",
+          "sources": [
+            {
+              "authority": "dealer_asserted",
+              "observed_at": "2026-10-25T11:30:00Z",
+              "source_name": "dealer-used-inspection",
+              "source_record_id": "inspection-U24002"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:30:01Z"
+        },
+        "status": "completed"
+      },
+      "discrepancies": [
+        {
+          "description": "One synthetic report has no accident event while the other has one reported event; the gateway does not reconcile them.",
+          "field": "history.accident_status",
+          "source_names": [
+            "CARFAX synthetic fixture",
+            "AutoCheck synthetic fixture"
+          ],
+          "status": "unresolved"
+        }
+      ],
+      "freshness": {
+        "max_age_seconds": 86400,
+        "observed_at": "2026-10-25T11:30:00Z",
+        "state": "current",
+        "valid_until": "2026-10-26T11:30:00Z"
+      },
+      "history_reports": [
+        {
+          "access": "public_link",
+          "freshness": {
+            "max_age_seconds": 2507400,
+            "observed_at": "2026-10-25T11:30:00Z",
+            "state": "current",
+            "valid_until": "2026-11-23T12:00:00Z"
+          },
+          "observed_at": "2026-10-25T11:30:00Z",
+          "provenance": {
+            "authority_status": "unknown",
+            "sources": [
+              {
+                "authority": "third_party",
+                "observed_at": "2026-10-25T11:30:00Z",
+                "source_name": "CARFAX synthetic fixture",
+                "source_record_id": "synthetic-carfax-002"
+              }
+            ],
+            "transformed_at": "2026-10-25T11:30:01Z"
+          },
+          "provider_id": "com.carfax",
+          "provider_name": "CARFAX",
+          "report_generated_at": "2026-10-18T12:00:00Z",
+          "report_id": "synthetic-carfax-002",
+          "report_url": "https://example.invalid/history/carfax/U24002",
+          "status": "available",
+          "summary": {
+            "accident_event_count": 0,
+            "accident_status": "no_events_reported",
+            "airbag_deployment_status": "not_reported",
+            "damage_status": "no_damage_reported",
+            "last_reported_odometer": {
+              "unit": "mi",
+              "value": 18110
+            },
+            "odometer_consistency": "consistent",
+            "owner_count": 1,
+            "owner_count_status": "known",
+            "prior_use": [
+              "personal"
+            ],
+            "service_record_count": 6,
+            "structural_damage_status": "not_reported",
+            "title_brand_status": "no_brands_reported"
+          },
+          "summary_sharing_authorized": true
+        },
+        {
+          "access": "dealer_presented",
+          "freshness": {
+            "max_age_seconds": 2507400,
+            "observed_at": "2026-10-25T11:30:00Z",
+            "state": "current",
+            "valid_until": "2026-11-23T12:00:00Z"
+          },
+          "observed_at": "2026-10-25T11:30:00Z",
+          "provenance": {
+            "authority_status": "unknown",
+            "sources": [
+              {
+                "authority": "third_party",
+                "observed_at": "2026-10-25T11:30:00Z",
+                "source_name": "AutoCheck synthetic fixture",
+                "source_record_id": "synthetic-autocheck-002"
+              }
+            ],
+            "transformed_at": "2026-10-25T11:30:01Z"
+          },
+          "provider_id": "com.experian.autocheck",
+          "provider_name": "AutoCheck",
+          "report_generated_at": "2026-10-19T12:00:00Z",
+          "report_id": "synthetic-autocheck-002",
+          "status": "available",
+          "summary": {
+            "accident_event_count": 1,
+            "accident_status": "events_reported",
+            "airbag_deployment_status": "unknown",
+            "damage_status": "damage_reported",
+            "last_reported_odometer": {
+              "unit": "mi",
+              "value": 18201
+            },
+            "odometer_consistency": "consistent",
+            "owner_count": 1,
+            "owner_count_status": "known",
+            "prior_use": [
+              "personal"
+            ],
+            "structural_damage_status": "not_reported",
+            "title_brand_status": "no_brands_reported"
+          },
+          "summary_sharing_authorized": true
+        }
+      ],
+      "inventory_tenure": {
+        "age_as_of": "2026-10-25T12:00:00Z",
+        "age_basis": "stocked_at",
+        "age_days": 47,
+        "first_public_listing_at": "2026-09-10T08:00:00Z",
+        "freshness": {
+          "max_age_seconds": 86400,
+          "observed_at": "2026-10-25T11:30:00Z",
+          "state": "current",
+          "valid_until": "2026-10-26T11:30:00Z"
+        },
+        "provenance": {
+          "authority_status": "authoritative",
+          "sources": [
+            {
+              "authority": "authoritative_dealer_system",
+              "observed_at": "2026-10-25T11:30:00Z",
+              "source_name": "dealer-inventory-system",
+              "source_record_id": "U24002"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:30:01Z"
+        },
+        "stocked_at": "2026-09-08T08:00:00Z"
+      },
+      "odometer": {
+        "freshness": {
+          "max_age_seconds": 86400,
+          "observed_at": "2026-10-25T11:30:00Z",
+          "state": "current",
+          "valid_until": "2026-10-26T11:30:00Z"
+        },
+        "observed_at": "2026-10-25T11:30:00Z",
+        "provenance": {
+          "authority_status": "authoritative",
+          "sources": [
+            {
+              "authority": "authoritative_dealer_system",
+              "observed_at": "2026-10-25T11:30:00Z",
+              "source_name": "dealer-inventory-system",
+              "source_record_id": "U24002"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:30:01Z"
+        },
+        "reading": {
+          "unit": "mi",
+          "value": 18420
+        },
+        "status": "actual"
+      },
+      "organization_id": "org.example-motors",
+      "provenance": {
+        "authority_status": "asserted",
+        "sources": [
+          {
+            "authority": "authoritative_dealer_system",
+            "observed_at": "2026-10-25T11:30:00Z",
+            "source_name": "dealer-inventory-system",
+            "source_record_id": "U24002"
+          },
+          {
+            "authority": "third_party",
+            "observed_at": "2026-10-25T11:30:00Z",
+            "source_name": "CARFAX synthetic fixture",
+            "source_record_id": "synthetic-carfax-002"
+          },
+          {
+            "authority": "third_party",
+            "observed_at": "2026-10-25T11:30:00Z",
+            "source_name": "AutoCheck synthetic fixture",
+            "source_record_id": "synthetic-autocheck-002"
+          }
+        ],
+        "transformations": [
+          "normalized provider-specific fields without resolving the provider conflict"
+        ],
+        "transformed_at": "2026-10-25T12:00:00Z"
+      },
+      "reconditioning": {
+        "completed_at": "2026-10-24T12:00:00Z",
+        "freshness": {
+          "max_age_seconds": 86400,
+          "observed_at": "2026-10-25T11:30:00Z",
+          "state": "current",
+          "valid_until": "2026-10-26T11:30:00Z"
+        },
+        "items": [
+          {
+            "category": "brakes",
+            "description": "Front brake pads replaced.",
+            "status": "completed"
+          },
+          {
+            "category": "tires",
+            "description": "Four tires measured and passed retail inspection.",
+            "status": "completed"
+          },
+          {
+            "category": "cosmetic",
+            "description": "Right rear door scratch repaired and disclosed.",
+            "status": "completed"
+          }
+        ],
+        "provenance": {
+          "authority_status": "asserted",
+          "sources": [
+            {
+              "authority": "dealer_asserted",
+              "observed_at": "2026-10-25T11:30:00Z",
+              "source_name": "dealer-reconditioning-status",
+              "source_record_id": "recon-U24002"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:30:01Z"
+        },
+        "status": "completed"
+      },
+      "rooftop_id": "roof.downtown",
+      "title": {
+        "brands": [],
+        "freshness": {
+          "max_age_seconds": 86400,
+          "observed_at": "2026-10-25T11:30:00Z",
+          "state": "current",
+          "valid_until": "2026-10-26T11:30:00Z"
+        },
+        "jurisdiction": "US-FL",
+        "provenance": {
+          "authority_status": "asserted",
+          "sources": [
+            {
+              "authority": "dealer_asserted",
+              "observed_at": "2026-10-25T11:30:00Z",
+              "source_name": "dealer-title-file",
+              "source_record_id": "2HGFC2F59JH000001"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:30:01Z"
+        },
+        "status": "clear"
+      },
+      "trace_id": "trace.fixture.used.002",
+      "vehicle_id": "veh.2024-002",
+      "vin": "2HGFC2F59JH000001"
+    },
+    "veh.2024-012": {
+      "certification": {
+        "freshness": {
+          "max_age_seconds": 86400,
+          "observed_at": "2026-10-25T11:30:00Z",
+          "state": "current",
+          "valid_until": "2026-10-26T11:30:00Z"
+        },
+        "provenance": {
+          "authority_status": "authoritative",
+          "sources": [
+            {
+              "authority": "authoritative_dealer_system",
+              "observed_at": "2026-10-25T11:30:00Z",
+              "source_name": "dealer-inventory-system",
+              "source_record_id": "U24012"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:30:01Z"
+        },
+        "type": "not_certified"
+      },
+      "condition": "used",
+      "condition_report": {
+        "components": [
+          {
+            "component": "mechanical",
+            "status": "pass"
+          },
+          {
+            "component": "brakes",
+            "status": "pass"
+          },
+          {
+            "component": "tires",
+            "status": "pass"
+          },
+          {
+            "component": "exterior",
+            "note": "Small repaired scratch on the right rear door.",
+            "status": "attention"
+          }
+        ],
+        "disclosed_damage": [
+          "Small repaired scratch on the right rear door."
+        ],
+        "freshness": {
+          "max_age_seconds": 86400,
+          "observed_at": "2026-10-25T11:30:00Z",
+          "state": "current",
+          "valid_until": "2026-10-26T11:30:00Z"
+        },
+        "grade": {
+          "system": "Example Motors retail inspection v1",
+          "value": "retail-ready with disclosed cosmetic wear"
+        },
+        "inspected_at": "2026-10-23T12:00:00Z",
+        "inspection_authority": "dealer",
+        "inspection_point_count": 125,
+        "inspector_name": "Example Motors Used Vehicle Center",
+        "provenance": {
+          "authority_status": "asserted",
+          "sources": [
+            {
+              "authority": "dealer_asserted",
+              "observed_at": "2026-10-25T11:30:00Z",
+              "source_name": "dealer-used-inspection",
+              "source_record_id": "inspection-U24002"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:30:01Z"
+        },
+        "status": "completed"
+      },
+      "discrepancies": [],
+      "freshness": {
+        "max_age_seconds": 86400,
+        "observed_at": "2026-10-25T11:30:00Z",
+        "state": "current",
+        "valid_until": "2026-10-26T11:30:00Z"
+      },
+      "history_reports": [
+        {
+          "access": "public_link",
+          "freshness": {
+            "max_age_seconds": 2507400,
+            "observed_at": "2026-10-25T11:30:00Z",
+            "state": "current",
+            "valid_until": "2026-11-23T12:00:00Z"
+          },
+          "observed_at": "2026-10-25T11:30:00Z",
+          "provenance": {
+            "authority_status": "unknown",
+            "sources": [
+              {
+                "authority": "third_party",
+                "observed_at": "2026-10-25T11:30:00Z",
+                "source_name": "CARFAX synthetic fixture",
+                "source_record_id": "synthetic-carfax-002"
+              }
+            ],
+            "transformed_at": "2026-10-25T11:30:01Z"
+          },
+          "provider_id": "com.carfax",
+          "provider_name": "CARFAX",
+          "report_generated_at": "2026-10-18T12:00:00Z",
+          "report_id": "synthetic-carfax-002",
+          "report_url": "https://example.invalid/history/carfax/U24002",
+          "status": "available",
+          "summary": {
+            "accident_event_count": 0,
+            "accident_status": "no_events_reported",
+            "airbag_deployment_status": "not_reported",
+            "damage_status": "no_damage_reported",
+            "last_reported_odometer": {
+              "unit": "mi",
+              "value": 14920
+            },
+            "odometer_consistency": "consistent",
+            "owner_count": 1,
+            "owner_count_status": "known",
+            "prior_use": [
+              "personal"
+            ],
+            "service_record_count": 6,
+            "structural_damage_status": "not_reported",
+            "title_brand_status": "no_brands_reported"
+          },
+          "summary_sharing_authorized": true
+        }
+      ],
+      "inventory_tenure": {
+        "age_as_of": "2026-10-25T12:00:00Z",
+        "age_basis": "stocked_at",
+        "age_days": 60,
+        "first_public_listing_at": "2026-08-28T08:00:00Z",
+        "freshness": {
+          "max_age_seconds": 86400,
+          "observed_at": "2026-10-25T11:30:00Z",
+          "state": "current",
+          "valid_until": "2026-10-26T11:30:00Z"
+        },
+        "provenance": {
+          "authority_status": "authoritative",
+          "sources": [
+            {
+              "authority": "authoritative_dealer_system",
+              "observed_at": "2026-10-25T11:30:00Z",
+              "source_name": "dealer-inventory-system",
+              "source_record_id": "U24012"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:30:01Z"
+        },
+        "stocked_at": "2026-08-26T08:00:00Z"
+      },
+      "odometer": {
+        "freshness": {
+          "max_age_seconds": 86400,
+          "observed_at": "2026-10-25T11:30:00Z",
+          "state": "current",
+          "valid_until": "2026-10-26T11:30:00Z"
+        },
+        "observed_at": "2026-10-25T11:30:00Z",
+        "provenance": {
+          "authority_status": "authoritative",
+          "sources": [
+            {
+              "authority": "authoritative_dealer_system",
+              "observed_at": "2026-10-25T11:30:00Z",
+              "source_name": "dealer-inventory-system",
+              "source_record_id": "U24012"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:30:01Z"
+        },
+        "reading": {
+          "unit": "mi",
+          "value": 15230
+        },
+        "status": "actual"
+      },
+      "organization_id": "org.example-motors",
+      "provenance": {
+        "authority_status": "asserted",
+        "sources": [
+          {
+            "authority": "authoritative_dealer_system",
+            "observed_at": "2026-10-25T11:30:00Z",
+            "source_name": "dealer-inventory-system",
+            "source_record_id": "U24012"
+          },
+          {
+            "authority": "third_party",
+            "observed_at": "2026-10-25T11:30:00Z",
+            "source_name": "CARFAX synthetic fixture",
+            "source_record_id": "synthetic-carfax-002"
+          },
+          {
+            "authority": "third_party",
+            "observed_at": "2026-10-25T11:30:00Z",
+            "source_name": "AutoCheck synthetic fixture",
+            "source_record_id": "synthetic-autocheck-002"
+          }
+        ],
+        "transformations": [
+          "normalized provider-specific fields without resolving the provider conflict"
+        ],
+        "transformed_at": "2026-10-25T12:00:00Z"
+      },
+      "reconditioning": {
+        "completed_at": "2026-10-24T12:00:00Z",
+        "freshness": {
+          "max_age_seconds": 86400,
+          "observed_at": "2026-10-25T11:30:00Z",
+          "state": "current",
+          "valid_until": "2026-10-26T11:30:00Z"
+        },
+        "items": [
+          {
+            "category": "brakes",
+            "description": "Front brake pads replaced.",
+            "status": "completed"
+          },
+          {
+            "category": "tires",
+            "description": "Four tires measured and passed retail inspection.",
+            "status": "completed"
+          },
+          {
+            "category": "cosmetic",
+            "description": "Right rear door scratch repaired and disclosed.",
+            "status": "completed"
+          }
+        ],
+        "provenance": {
+          "authority_status": "asserted",
+          "sources": [
+            {
+              "authority": "dealer_asserted",
+              "observed_at": "2026-10-25T11:30:00Z",
+              "source_name": "dealer-reconditioning-status",
+              "source_record_id": "recon-U24002"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:30:01Z"
+        },
+        "status": "completed"
+      },
+      "rooftop_id": "roof.downtown",
+      "title": {
+        "brands": [],
+        "freshness": {
+          "max_age_seconds": 86400,
+          "observed_at": "2026-10-25T11:30:00Z",
+          "state": "current",
+          "valid_until": "2026-10-26T11:30:00Z"
+        },
+        "jurisdiction": "US-FL",
+        "provenance": {
+          "authority_status": "asserted",
+          "sources": [
+            {
+              "authority": "dealer_asserted",
+              "observed_at": "2026-10-25T11:30:00Z",
+              "source_name": "dealer-title-file",
+              "source_record_id": "EXMCA1B2C3D400012"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:30:01Z"
+        },
+        "status": "clear"
+      },
+      "trace_id": "trace.fixture.used.002",
+      "vehicle_id": "veh.2024-012",
+      "vin": "EXMCA1B2C3D400012"
+    },
+    "veh.2025-009": {
+      "certification": {
+        "freshness": {
+          "max_age_seconds": 86400,
+          "observed_at": "2026-10-25T11:30:00Z",
+          "state": "current",
+          "valid_until": "2026-10-26T11:30:00Z"
+        },
+        "provenance": {
+          "authority_status": "authoritative",
+          "sources": [
+            {
+              "authority": "authoritative_dealer_system",
+              "observed_at": "2026-10-25T11:30:00Z",
+              "source_name": "dealer-inventory-system",
+              "source_record_id": "D25009"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:30:01Z"
+        },
+        "type": "not_certified"
+      },
+      "condition": "demo",
+      "condition_report": {
+        "components": [
+          {
+            "component": "mechanical",
+            "status": "pass"
+          },
+          {
+            "component": "brakes",
+            "status": "pass"
+          },
+          {
+            "component": "tires",
+            "status": "pass"
+          },
+          {
+            "component": "exterior",
+            "note": "Small repaired scratch on the right rear door.",
+            "status": "attention"
+          }
+        ],
+        "disclosed_damage": [
+          "Small repaired scratch on the right rear door."
+        ],
+        "freshness": {
+          "max_age_seconds": 86400,
+          "observed_at": "2026-10-25T11:30:00Z",
+          "state": "current",
+          "valid_until": "2026-10-26T11:30:00Z"
+        },
+        "grade": {
+          "system": "Example Motors retail inspection v1",
+          "value": "retail-ready with disclosed cosmetic wear"
+        },
+        "inspected_at": "2026-10-23T12:00:00Z",
+        "inspection_authority": "dealer",
+        "inspection_point_count": 125,
+        "inspector_name": "Example Motors Used Vehicle Center",
+        "provenance": {
+          "authority_status": "asserted",
+          "sources": [
+            {
+              "authority": "dealer_asserted",
+              "observed_at": "2026-10-25T11:30:00Z",
+              "source_name": "dealer-used-inspection",
+              "source_record_id": "inspection-U24002"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:30:01Z"
+        },
+        "status": "completed"
+      },
+      "discrepancies": [],
+      "freshness": {
+        "max_age_seconds": 86400,
+        "observed_at": "2026-10-25T11:30:00Z",
+        "state": "current",
+        "valid_until": "2026-10-26T11:30:00Z"
+      },
+      "history_reports": [
+        {
+          "access": "public_link",
+          "freshness": {
+            "max_age_seconds": 2507400,
+            "observed_at": "2026-10-25T11:30:00Z",
+            "state": "current",
+            "valid_until": "2026-11-23T12:00:00Z"
+          },
+          "observed_at": "2026-10-25T11:30:00Z",
+          "provenance": {
+            "authority_status": "unknown",
+            "sources": [
+              {
+                "authority": "third_party",
+                "observed_at": "2026-10-25T11:30:00Z",
+                "source_name": "CARFAX synthetic fixture",
+                "source_record_id": "synthetic-carfax-002"
+              }
+            ],
+            "transformed_at": "2026-10-25T11:30:01Z"
+          },
+          "provider_id": "com.carfax",
+          "provider_name": "CARFAX",
+          "report_generated_at": "2026-10-18T12:00:00Z",
+          "report_id": "synthetic-carfax-002",
+          "report_url": "https://example.invalid/history/carfax/U24002",
+          "status": "available",
+          "summary": {
+            "accident_event_count": 0,
+            "accident_status": "no_events_reported",
+            "airbag_deployment_status": "not_reported",
+            "damage_status": "no_damage_reported",
+            "last_reported_odometer": {
+              "unit": "mi",
+              "value": 2810
+            },
+            "odometer_consistency": "consistent",
+            "owner_count": 1,
+            "owner_count_status": "known",
+            "prior_use": [
+              "personal"
+            ],
+            "service_record_count": 6,
+            "structural_damage_status": "not_reported",
+            "title_brand_status": "no_brands_reported"
+          },
+          "summary_sharing_authorized": true
+        }
+      ],
+      "inventory_tenure": {
+        "age_as_of": "2026-10-25T12:00:00Z",
+        "age_basis": "stocked_at",
+        "age_days": 27,
+        "first_public_listing_at": "2026-09-30T08:00:00Z",
+        "freshness": {
+          "max_age_seconds": 86400,
+          "observed_at": "2026-10-25T11:30:00Z",
+          "state": "current",
+          "valid_until": "2026-10-26T11:30:00Z"
+        },
+        "provenance": {
+          "authority_status": "authoritative",
+          "sources": [
+            {
+              "authority": "authoritative_dealer_system",
+              "observed_at": "2026-10-25T11:30:00Z",
+              "source_name": "dealer-inventory-system",
+              "source_record_id": "D25009"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:30:01Z"
+        },
+        "stocked_at": "2026-09-28T08:00:00Z"
+      },
+      "odometer": {
+        "freshness": {
+          "max_age_seconds": 86400,
+          "observed_at": "2026-10-25T11:30:00Z",
+          "state": "current",
+          "valid_until": "2026-10-26T11:30:00Z"
+        },
+        "observed_at": "2026-10-25T11:30:00Z",
+        "provenance": {
+          "authority_status": "authoritative",
+          "sources": [
+            {
+              "authority": "authoritative_dealer_system",
+              "observed_at": "2026-10-25T11:30:00Z",
+              "source_name": "dealer-inventory-system",
+              "source_record_id": "D25009"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:30:01Z"
+        },
+        "reading": {
+          "unit": "mi",
+          "value": 3120
+        },
+        "status": "actual"
+      },
+      "organization_id": "org.example-motors",
+      "provenance": {
+        "authority_status": "asserted",
+        "sources": [
+          {
+            "authority": "authoritative_dealer_system",
+            "observed_at": "2026-10-25T11:30:00Z",
+            "source_name": "dealer-inventory-system",
+            "source_record_id": "D25009"
+          },
+          {
+            "authority": "third_party",
+            "observed_at": "2026-10-25T11:30:00Z",
+            "source_name": "CARFAX synthetic fixture",
+            "source_record_id": "synthetic-carfax-002"
+          },
+          {
+            "authority": "third_party",
+            "observed_at": "2026-10-25T11:30:00Z",
+            "source_name": "AutoCheck synthetic fixture",
+            "source_record_id": "synthetic-autocheck-002"
+          }
+        ],
+        "transformations": [
+          "normalized provider-specific fields without resolving the provider conflict"
+        ],
+        "transformed_at": "2026-10-25T12:00:00Z"
+      },
+      "reconditioning": {
+        "completed_at": "2026-10-24T12:00:00Z",
+        "freshness": {
+          "max_age_seconds": 86400,
+          "observed_at": "2026-10-25T11:30:00Z",
+          "state": "current",
+          "valid_until": "2026-10-26T11:30:00Z"
+        },
+        "items": [
+          {
+            "category": "brakes",
+            "description": "Front brake pads replaced.",
+            "status": "completed"
+          },
+          {
+            "category": "tires",
+            "description": "Four tires measured and passed retail inspection.",
+            "status": "completed"
+          },
+          {
+            "category": "cosmetic",
+            "description": "Right rear door scratch repaired and disclosed.",
+            "status": "completed"
+          }
+        ],
+        "provenance": {
+          "authority_status": "asserted",
+          "sources": [
+            {
+              "authority": "dealer_asserted",
+              "observed_at": "2026-10-25T11:30:00Z",
+              "source_name": "dealer-reconditioning-status",
+              "source_record_id": "recon-U24002"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:30:01Z"
+        },
+        "status": "completed"
+      },
+      "rooftop_id": "roof.north",
+      "title": {
+        "brands": [],
+        "freshness": {
+          "max_age_seconds": 86400,
+          "observed_at": "2026-10-25T11:30:00Z",
+          "state": "current",
+          "valid_until": "2026-10-26T11:30:00Z"
+        },
+        "jurisdiction": "US-FL",
+        "provenance": {
+          "authority_status": "asserted",
+          "sources": [
+            {
+              "authority": "dealer_asserted",
+              "observed_at": "2026-10-25T11:30:00Z",
+              "source_name": "dealer-title-file",
+              "source_record_id": "EXM9A1B2C3D400009"
+            }
+          ],
+          "transformed_at": "2026-10-25T11:30:01Z"
+        },
+        "status": "clear"
+      },
+      "trace_id": "trace.fixture.used.002",
+      "vehicle_id": "veh.2025-009",
+      "vin": "EXM9A1B2C3D400009"
+    }
+  },
+  "vehicles": [
+    {
+      "advertised_price": {
+        "amount": {
+          "amount_minor": 4287500,
+          "currency": "USD"
+        },
+        "availability": "generally_available",
+        "includes_required_dealer_charges": true,
+        "valid_until": "2026-10-27T12:00:00Z"
+      },
+      "availability": {
+        "authority_status": "authoritative",
+        "human_verification_required": false,
+        "observed_at": "2026-10-25T11:58:00Z",
+        "status": "available",
+        "valid_until": "2026-10-25T12:13:00Z"
+      },
+      "body_style": "SUV",
+      "condition": "new",
+      "exterior_color": "Deep Blue",
+      "features": [
+        "adaptive cruise control",
+        "heated front seats"
+      ],
+      "freshness": {
+        "max_age_seconds": 900,
+        "observed_at": "2026-10-25T11:58:00Z",
+        "state": "current",
+        "valid_until": "2026-10-25T12:13:00Z"
+      },
+      "listing_url": "https://dealer.example/inventory/N26001",
+      "make": "Example",
+      "model": "Northstar",
+      "odometer": {
+        "status": "actual",
+        "unit": "mi",
+        "value": 7
+      },
+      "organization_id": "org.example-motors",
+      "provenance": {
+        "authority_status": "authoritative",
+        "sources": [
+          {
+            "authority": "authoritative_dealer_system",
+            "observed_at": "2026-10-25T11:58:00Z",
+            "source_name": "dealer-inventory-system",
+            "source_record_id": "N26001"
+          }
+        ],
+        "transformed_at": "2026-10-25T11:58:01Z"
+      },
+      "rooftop_id": "roof.downtown",
+      "stock_number": "N26001",
+      "trim": "Touring AWD",
+      "vehicle_id": "veh.2026-001",
+      "vehicle_type": "suv",
+      "vin": "1HGBH41JXMN109186",
+      "year": 2026
+    },
+    {
+      "advertised_price": {
+        "amount": {
+          "amount_minor": 3199500,
+          "currency": "USD"
+        },
+        "availability": "generally_available",
+        "includes_required_dealer_charges": true,
+        "valid_until": "2026-10-27T12:00:00Z"
+      },
+      "availability": {
+        "authority_status": "asserted",
+        "human_verification_required": true,
+        "observed_at": "2026-10-25T10:00:00Z",
+        "reason": "Authoritative inventory observation expired.",
+        "status": "unknown",
+        "valid_until": "2026-10-25T11:00:00Z"
+      },
+      "body_style": "SUV",
+      "condition": "used",
+      "exterior_color": "Silver",
+      "features": [
+        "adaptive cruise control",
+        "heated front seats"
+      ],
+      "freshness": {
+        "max_age_seconds": 3600,
+        "observed_at": "2026-10-25T10:00:00Z",
+        "state": "stale",
+        "valid_until": "2026-10-25T11:00:00Z"
+      },
+      "listing_url": "https://dealer.example/inventory/U24002",
+      "make": "Example",
+      "model": "Northstar",
+      "odometer": {
+        "status": "actual",
+        "unit": "mi",
+        "value": 18420
+      },
+      "organization_id": "org.example-motors",
+      "provenance": {
+        "authority_status": "asserted",
+        "sources": [
+          {
+            "authority": "dealer_asserted",
+            "observed_at": "2026-10-25T10:00:00Z",
+            "source_name": "dealer-inventory-system",
+            "source_record_id": "U24002"
+          }
+        ],
+        "transformed_at": "2026-10-25T10:00:01Z"
+      },
+      "rooftop_id": "roof.downtown",
+      "stock_number": "U24002",
+      "trim": "Touring AWD",
+      "used_vehicle": {
+        "certification_type": "not_certified",
+        "history_report_status": "conflicting",
+        "inventory_tenure": {
+          "age_as_of": "2026-10-25T12:00:00Z",
+          "age_basis": "stocked_at",
+          "age_days": 47,
+          "first_public_listing_at": "2026-09-10T08:00:00Z",
+          "freshness": {
+            "max_age_seconds": 86400,
+            "observed_at": "2026-10-25T11:30:00Z",
+            "state": "current",
+            "valid_until": "2026-10-26T11:30:00Z"
+          },
+          "provenance": {
+            "authority_status": "authoritative",
+            "sources": [
+              {
+                "authority": "authoritative_dealer_system",
+                "observed_at": "2026-10-25T11:30:00Z",
+                "source_name": "dealer-inventory-system",
+                "source_record_id": "U24002"
+              }
+            ],
+            "transformed_at": "2026-10-25T11:30:01Z"
+          },
+          "stocked_at": "2026-09-08T08:00:00Z"
+        }
+      },
+      "vehicle_id": "veh.2024-002",
+      "vehicle_type": "suv",
+      "vin": "2HGFC2F59JH000001",
+      "year": 2024
+    },
+    {
+      "advertised_price": {
+        "amount": {
+          "amount_minor": 3975000,
+          "currency": "USD"
+        },
+        "availability": "generally_available",
+        "includes_required_dealer_charges": true,
+        "valid_until": "2026-10-27T12:00:00Z"
+      },
+      "availability": {
+        "authority_status": "authoritative",
+        "human_verification_required": false,
+        "observed_at": "2026-10-25T11:58:00Z",
+        "status": "available",
+        "valid_until": "2026-10-25T12:13:00Z"
+      },
+      "body_style": "SUV",
+      "condition": "new",
+      "exterior_color": "Deep Blue",
+      "features": [
+        "adaptive cruise control",
+        "heated front seats"
+      ],
+      "freshness": {
+        "max_age_seconds": 900,
+        "observed_at": "2026-10-25T11:58:00Z",
+        "state": "current",
+        "valid_until": "2026-10-25T12:13:00Z"
+      },
+      "listing_url": "https://dealer.example/inventory/N26003",
+      "make": "Example",
+      "model": "Trailwind",
+      "odometer": {
+        "status": "actual",
+        "unit": "mi",
+        "value": 7
+      },
+      "organization_id": "org.example-motors",
+      "provenance": {
+        "authority_status": "authoritative",
+        "sources": [
+          {
+            "authority": "authoritative_dealer_system",
+            "observed_at": "2026-10-25T11:58:00Z",
+            "source_name": "dealer-inventory-system",
+            "source_record_id": "N26003"
+          }
+        ],
+        "transformed_at": "2026-10-25T11:58:01Z"
+      },
+      "rooftop_id": "roof.north",
+      "stock_number": "N26003",
+      "trim": "Touring AWD",
+      "vehicle_id": "veh.2026-003",
+      "vehicle_type": "suv",
+      "vin": "3GNAXUEV1NL000001",
+      "year": 2026
+    },
+    {
+      "advertised_price": {
+        "amount": {
+          "amount_minor": 3649500,
+          "currency": "USD"
+        },
+        "availability": "generally_available",
+        "includes_required_dealer_charges": true,
+        "valid_until": "2026-10-27T12:00:00Z"
+      },
+      "availability": {
+        "authority_status": "authoritative",
+        "human_verification_required": false,
+        "observed_at": "2026-10-25T11:58:00Z",
+        "status": "available",
+        "valid_until": "2026-10-25T12:13:00Z"
+      },
+      "body_style": "SUV",
+      "condition": "new",
+      "exterior_color": "Glacier White",
+      "features": [
+        "lane keeping assist",
+        "wireless charging"
+      ],
+      "freshness": {
+        "max_age_seconds": 900,
+        "observed_at": "2026-10-25T11:58:00Z",
+        "state": "current",
+        "valid_until": "2026-10-25T12:13:00Z"
+      },
+      "listing_url": "https://dealer.example/inventory/N26004",
+      "make": "Example",
+      "model": "Northstar",
+      "odometer": {
+        "status": "actual",
+        "unit": "mi",
+        "value": 9
+      },
+      "organization_id": "org.example-motors",
+      "provenance": {
+        "authority_status": "authoritative",
+        "sources": [
+          {
+            "authority": "authoritative_dealer_system",
+            "observed_at": "2026-10-25T11:58:00Z",
+            "source_name": "dealer-inventory-system",
+            "source_record_id": "N26004"
+          }
+        ],
+        "transformed_at": "2026-10-25T11:58:01Z"
+      },
+      "rooftop_id": "roof.downtown",
+      "stock_number": "N26004",
+      "trim": "Base FWD",
+      "vehicle_id": "veh.2026-004",
+      "vehicle_type": "suv",
+      "vin": "EXM4A1B2C3D400004",
+      "year": 2026
+    },
+    {
+      "advertised_price": {
+        "amount": {
+          "amount_minor": 3395000,
+          "currency": "USD"
+        },
+        "availability": "generally_available",
+        "includes_required_dealer_charges": true,
+        "valid_until": "2026-10-27T12:00:00Z"
+      },
+      "availability": {
+        "authority_status": "authoritative",
+        "human_verification_required": false,
+        "observed_at": "2026-10-25T11:58:00Z",
+        "status": "available",
+        "valid_until": "2026-10-25T12:13:00Z"
+      },
+      "body_style": "Sedan",
+      "condition": "new",
+      "exterior_color": "Midnight Black",
+      "features": [
+        "heated steering wheel",
+        "premium audio"
+      ],
+      "freshness": {
+        "max_age_seconds": 900,
+        "observed_at": "2026-10-25T11:58:00Z",
+        "state": "current",
+        "valid_until": "2026-10-25T12:13:00Z"
+      },
+      "listing_url": "https://dealer.example/inventory/N26005",
+      "make": "Example",
+      "model": "Harbor",
+      "odometer": {
+        "status": "actual",
+        "unit": "mi",
+        "value": 12
+      },
+      "organization_id": "org.example-motors",
+      "provenance": {
+        "authority_status": "authoritative",
+        "sources": [
+          {
+            "authority": "authoritative_dealer_system",
+            "observed_at": "2026-10-25T11:58:00Z",
+            "source_name": "dealer-inventory-system",
+            "source_record_id": "N26005"
+          }
+        ],
+        "transformed_at": "2026-10-25T11:58:01Z"
+      },
+      "rooftop_id": "roof.downtown",
+      "stock_number": "N26005",
+      "trim": "Limited",
+      "vehicle_id": "veh.2026-005",
+      "vehicle_type": "car",
+      "vin": "EXM5A1B2C3D400005",
+      "year": 2026
+    },
+    {
+      "advertised_price": {
+        "amount": {
+          "amount_minor": 2899000,
+          "currency": "USD"
+        },
+        "availability": "generally_available",
+        "includes_required_dealer_charges": true,
+        "valid_until": "2026-10-27T12:00:00Z"
+      },
+      "availability": {
+        "authority_status": "authoritative",
+        "human_verification_required": false,
+        "observed_at": "2026-10-25T11:58:00Z",
+        "status": "available",
+        "valid_until": "2026-10-25T12:13:00Z"
+      },
+      "body_style": "Sedan",
+      "condition": "new",
+      "exterior_color": "Cardinal Red",
+      "features": [
+        "adaptive cruise control"
+      ],
+      "freshness": {
+        "max_age_seconds": 900,
+        "observed_at": "2026-10-25T11:58:00Z",
+        "state": "current",
+        "valid_until": "2026-10-25T12:13:00Z"
+      },
+      "listing_url": "https://dealer.example/inventory/N26006",
+      "make": "Example",
+      "model": "Harbor",
+      "odometer": {
+        "status": "actual",
+        "unit": "mi",
+        "value": 5
+      },
+      "organization_id": "org.example-motors",
+      "provenance": {
+        "authority_status": "authoritative",
+        "sources": [
+          {
+            "authority": "authoritative_dealer_system",
+            "observed_at": "2026-10-25T11:58:00Z",
+            "source_name": "dealer-inventory-system",
+            "source_record_id": "N26006"
+          }
+        ],
+        "transformed_at": "2026-10-25T11:58:01Z"
+      },
+      "rooftop_id": "roof.downtown",
+      "stock_number": "N26006",
+      "trim": "SE",
+      "vehicle_id": "veh.2026-006",
+      "vehicle_type": "car",
+      "vin": "EXM6A1B2C3D400006",
+      "year": 2026
+    },
+    {
+      "advertised_price": {
+        "amount": {
+          "amount_minor": 5249500,
+          "currency": "USD"
+        },
+        "availability": "generally_available",
+        "includes_required_dealer_charges": true,
+        "valid_until": "2026-10-27T12:00:00Z"
+      },
+      "availability": {
+        "authority_status": "authoritative",
+        "human_verification_required": false,
+        "observed_at": "2026-10-25T11:58:00Z",
+        "status": "available",
+        "valid_until": "2026-10-25T12:13:00Z"
+      },
+      "body_style": "Pickup",
+      "condition": "new",
+      "exterior_color": "Granite Gray",
+      "features": [
+        "tow package",
+        "bed liner",
+        "360 camera"
+      ],
+      "freshness": {
+        "max_age_seconds": 900,
+        "observed_at": "2026-10-25T11:58:00Z",
+        "state": "current",
+        "valid_until": "2026-10-25T12:13:00Z"
+      },
+      "listing_url": "https://dealer.example/inventory/N26007",
+      "make": "Example",
+      "model": "Ridgeline",
+      "odometer": {
+        "status": "actual",
+        "unit": "mi",
+        "value": 14
+      },
+      "organization_id": "org.example-motors",
+      "provenance": {
+        "authority_status": "authoritative",
+        "sources": [
+          {
+            "authority": "authoritative_dealer_system",
+            "observed_at": "2026-10-25T11:58:00Z",
+            "source_name": "dealer-inventory-system",
+            "source_record_id": "N26007"
+          }
+        ],
+        "transformed_at": "2026-10-25T11:58:01Z"
+      },
+      "rooftop_id": "roof.north",
+      "stock_number": "N26007",
+      "trim": "Crew Cab 4x4",
+      "vehicle_id": "veh.2026-007",
+      "vehicle_type": "truck",
+      "vin": "EXM7A1B2C3D400007",
+      "year": 2026
+    },
+    {
+      "advertised_price": {
+        "amount": {
+          "amount_minor": 4495000,
+          "currency": "USD"
+        },
+        "availability": "generally_available",
+        "includes_required_dealer_charges": true,
+        "valid_until": "2026-10-27T12:00:00Z"
+      },
+      "availability": {
+        "authority_status": "authoritative",
+        "human_verification_required": false,
+        "observed_at": "2026-10-25T11:58:00Z",
+        "status": "available",
+        "valid_until": "2026-10-25T12:13:00Z"
+      },
+      "body_style": "SUV",
+      "condition": "new",
+      "exterior_color": "Forest Green",
+      "features": [
+        "hybrid powertrain",
+        "panoramic roof"
+      ],
+      "freshness": {
+        "max_age_seconds": 900,
+        "observed_at": "2026-10-25T11:58:00Z",
+        "state": "current",
+        "valid_until": "2026-10-25T12:13:00Z"
+      },
+      "listing_url": "https://dealer.example/inventory/N26008",
+      "make": "Example",
+      "model": "Trailwind",
+      "odometer": {
+        "status": "actual",
+        "unit": "mi",
+        "value": 11
+      },
+      "organization_id": "org.example-motors",
+      "provenance": {
+        "authority_status": "authoritative",
+        "sources": [
+          {
+            "authority": "authoritative_dealer_system",
+            "observed_at": "2026-10-25T11:58:00Z",
+            "source_name": "dealer-inventory-system",
+            "source_record_id": "N26008"
+          }
+        ],
+        "transformed_at": "2026-10-25T11:58:01Z"
+      },
+      "rooftop_id": "roof.north",
+      "stock_number": "N26008",
+      "trim": "Hybrid Touring",
+      "vehicle_id": "veh.2026-008",
+      "vehicle_type": "suv",
+      "vin": "EXM8A1B2C3D400008",
+      "year": 2026
+    },
+    {
+      "advertised_price": {
+        "amount": {
+          "amount_minor": 4049500,
+          "currency": "USD"
+        },
+        "availability": "generally_available",
+        "includes_required_dealer_charges": true,
+        "valid_until": "2026-10-27T12:00:00Z"
+      },
+      "availability": {
+        "authority_status": "authoritative",
+        "human_verification_required": false,
+        "observed_at": "2026-10-25T11:58:00Z",
+        "status": "available",
+        "valid_until": "2026-10-25T12:13:00Z"
+      },
+      "body_style": "SUV",
+      "condition": "demo",
+      "exterior_color": "Silver",
+      "features": [
+        "hybrid powertrain",
+        "panoramic roof"
+      ],
+      "freshness": {
+        "max_age_seconds": 900,
+        "observed_at": "2026-10-25T11:58:00Z",
+        "state": "current",
+        "valid_until": "2026-10-25T12:13:00Z"
+      },
+      "listing_url": "https://dealer.example/inventory/D25009",
+      "make": "Example",
+      "model": "Trailwind",
+      "odometer": {
+        "status": "actual",
+        "unit": "mi",
+        "value": 3120
+      },
+      "organization_id": "org.example-motors",
+      "provenance": {
+        "authority_status": "authoritative",
+        "sources": [
+          {
+            "authority": "authoritative_dealer_system",
+            "observed_at": "2026-10-25T11:58:00Z",
+            "source_name": "dealer-inventory-system",
+            "source_record_id": "D25009"
+          }
+        ],
+        "transformed_at": "2026-10-25T11:58:01Z"
+      },
+      "rooftop_id": "roof.north",
+      "stock_number": "D25009",
+      "trim": "Hybrid Touring",
+      "used_vehicle": {
+        "certification_type": "not_certified",
+        "history_report_status": "available",
+        "inventory_tenure": {
+          "age_as_of": "2026-10-25T12:00:00Z",
+          "age_basis": "stocked_at",
+          "age_days": 27,
+          "first_public_listing_at": "2026-09-30T08:00:00Z",
+          "freshness": {
+            "max_age_seconds": 86400,
+            "observed_at": "2026-10-25T11:30:00Z",
+            "state": "current",
+            "valid_until": "2026-10-26T11:30:00Z"
+          },
+          "provenance": {
+            "authority_status": "authoritative",
+            "sources": [
+              {
+                "authority": "authoritative_dealer_system",
+                "observed_at": "2026-10-25T11:30:00Z",
+                "source_name": "dealer-inventory-system",
+                "source_record_id": "D25009"
+              }
+            ],
+            "transformed_at": "2026-10-25T11:30:01Z"
+          },
+          "stocked_at": "2026-09-28T08:00:00Z"
+        }
+      },
+      "vehicle_id": "veh.2025-009",
+      "vehicle_type": "suv",
+      "vin": "EXM9A1B2C3D400009",
+      "year": 2025
+    },
+    {
+      "advertised_price": {
+        "amount": {
+          "amount_minor": 2349500,
+          "currency": "USD"
+        },
+        "availability": "generally_available",
+        "includes_required_dealer_charges": true,
+        "valid_until": "2026-10-27T12:00:00Z"
+      },
+      "availability": {
+        "authority_status": "authoritative",
+        "human_verification_required": false,
+        "observed_at": "2026-10-25T11:58:00Z",
+        "status": "available",
+        "valid_until": "2026-10-25T12:13:00Z"
+      },
+      "body_style": "Sedan",
+      "condition": "used",
+      "exterior_color": "Pearl White",
+      "features": [
+        "heated steering wheel",
+        "premium audio"
+      ],
+      "freshness": {
+        "max_age_seconds": 900,
+        "observed_at": "2026-10-25T11:58:00Z",
+        "state": "current",
+        "valid_until": "2026-10-25T12:13:00Z"
+      },
+      "listing_url": "https://dealer.example/inventory/U23010",
+      "make": "Example",
+      "model": "Harbor",
+      "odometer": {
+        "status": "actual",
+        "unit": "mi",
+        "value": 27450
+      },
+      "organization_id": "org.example-motors",
+      "provenance": {
+        "authority_status": "authoritative",
+        "sources": [
+          {
+            "authority": "authoritative_dealer_system",
+            "observed_at": "2026-10-25T11:58:00Z",
+            "source_name": "dealer-inventory-system",
+            "source_record_id": "U23010"
+          }
+        ],
+        "transformed_at": "2026-10-25T11:58:01Z"
+      },
+      "rooftop_id": "roof.downtown",
+      "stock_number": "U23010",
+      "trim": "Limited",
+      "used_vehicle": {
+        "certification_type": "not_certified",
+        "history_report_status": "available",
+        "inventory_tenure": {
+          "age_as_of": "2026-10-25T12:00:00Z",
+          "age_basis": "stocked_at",
+          "age_days": 38,
+          "first_public_listing_at": "2026-09-19T08:00:00Z",
+          "freshness": {
+            "max_age_seconds": 86400,
+            "observed_at": "2026-10-25T11:30:00Z",
+            "state": "current",
+            "valid_until": "2026-10-26T11:30:00Z"
+          },
+          "provenance": {
+            "authority_status": "authoritative",
+            "sources": [
+              {
+                "authority": "authoritative_dealer_system",
+                "observed_at": "2026-10-25T11:30:00Z",
+                "source_name": "dealer-inventory-system",
+                "source_record_id": "U23010"
+              }
+            ],
+            "transformed_at": "2026-10-25T11:30:01Z"
+          },
+          "stocked_at": "2026-09-17T08:00:00Z"
+        }
+      },
+      "vehicle_id": "veh.2023-010",
+      "vehicle_type": "car",
+      "vin": "EXMAA1B2C3D400010",
+      "year": 2023
+    },
+    {
+      "advertised_price": {
+        "amount": {
+          "amount_minor": 4199500,
+          "currency": "USD"
+        },
+        "availability": "generally_available",
+        "includes_required_dealer_charges": true,
+        "valid_until": "2026-10-27T12:00:00Z"
+      },
+      "availability": {
+        "authority_status": "authoritative",
+        "human_verification_required": false,
+        "observed_at": "2026-10-25T11:58:00Z",
+        "status": "available",
+        "valid_until": "2026-10-25T12:13:00Z"
+      },
+      "body_style": "Pickup",
+      "condition": "certified",
+      "exterior_color": "Deep Blue",
+      "features": [
+        "tow package",
+        "360 camera"
+      ],
+      "freshness": {
+        "max_age_seconds": 900,
+        "observed_at": "2026-10-25T11:58:00Z",
+        "state": "current",
+        "valid_until": "2026-10-25T12:13:00Z"
+      },
+      "listing_url": "https://dealer.example/inventory/C22011",
+      "make": "Example",
+      "model": "Ridgeline",
+      "odometer": {
+        "status": "actual",
+        "unit": "mi",
+        "value": 38912
+      },
+      "organization_id": "org.example-motors",
+      "provenance": {
+        "authority_status": "authoritative",
+        "sources": [
+          {
+            "authority": "authoritative_dealer_system",
+            "observed_at": "2026-10-25T11:58:00Z",
+            "source_name": "dealer-inventory-system",
+            "source_record_id": "C22011"
+          }
+        ],
+        "transformed_at": "2026-10-25T11:58:01Z"
+      },
+      "rooftop_id": "roof.north",
+      "stock_number": "C22011",
+      "trim": "Crew Cab 4x4",
+      "used_vehicle": {
+        "certification_type": "manufacturer_cpo",
+        "history_report_status": "available",
+        "inventory_tenure": {
+          "age_as_of": "2026-10-25T12:00:00Z",
+          "age_basis": "stocked_at",
+          "age_days": 49,
+          "first_public_listing_at": "2026-09-08T08:00:00Z",
+          "freshness": {
+            "max_age_seconds": 86400,
+            "observed_at": "2026-10-25T11:30:00Z",
+            "state": "current",
+            "valid_until": "2026-10-26T11:30:00Z"
+          },
+          "provenance": {
+            "authority_status": "authoritative",
+            "sources": [
+              {
+                "authority": "authoritative_dealer_system",
+                "observed_at": "2026-10-25T11:30:00Z",
+                "source_name": "dealer-inventory-system",
+                "source_record_id": "C22011"
+              }
+            ],
+            "transformed_at": "2026-10-25T11:30:01Z"
+          },
+          "stocked_at": "2026-09-06T08:00:00Z"
+        }
+      },
+      "vehicle_id": "veh.2022-011",
+      "vehicle_type": "truck",
+      "vin": "EXMBA1B2C3D400011",
+      "year": 2022
+    },
+    {
+      "advertised_price": {
+        "amount": {
+          "amount_minor": 3349500,
+          "currency": "USD"
+        },
+        "availability": "generally_available",
+        "includes_required_dealer_charges": true,
+        "valid_until": "2026-10-27T12:00:00Z"
+      },
+      "availability": {
+        "authority_status": "authoritative",
+        "human_verification_required": false,
+        "observed_at": "2026-10-25T11:58:00Z",
+        "status": "available",
+        "valid_until": "2026-10-25T12:13:00Z"
+      },
+      "body_style": "SUV",
+      "condition": "used",
+      "exterior_color": "Copper",
+      "features": [
+        "adaptive cruise control",
+        "heated front seats"
+      ],
+      "freshness": {
+        "max_age_seconds": 900,
+        "observed_at": "2026-10-25T11:58:00Z",
+        "state": "current",
+        "valid_until": "2026-10-25T12:13:00Z"
+      },
+      "listing_url": "https://dealer.example/inventory/U24012",
+      "make": "Example",
+      "model": "Northstar",
+      "odometer": {
+        "status": "actual",
+        "unit": "mi",
+        "value": 15230
+      },
+      "organization_id": "org.example-motors",
+      "provenance": {
+        "authority_status": "authoritative",
+        "sources": [
+          {
+            "authority": "authoritative_dealer_system",
+            "observed_at": "2026-10-25T11:58:00Z",
+            "source_name": "dealer-inventory-system",
+            "source_record_id": "U24012"
+          }
+        ],
+        "transformed_at": "2026-10-25T11:58:01Z"
+      },
+      "rooftop_id": "roof.downtown",
+      "stock_number": "U24012",
+      "trim": "Touring AWD",
+      "used_vehicle": {
+        "certification_type": "not_certified",
+        "history_report_status": "available",
+        "inventory_tenure": {
+          "age_as_of": "2026-10-25T12:00:00Z",
+          "age_basis": "stocked_at",
+          "age_days": 60,
+          "first_public_listing_at": "2026-08-28T08:00:00Z",
+          "freshness": {
+            "max_age_seconds": 86400,
+            "observed_at": "2026-10-25T11:30:00Z",
+            "state": "current",
+            "valid_until": "2026-10-26T11:30:00Z"
+          },
+          "provenance": {
+            "authority_status": "authoritative",
+            "sources": [
+              {
+                "authority": "authoritative_dealer_system",
+                "observed_at": "2026-10-25T11:30:00Z",
+                "source_name": "dealer-inventory-system",
+                "source_record_id": "U24012"
+              }
+            ],
+            "transformed_at": "2026-10-25T11:30:01Z"
+          },
+          "stocked_at": "2026-08-26T08:00:00Z"
+        }
+      },
+      "vehicle_id": "veh.2024-012",
+      "vehicle_type": "suv",
+      "vin": "EXMCA1B2C3D400012",
+      "year": 2024
+    },
+    {
+      "advertised_price": {
+        "amount": {
+          "amount_minor": 1699500,
+          "currency": "USD"
+        },
+        "availability": "generally_available",
+        "includes_required_dealer_charges": true,
+        "valid_until": "2026-10-27T12:00:00Z"
+      },
+      "availability": {
+        "authority_status": "authoritative",
+        "human_verification_required": false,
+        "observed_at": "2026-10-25T11:58:00Z",
+        "status": "available",
+        "valid_until": "2026-10-25T12:13:00Z"
+      },
+      "body_style": "Sedan",
+      "condition": "used",
+      "exterior_color": "Silver",
+      "features": [
+        "adaptive cruise control"
+      ],
+      "freshness": {
+        "max_age_seconds": 900,
+        "observed_at": "2026-10-25T11:58:00Z",
+        "state": "current",
+        "valid_until": "2026-10-25T12:13:00Z"
+      },
+      "listing_url": "https://dealer.example/inventory/U21013",
+      "make": "Example",
+      "model": "Harbor",
+      "odometer": {
+        "status": "actual",
+        "unit": "mi",
+        "value": 61044
+      },
+      "organization_id": "org.example-motors",
+      "provenance": {
+        "authority_status": "authoritative",
+        "sources": [
+          {
+            "authority": "authoritative_dealer_system",
+            "observed_at": "2026-10-25T11:58:00Z",
+            "source_name": "dealer-inventory-system",
+            "source_record_id": "U21013"
+          }
+        ],
+        "transformed_at": "2026-10-25T11:58:01Z"
+      },
+      "rooftop_id": "roof.north",
+      "stock_number": "U21013",
+      "trim": "SE",
+      "used_vehicle": {
+        "certification_type": "not_certified",
+        "history_report_status": "available",
+        "inventory_tenure": {
+          "age_as_of": "2026-10-25T12:00:00Z",
+          "age_basis": "stocked_at",
+          "age_days": 71,
+          "first_public_listing_at": "2026-08-17T08:00:00Z",
+          "freshness": {
+            "max_age_seconds": 86400,
+            "observed_at": "2026-10-25T11:30:00Z",
+            "state": "current",
+            "valid_until": "2026-10-26T11:30:00Z"
+          },
+          "provenance": {
+            "authority_status": "authoritative",
+            "sources": [
+              {
+                "authority": "authoritative_dealer_system",
+                "observed_at": "2026-10-25T11:30:00Z",
+                "source_name": "dealer-inventory-system",
+                "source_record_id": "U21013"
+              }
+            ],
+            "transformed_at": "2026-10-25T11:30:01Z"
+          },
+          "stocked_at": "2026-08-15T08:00:00Z"
+        }
+      },
+      "vehicle_id": "veh.2021-013",
+      "vehicle_type": "car",
+      "vin": "EXMDA1B2C3D400013",
+      "year": 2021
+    }
+  ]
+}

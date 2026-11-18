@@ -7,6 +7,10 @@ const startedAt = document.querySelector("#form-started-at");
 if (startedAt) startedAt.value = String(Date.now());
 
 const params = new URLSearchParams(window.location.search);
+const sourcePath = form?.elements.namedItem("source_path");
+if (sourcePath && params.get("source") === "dealeragentgateway.com") {
+  sourcePath.value = "/pilot/?source=dealeragentgateway.com";
+}
 if (params.get("submitted") === "1") {
   successPanel.hidden = false;
   form.hidden = true;
@@ -68,3 +72,29 @@ form?.addEventListener("submit", async (event) => {
     submitButton.textContent = "Apply for the founding pilot →";
   }
 });
+
+async function setupTurnstile() {
+  const slot = document.querySelector("#turnstile-widget");
+  if (!slot) return;
+  try {
+    const response = await fetch("/api/turnstile-config", { headers: { Accept: "application/json" } });
+    if (!response.ok) return;
+    const config = await response.json();
+    if (!config.configured || !config.site_key) return;
+    slot.className = "cf-turnstile";
+    slot.dataset.sitekey = config.site_key;
+    if (!document.querySelector("script[data-turnstile]")) {
+      const script = document.createElement("script");
+      script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js";
+      script.async = true;
+      script.defer = true;
+      script.dataset.turnstile = "true";
+      document.head.appendChild(script);
+    }
+  } catch {
+    // The server fails closed without Turnstile; the widget is best-effort on the page.
+  }
+}
+
+setupTurnstile();
+

@@ -1,0 +1,75 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Connect Claude, ChatGPT, Claude Code, Cursor, or any MCP client to the Dealer Agent Protocol demo gateway in two minutes. Synthetic dealer, real protocol, every answer with its evidence."><link rel="canonical" href="https://dealeragentprotocol.com/try/"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/styles.css?v=20261117-try"><title>Try the demo gateway in Claude or ChatGPT — Dealer Agent Protocol</title>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"HowTo","name":"Connect an AI assistant to the Dealer Agent Protocol demo gateway","description":"Paste one MCP endpoint into Claude, ChatGPT, Claude Code, or Cursor and ask a synthetic dealership about inventory, availability, pricing, and used-vehicle evidence.","step":[{"@type":"HowToStep","name":"Copy the endpoint","text":"Copy https://demo.dealeragentprotocol.com/mcp"},{"@type":"HowToStep","name":"Add it as a connector","text":"In Claude: Settings, Connectors, Add custom connector, no sign-in. In ChatGPT: enable Developer mode, then add a custom MCP server with no authentication."},{"@type":"HowToStep","name":"Ask a question","text":"Ask for SUVs under $40,000, whether a vehicle is still available, or what a price really includes."}]}</script></head><body>
+<a class="skip-link" href="#main">Skip to content</a><header class="site-header page-shell"><a class="wordmark" href="/"><span class="wordmark-mark">D</span><span>Dealer Agent<br>Protocol</span></a><nav aria-label="Primary navigation"><a href="/try/" aria-current="page">Try it</a><a href="/how-it-works/">How it works</a><a href="/compare/">Compare</a><a href="/adopt/">Adopt</a><a href="/docs/">Documentation</a></nav><a class="header-cta" href="https://github.com/arielcoro/dealer-agent-protocol">Source on GitHub →</a></header>
+<main id="main">
+  <section class="interior-hero page-shell"><div class="hero-grid"><div><p class="eyebrow"><span></span> Public demo gateway · synthetic data</p><h1>Paste one URL. Ask a real question. Get the answer <em>with its evidence.</em></h1><p class="lede">Connect Claude, ChatGPT, Claude Code, Cursor, or any MCP client to a Dealer Agent Gateway and watch an agent read inventory, verify availability, itemize a price, and ask for consent before it shares a single contact detail.</p></div><aside class="page-note"><strong>What you are connecting to</strong>Example Motors Group is a fictional dealer with two rooftops and thirteen synthetic vehicles. Every VIN, price, person, and report is invented, and nothing you do here reaches a dealership. That is deliberate: the protocol is real, the data is a labeled sandbox.</aside></div>
+    <div class="endpoint-card" id="endpoint"><span class="endpoint-label">Streamable HTTP · no sign-in · MCP 2026-07-28 and 2025-11-25</span><code id="endpoint-value">https://demo.dealeragentprotocol.com/mcp</code><div class="endpoint-actions"><button id="copy-endpoint" type="button" class="button button-primary">Copy endpoint</button><span id="gateway-status" class="gateway-status" data-state="checking" role="status">Checking gateway…</span></div><p id="copy-feedback" aria-live="polite"></p></div>
+  </section>
+
+  <section class="content-section page-shell" id="connect"><div class="content-grid"><aside><span>01</span> / Connect in two minutes</aside><div class="body-copy"><h2>Pick your client. Paste the endpoint. Done.</h2><p>No account, no API key, no SDK. The gateway is a plain MCP server over Streamable HTTP, so every current host can reach it the same way.</p>
+    <div class="connect-steps">
+      <article><h3>Claude</h3><ol><li>Open <strong>Settings → Connectors</strong> and choose <strong>Add custom connector</strong>.</li><li>Name it <em>Example Motors (DAP demo)</em>, paste the endpoint, and choose <strong>No sign-in</strong>. If Claude offers a sign-in step anyway, choose <strong>Connect</strong> to skip it.</li><li>Start a new chat. Claude asks before the first call to each tool; <em>Always allow</em> is safe for every read tool.</li></ol></article>
+      <article><h3>ChatGPT</h3><ol><li>Turn on <strong>Developer mode</strong> under Settings → Apps &amp; Connectors (a workspace admin may need to allow it).</li><li>Choose <strong>Add custom MCP server</strong>, name it, paste the endpoint, and select <strong>No authentication</strong>.</li><li>In a new chat type <code>@</code> and pick the connector. Results render as cards; the consent step shows the exact disclosure text.</li></ol></article>
+      <article><h3>Claude Code</h3><pre><code>claude mcp add --transport http dap-demo https://demo.dealeragentprotocol.com/mcp</code></pre><p>Then ask: <em>“Using dap-demo, which new SUVs under $40,000 does Example Motors have, and is the cheapest one verified available?”</em></p></article>
+      <article><h3>Cursor, VS Code, and any MCP client</h3><pre><code>{
+  "mcpServers": {
+    "dap-demo": { "url": "https://demo.dealeragentprotocol.com/mcp" }
+  }
+}</code></pre><p>Inspect the raw contract without a model:</p><pre><code>npx @modelcontextprotocol/inspector --cli https://demo.dealeragentprotocol.com/mcp --transport http --method tools/list</code></pre></article>
+    </div>
+  </div></div></section>
+
+  <section class="content-section page-shell" id="ask"><div class="content-grid"><aside><span>02</span> / Ask these</aside><div class="body-copy"><h2>Five questions that show what a gateway should refuse to guess.</h2><p>Each one exercises a different part of the contract. The notes say what a correct answer looks like, so you can judge the agent as well as the gateway.</p>
+    <ol class="prompt-list">
+      <li><strong>“What SUVs does Example Motors have under $40,000?”</strong><p>The agent should call <code>inventory.search</code> with a price filter in minor units, list results with advertised price and whether required dealer charges are included, and say that search results are discovery snapshots.</p></li>
+      <li><strong>“Is the 2026 Northstar Touring still available? Show me the evidence.”</strong><p>Expect a separate <code>verify_availability</code> call, the authority class <em>authoritative</em>, an observation time, and a validity window. For the used 2024 Northstar the same question must come back as <em>could not be verified</em>, because its evidence is deliberately stale.</p></li>
+      <li><strong>“What does stock N26001 really cost with fees and incentives?”</strong><p>The pricing disclosure separates the advertised price, a documentation charge that is already included, a military incentive with its verification requirement, and government charges marked <em>unknown</em>. A good agent never turns unknown into zero.</p></li>
+      <li><strong>“Tell me about the used 2024 Northstar: miles, how long it has been on the lot, and its history.”</strong><p>Inventory age arrives with its clock (stocked date) and as-of time. Two history providers disagree about an accident and the gateway leaves that conflict visible instead of picking the better story.</p></li>
+      <li><strong>“Have the dealer email me about N26001.”</strong><p>The agent should read the handoff policy, prepare a signed binding without asking for your email, show you the exact disclosure text, and only then submit. The ADF/XML comes back to the agent and is never delivered. Try submitting the same binding twice: the second attempt is refused.</p></li>
+    </ol>
+  </div></div></section>
+
+  <section class="content-section page-shell" id="different"><div class="content-grid"><aside><span>03</span> / Why this demo looks different</aside><div class="body-copy"><h2>Other demos show that an agent can call a dealer. This one shows what the agent is allowed to claim.</h2>
+    <ol class="principle-list">
+      <li><span>A</span><strong>Labeled sandbox, not a scraped store</strong><p>The fleet is synthetic and says so in every response, the manifest, and the policy. No real dealer's listings were copied to make the demo work.</p></li>
+      <li><span>B</span><strong>Availability has a source and a clock</strong><p>“Available” carries an authority class, observation time, and validity window. Stale evidence returns <code>dealeragent.vehicle.stale</code> instead of a daily snapshot dressed up as now.</p></li>
+      <li><span>C</span><strong>Price is a disclosure, not a display string</strong><p>Advertised price, required dealer charges, conditional adjustments with eligibility and stacking rules, and government charges are separate typed components in integer minor units.</p></li>
+      <li><span>D</span><strong>Consent before contact, verifiable by anyone</strong><p>The binding is an ES256 JWS over the disclosure digest, purpose, channels, subject, and expiry. The public key is published at <a href="https://demo.dealeragentprotocol.com/.well-known/jwks.json">/.well-known/jwks.json</a>, so a third party can verify it without trusting the gateway.</p></li>
+    </ol>
+    <div class="docs-callout"><strong>Compare for yourself.</strong> The <a href="/compare/">dated comparison</a> puts this gateway's live responses next to other public dealer-agent projects, with sources.</div>
+  </div></div></section>
+
+  <section class="content-section page-shell" id="under-the-hood"><div class="content-grid"><aside><span>04</span> / Under the hood</aside><div class="body-copy"><h2>Ten tools, six profiles, every schema public.</h2><p>The gateway validates every request against the normative JSON Schemas and returns structured content plus a plain-text summary. Hosts that support MCP Apps render the structured content as cards.</p>
+    <div class="tool-map">
+      <article class="tool-card"><code>dealeragent.discovery.get_manifest</code><h3>Know the server</h3><p>Profiles, tools, rooftops, policies, freshness SLAs, conformance state, JWKS.</p></article>
+      <article class="tool-card"><code>dealeragent.dealer.get</code><h3>Who is selling</h3><p>Organization and rooftop identity, addresses, hours, public contacts.</p></article>
+      <article class="tool-card"><code>dealeragent.inventory.search</code><h3>Discover</h3><p>Typed filters, sort, facets, signed cursors, provenance and freshness per result.</p></article>
+      <article class="tool-card"><code>dealeragent.inventory.get_vehicle</code><h3>One exact record</h3><p>By vehicle_id, VIN, or stock number inside one rooftop.</p></article>
+      <article class="tool-card"><code>dealeragent.inventory.verify_availability</code><h3>Verify</h3><p>Authority class, observation time, validity window, refusal when stale.</p></article>
+      <article class="tool-card"><code>dealeragent.pricing.get_disclosure</code><h3>Explain the price</h3><p>Advertised price, required charges, conditional adjustments, government-charge status.</p></article>
+      <article class="tool-card"><code>dealeragent.inventory.get_used_vehicle_details</code><h3>Used-vehicle evidence</h3><p>Odometer, dated tenure, provider-specific history, title, inspection, certification, conflicts.</p></article>
+      <article class="tool-card"><code>dealeragent.handoff.get_policy</code><h3>Ask before asking</h3><p>Accepted purposes, channels, data categories, the exact disclosure text.</p></article>
+      <article class="tool-card"><code>dealeragent.handoff.prepare · submit</code><h3>Consented handoff</h3><p>Signed single-use binding first; contact details only after agreement; sandbox ADF returned, never forwarded.</p></article>
+    </div>
+    <h3>Plain HTTP surface</h3>
+    <table class="endpoint-table"><thead><tr><th>Path</th><th>What it serves</th></tr></thead><tbody>
+      <tr><td><a href="https://demo.dealeragentprotocol.com/manifest.json"><code>/manifest.json</code></a></td><td>The protocol manifest, also exposed as the <code>dealeragent://manifest</code> MCP resource.</td></tr>
+      <tr><td><a href="https://demo.dealeragentprotocol.com/.well-known/dealer-agent.json"><code>/.well-known/dealer-agent.json</code></a></td><td>Static discovery document a dealer could publish before running any gateway.</td></tr>
+      <tr><td><a href="https://demo.dealeragentprotocol.com/feeds/inventory.csv"><code>/feeds/inventory.csv</code></a></td><td>The same fleet as a <code>dealer-agent-inventory-csv/0.1</code> feed, always asserted authority.</td></tr>
+      <tr><td><a href="https://demo.dealeragentprotocol.com/.well-known/jwks.json"><code>/.well-known/jwks.json</code></a></td><td>Public key set for verifying consent bindings.</td></tr>
+      <tr><td><a href="https://demo.dealeragentprotocol.com/policy"><code>/policy</code></a></td><td>Data and authority policy in plain language.</td></tr>
+      <tr><td><a href="https://demo.dealeragentprotocol.com/llms.txt"><code>/llms.txt</code></a> · <a href="https://demo.dealeragentprotocol.com/health"><code>/health</code></a></td><td>Agent-readable map and liveness.</td></tr>
+    </tbody></table>
+    <p>The worker is about 700 lines of dependency-light JavaScript: <a href="https://github.com/arielcoro/dealer-agent-protocol/blob/main/deployment/cloudflare/reference-gateway-worker.mjs">read the source</a>, the <a href="https://github.com/arielcoro/dealer-agent-protocol/blob/main/deployment/cloudflare/demo-ui.mjs">MCP Apps views</a>, and the <a href="https://github.com/arielcoro/dealer-agent-protocol/blob/main/tests/demo-gateway.test.mjs">tests</a> that validate every response against the schemas and verify a binding against the JWKS.</p>
+  </div></div></section>
+
+  <section class="content-section page-shell" id="next"><div class="content-grid"><aside><span>05</span> / Run it yourself</aside><div class="body-copy"><h2>Same code, your inventory.</h2><p>Run the demo locally, then swap the synthetic fixture for a dealer-approved feed.</p>
+    <pre><code>git clone https://github.com/arielcoro/dealer-agent-protocol
+cd dealer-agent-protocol && npm ci
+node --test tests/demo-gateway.test.mjs
+cd deployment/cloudflare && npx wrangler dev --config reference-gateway.wrangler.example.jsonc</code></pre>
+    <div class="actions"><a class="button button-primary" href="/adopt/">Adoption paths for dealers, vendors, and agent builders →</a><a class="button button-secondary" href="https://dealershipmcp.com/connect/">Publish a dealer-controlled feed</a></div>
+  </div></div></section>
+</main>
+<footer class="site-footer"><div class="page-shell footer-bottom"><span>Dealer Agent Protocol · v0.1 editor's draft · demo data is synthetic</span><a href="/spec/v0.1/SPEC.md">Raw specification</a><a href="/docs/">Human documentation</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a></div></footer>
+<script src="/try/app.js" defer></script></body></html>

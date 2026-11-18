@@ -53,5 +53,5 @@ with the dealer-facing product story in the primary navigation.
 - Visibility routes to the free checker, deeper AEO audit, AI Search, and Gateway.
 - AI Search routes backward to visibility and forward to the Gateway/pilot form.
 - Gateway routes to live evidence, source architecture, and the open protocol.
-- Live evidence routes to the public Howard Bentley status and authority policy.
+- Live evidence routes to the public pilot dealer status and authority policy.
 - Every primary product remains within one click of the homepage.

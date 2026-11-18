@@ -1,18 +1,18 @@
-const endpoint = "https://mcp.dealeragentgateway.com";
+const endpoint = "https://demo.dealeragentprotocol.com";
 const status = document.querySelector("#gateway-status");
 const statusCopy = status?.querySelector(".status-copy");
 
 async function checkGateway() {
   if (!status || !statusCopy) return;
   try {
-    const response = await fetch(`${endpoint}/dealers/howard-bentley/health`, {
+    const response = await fetch(`${endpoint}/health`, {
       headers: { Accept: "application/json" },
       signal: AbortSignal.timeout(3500),
     });
     if (!response.ok) throw new Error("Gateway unavailable");
     const body = await response.json();
     status.dataset.state = "operational";
-    statusCopy.textContent = body.status === "ok" ? `Gateway online · ${body.inventory?.accepted_rows || 0} vehicles` : "Gateway online";
+    statusCopy.textContent = body.status === "ok" ? `Demo gateway online · ${body.vehicles_published || 0} synthetic vehicles` : "Demo gateway online";
   } catch {
     status.dataset.state = "offline";
     statusCopy.textContent = "Gateway unavailable";

@@ -46,7 +46,7 @@
         <a href="#capabilities">Capabilities</a>
         <a href="#boundary">Boundary</a>
         <a href="https://dealeragentprotocol.com/">Protocol</a>
-        <a href="https://dealeragentprotocol.com/pilot/">Dealer pilot</a>
+        <a href="https://dealeragentprotocol.com/pilot/?source=dealeragentgateway.com">Dealer pilot</a>
         <a href="https://github.com/arielcoro/dealer-agent-protocol">GitHub</a>
       </nav>
       <div class="status" id="gateway-status" data-state="checking" role="status">
@@ -63,7 +63,7 @@
           <p class="lede">A Dealer Agent Gateway turns dealer-published vehicle inventory, availability, prices, charges, and incentives into structured MCP tools an AI agent can use without guessing.</p>
           <div class="hero-actions">
             <a class="button button-primary" href="#connect">Connect to the reference</a>
-            <a class="button button-ghost" href="https://dealeragentprotocol.com/pilot/">Apply for the dealer pilot <span aria-hidden="true">↗</span></a>
+            <a class="button button-ghost" href="https://dealeragentprotocol.com/pilot/?source=dealeragentgateway.com">Apply for the dealer pilot <span aria-hidden="true">↗</span></a>
             <a class="button button-ghost" href="https://dealeragentprotocol.com/spec/v0.1/SPEC.md">Read the open protocol <span aria-hidden="true">↗</span></a>
           </div>
           <ul class="trust-line" aria-label="Gateway characteristics">
@@ -84,7 +84,7 @@
             <pre><code>{
   <b>"name"</b>: "dealeragent.inventory.search",
   <b>"arguments"</b>: {
-    "organization_id": "org.howard-bentley",
+    "organization_id": "org.example-motors",
     "filters": { "condition": ["new"] }
   }
 }</code></pre>
@@ -198,16 +198,16 @@
         <div>
           <p class="section-code">03 / Connect</p>
           <h2 id="connect-title">Test the contract,<br>not a sales pitch.</h2>
-          <p>This public endpoint serves Howard Bentley Buick GMC’s dealer-authorized daily retail inventory. It exposes public vehicle facts and photos, records privacy-filtered query receipts, and never exposes customer records or dealer-private inventory age.</p>
+          <p>This public endpoint serves a synthetic dealer, Example Motors Group, over every Dealer Agent Protocol profile, including consented handoff. Paste it into Claude, ChatGPT, Claude Code, or Cursor with no sign-in. Enrolled dealers run on dealer-scoped endpoints under <code>mcp.dealeragentgateway.com</code> and are not public demos.</p>
         </div>
         <div class="endpoint-card">
-          <span class="endpoint-label">STREAMABLE HTTP</span>
-          <code id="endpoint-value">https://mcp.dealeragentgateway.com/dealers/howard-bentley/mcp</code>
+          <span class="endpoint-label">STREAMABLE HTTP · SYNTHETIC DATA</span>
+          <code id="endpoint-value">https://demo.dealeragentprotocol.com/mcp</code>
           <button id="copy-endpoint" type="button">Copy endpoint</button>
           <p id="copy-feedback" aria-live="polite"></p>
           <div class="endpoint-links">
-            <a href="https://mcp.dealeragentgateway.com/dealers/howard-bentley/status">Live dealer status</a>
-            <a href="https://dealeragentprotocol.com/server.json">Registry metadata</a>
+            <a href="https://dealeragentprotocol.com/try/">Connect a client in two minutes</a>
+            <a href="https://demo.dealeragentprotocol.com/manifest.json">Manifest</a>
             <a href="https://github.com/arielcoro/dealer-agent-protocol">Source + tests</a>
           </div>
         </div>
@@ -230,14 +230,14 @@
       </div>
       <div class="footer-links">
         <a href="https://dealeragentprotocol.com/">Protocol</a>
-        <a href="https://dealeragentprotocol.com/pilot/">Dealer pilot</a>
+        <a href="https://dealeragentprotocol.com/pilot/?source=dealeragentgateway.com">Dealer pilot</a>
         <a href="/LICENSE.txt">Apache-2.0</a>
         <a href="/CONTRIBUTING.md">Contributing</a>
         <a href="/NOTICE.txt">Attribution</a>
         <a href="/privacy/">Privacy</a>
         <a href="/terms/">Terms</a>
       </div>
-      <p class="footer-note">Howard Bentley founding pilot · Draft 0.1</p>
+      <p class="footer-note">Founding dealer pilot · Draft 0.1</p>
     </footer>
   </body>
 </html>

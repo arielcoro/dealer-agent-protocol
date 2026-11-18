@@ -12,7 +12,7 @@
     <meta property="og:image" content="https://dealeragentprotocol.com/og.png">
     <link rel="canonical" href="https://dealeragentprotocol.com/pilot/">
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/styles.css?v=20261117-try">
     <script src="/pilot/app.js" defer></script>
     <title>Founding Dealer Pilot — Dealer Agent Protocol</title>
   </head>
@@ -74,6 +74,7 @@
               <div class="form-field"><label for="timeline">When would you want to start? <span>Optional</span></label><select id="timeline" name="timeline"><option value="">Select a timeline</option><option value="now">As soon as possible</option><option value="30-60-days">Within 30–60 days</option><option value="60-90-days">Within 60–90 days</option><option value="exploring">Exploring for later</option></select><p class="field-error" data-error-for="timeline"></p></div>
               <div class="form-consent"><input id="consent" name="consent" type="checkbox" value="1" required><label for="consent">I authorize Dealer Agent Protocol maintainers to use this application to evaluate pilot fit and contact me about the pilot. I have read the <a href="/privacy/">Privacy Policy</a>.</label><p class="field-error" data-error-for="consent"></p></div>
 
+              <div class="form-field" id="turnstile-field"><div id="turnstile-widget"></div><p class="field-error" data-error-for="turnstile"></p></div>
               <button class="button button-primary pilot-submit" id="pilot-submit" type="submit">Apply for the founding pilot →</button>
               <p class="form-fine-print">No mailing-list opt-in. No sale of your information. Applications are reviewed individually.</p>
             </form>

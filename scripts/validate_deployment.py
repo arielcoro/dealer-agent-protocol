@@ -75,6 +75,8 @@ def main() -> int:
         "index.html",
         "styles.css",
         "favicon.svg",
+        "try/index.html",
+        "try/app.js",
         "how-it-works/index.html",
         "why/index.html",
         "used-vehicles/index.html",

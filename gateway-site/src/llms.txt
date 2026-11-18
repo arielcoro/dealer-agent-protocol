@@ -2,7 +2,14 @@
 
 Dealer Agent Gateway is operated MCP infrastructure implementing Dealer Agent Protocol. It exposes a public, read-only surface for dealer-authorized retail inventory while keeping source credentials and dealer-private data behind the gateway boundary.
 
-Dealer Agent Protocol is the open specification and conformance contract. Dealer Agent Gateway is the running service. The founding Howard Bentley Buick GMC pilot uses a dealer-authorized daily feed; availability and complete pricing require live dealer verification.
+Dealer Agent Protocol is the open specification and conformance contract. Dealer Agent Gateway is the running service. The founding pilot with a Buick GMC dealer in Alabama uses a dealer-authorized daily feed; availability and complete pricing require live dealer verification.
+
+## Public demo gateway (synthetic data)
+
+- Connect a client: https://dealeragentprotocol.com/try/
+- MCP endpoint: https://demo.dealeragentprotocol.com/mcp
+- Manifest: https://demo.dealeragentprotocol.com/manifest.json
+- Policy: https://demo.dealeragentprotocol.com/policy
 
 ## Canonical resources
 
@@ -11,10 +18,10 @@ Dealer Agent Protocol is the open specification and conformance contract. Dealer
 - Protocol: https://dealeragentprotocol.com/
 - Founding dealer pilot: https://dealeragentprotocol.com/pilot/
 - Platform status: https://mcp.dealeragentgateway.com/status
-- Howard Bentley MCP endpoint: https://mcp.dealeragentgateway.com/dealers/howard-bentley/mcp
-- Howard Bentley gateway status: https://mcp.dealeragentgateway.com/dealers/howard-bentley/status
-- Howard Bentley data and authority policy: https://mcp.dealeragentgateway.com/dealers/howard-bentley/policy
-- Howard Bentley conformance status: https://mcp.dealeragentgateway.com/dealers/howard-bentley/conformance
+- Pilot dealer MCP endpoint: https://mcp.dealeragentgateway.com/dealers/howard-bentley/mcp
+- Pilot dealer gateway status: https://mcp.dealeragentgateway.com/dealers/howard-bentley/status
+- Pilot dealer data and authority policy: https://mcp.dealeragentgateway.com/dealers/howard-bentley/policy
+- Pilot dealer conformance status: https://mcp.dealeragentgateway.com/dealers/howard-bentley/conformance
 - MCP Registry metadata: https://dealeragentprotocol.com/server.json
 - Source: https://github.com/arielcoro/dealer-agent-protocol
 - License: https://dealeragentgateway.com/LICENSE.txt (Apache-2.0)

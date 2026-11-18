@@ -21,6 +21,7 @@ DealershipMCP can publish provider-neutral used-vehicle facts including mileage,
 - Planned integrations are roadmap items, not partnership or availability claims.
 
 ## Key pages
+- https://dealeragentprotocol.com/try/ — connect Claude, ChatGPT, Claude Code, or Cursor to the public demo gateway (synthetic dealer, every profile, no sign-in)
 - https://dealershipmcp.com/visibility/ — AI visibility product and diagnostic path
 - https://dealershipmcp.com/ai-search/ — on-site conversational inventory search pilot
 - https://dealershipmcp.com/gateway/ — managed dealer-specific MCP gateway
